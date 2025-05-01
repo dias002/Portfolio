@@ -4,7 +4,8 @@
     const clone = track.innerHTML;
 
   track.innerHTML += clone;
-    const menuButton = document.querySelector('.btn-wrap');
+    const menuButton = document.querySelectorAll
+    ('.btn-wrap');
     const sideMenu = document.getElementById('sideMenu');
 
     menuButton.addEventListener('click', () => {
