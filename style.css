@@ -8,6 +8,12 @@ html, body {
   margin: 0;
 }
 
+.active {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .feedback {
   text-decoration: none;
   background-color: rgba(0, 229, 255, 0.57);
@@ -73,6 +79,10 @@ header .navbar .btn-wrap:hover {
 }
 header .navbar .btn-wrap:hover span {
   background-color: #000;
+}
+header .navbar .logo a {
+  text-decoration: none;
+  color: whitesmoke;
 }
 header .navbar .side-menu {
   position: absolute;
@@ -473,7 +483,7 @@ footer .footer-wrap .social-media-footer .contacts p {
     margin-bottom: 20px;
   }
   footer .footer-wrap .social-media-footer .contacts p {
-    margin: 0;
+    margin-right: 5px;
   }
 }
 @media (max-width: 375px) {
