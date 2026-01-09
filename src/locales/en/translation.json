@@ -1,0 +1,32 @@
+{
+  "home": {
+    "hello": "Hello, my name is Dias",
+    "im": "and I am ",
+    "contact": "Contact",
+    "projects":"PROJECTS",
+    "home":"HOME"
+  },
+  "cards": {
+    "ecommerce": {
+      "title": "E-Commerce Platform",
+      "description": "A full-stack e-commerce website with React, Django, and PostgreSQL.",
+      "label":"About Me"
+    },
+    "task": {
+      "title": "Task Management App",
+      "description": "A collaborative task management application built with React and Node.js.",
+      "label":"Skills"
+    },
+    "dashboard": {
+      "title": "Data Visualization Dashboard",
+      "description": "An interactive dashboard for data analysis using D3.js and Python.",
+      "label":"Projects"
+    },
+    "mobile": {
+      "title": "Mobile App Backend",
+      "description": "RESTful API for a mobile application developed with Django REST Framework.",
+      "label":"Contact"
+    }
+  }
+}
+

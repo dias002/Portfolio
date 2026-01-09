@@ -1,0 +1,34 @@
+{
+  "home": {
+    "hello": "Привет, меня зовут Диас",
+    "im": "и я ",
+    "contact": "Связаться",
+    "projects":"ПРОЕКТЫ",
+    "home":"ГЛАВНАЯ",
+    "aboutme":"Обо мне"
+    
+  },
+  "cards": {
+    "ecommerce": {
+      "title": "E-Commerce Платформа",
+      "description": "Полноценный e-commerce сайт с React, Django и PostgreSQL.",
+      "label":"Обо мне"
+    },
+    "task": {
+      "title": "Task Management App",
+      "description": "Приложение для совместного управления задачами на React и Node.js.",
+      "label":"Навыки"
+    },
+    "dashboard": {
+      "title": "Data Visualization Dashboard",
+      "description": "Интерактивная панель для анализа данных с D3.js и Python.",
+      "label":"Проекты"
+    },
+    "mobile": {
+      "title": "Mobile App Backend",
+      "description": "RESTful API для мобильного приложения на Django REST Framework.",
+      "label":"Контакты"
+    }
+  }
+}
+
