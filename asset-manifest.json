@@ -1,8 +1,11 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.00cac4af.css",
-    "main.js": "/Portfolio/static/js/main.722d5b5a.js",
+    "main.css": "/Portfolio/static/css/main.00af9090.css",
+    "main.js": "/Portfolio/static/js/main.2ebc7dd2.js",
     "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
+    "static/media/AirAstana.png": "/Portfolio/static/media/AirAstana.e2b25585f80a347dfe81.png",
+    "static/media/Group 6.png": "/Portfolio/static/media/Group 6.1f803e61ed6665331665.png",
+    "static/media/Group 5.png": "/Portfolio/static/media/Group 5.3cfb35c7c394eb446591.png",
     "static/media/exp.png": "/Portfolio/static/media/exp.cf43a73988c7693aea14.png",
     "static/media/Programming.png": "/Portfolio/static/media/Programming.9e7448bc02bc27b713f9.png",
     "static/media/personal.png": "/Portfolio/static/media/personal.40f037a7b69f37b3d7bd.png",
@@ -18,11 +21,11 @@
     "static/media/JavaScript.svg": "/Portfolio/static/media/JavaScript.462fff441713be8699bef99e789178e5.svg",
     "static/media/LinkedIn.svg": "/Portfolio/static/media/LinkedIn.77a124775529efbff91b54a35451ee2c.svg",
     "index.html": "/Portfolio/index.html",
-    "main.00cac4af.css.map": "/Portfolio/static/css/main.00cac4af.css.map",
-    "main.722d5b5a.js.map": "/Portfolio/static/js/main.722d5b5a.js.map"
+    "main.00af9090.css.map": "/Portfolio/static/css/main.00af9090.css.map",
+    "main.2ebc7dd2.js.map": "/Portfolio/static/js/main.2ebc7dd2.js.map"
   },
   "entrypoints": [
-    "static/css/main.00cac4af.css",
-    "static/js/main.722d5b5a.js"
+    "static/css/main.00af9090.css",
+    "static/js/main.2ebc7dd2.js"
   ]
 }
