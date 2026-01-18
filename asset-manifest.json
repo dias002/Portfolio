@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Portfolio/static/css/main.00af9090.css",
-    "main.js": "/Portfolio/static/js/main.2ebc7dd2.js",
+    "main.js": "/Portfolio/static/js/main.d565054a.js",
     "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
     "static/media/AirAstana.png": "/Portfolio/static/media/AirAstana.e2b25585f80a347dfe81.png",
     "static/media/Group 6.png": "/Portfolio/static/media/Group 6.1f803e61ed6665331665.png",
@@ -22,10 +22,10 @@
     "static/media/LinkedIn.svg": "/Portfolio/static/media/LinkedIn.77a124775529efbff91b54a35451ee2c.svg",
     "index.html": "/Portfolio/index.html",
     "main.00af9090.css.map": "/Portfolio/static/css/main.00af9090.css.map",
-    "main.2ebc7dd2.js.map": "/Portfolio/static/js/main.2ebc7dd2.js.map"
+    "main.d565054a.js.map": "/Portfolio/static/js/main.d565054a.js.map"
   },
   "entrypoints": [
     "static/css/main.00af9090.css",
-    "static/js/main.2ebc7dd2.js"
+    "static/js/main.d565054a.js"
   ]
 }
