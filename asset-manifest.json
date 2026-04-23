@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.395a3717.css",
-    "main.js": "/Portfolio/static/js/main.513d0fde.js",
+    "main.css": "/Portfolio/static/css/main.ed4c6b23.css",
+    "main.js": "/Portfolio/static/js/main.6d94ee0c.js",
     "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
     "static/media/AirAstana.png": "/Portfolio/static/media/AirAstana.e2b25585f80a347dfe81.png",
     "static/media/Group 6.png": "/Portfolio/static/media/Group 6.1f803e61ed6665331665.png",
@@ -10,11 +10,11 @@
     "static/media/case-englishtests.png": "/Portfolio/static/media/case-englishtests.73ded49abb6f0ca544a3.png",
     "static/media/case-kalkulyator.png": "/Portfolio/static/media/case-kalkulyator.01a3df7e99fab434b6bd.png",
     "index.html": "/Portfolio/index.html",
-    "main.395a3717.css.map": "/Portfolio/static/css/main.395a3717.css.map",
-    "main.513d0fde.js.map": "/Portfolio/static/js/main.513d0fde.js.map"
+    "main.ed4c6b23.css.map": "/Portfolio/static/css/main.ed4c6b23.css.map",
+    "main.6d94ee0c.js.map": "/Portfolio/static/js/main.6d94ee0c.js.map"
   },
   "entrypoints": [
-    "static/css/main.395a3717.css",
-    "static/js/main.513d0fde.js"
+    "static/css/main.ed4c6b23.css",
+    "static/js/main.6d94ee0c.js"
   ]
 }
