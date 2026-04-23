@@ -1,31 +1,20 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.00af9090.css",
-    "main.js": "/Portfolio/static/js/main.d565054a.js",
+    "main.css": "/Portfolio/static/css/main.395a3717.css",
+    "main.js": "/Portfolio/static/js/main.513d0fde.js",
     "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
     "static/media/AirAstana.png": "/Portfolio/static/media/AirAstana.e2b25585f80a347dfe81.png",
     "static/media/Group 6.png": "/Portfolio/static/media/Group 6.1f803e61ed6665331665.png",
     "static/media/Group 5.png": "/Portfolio/static/media/Group 5.3cfb35c7c394eb446591.png",
-    "static/media/exp.png": "/Portfolio/static/media/exp.cf43a73988c7693aea14.png",
-    "static/media/Programming.png": "/Portfolio/static/media/Programming.9e7448bc02bc27b713f9.png",
-    "static/media/personal.png": "/Portfolio/static/media/personal.40f037a7b69f37b3d7bd.png",
-    "static/media/Brain.png": "/Portfolio/static/media/Brain.e4e0ec1944ebdd503d80.png",
-    "static/media/Frame2.svg": "/Portfolio/static/media/Frame2.87a755db5e76467ebdb0ccc203272477.svg",
-    "static/media/PostgreSQL.svg": "/Portfolio/static/media/PostgreSQL.de0f6ee3942b1f005d897941d4092e05.svg",
-    "static/media/React.svg": "/Portfolio/static/media/React.80a41169d3390b050fa99f5f000fe4bb.svg",
-    "static/media/Telegram.svg": "/Portfolio/static/media/Telegram.4aceccc43d39d035050ca7cfaf614316.svg",
-    "static/media/Gear.svg": "/Portfolio/static/media/Gear.4e7707c63f11f318e0f25a099054c4da.svg",
-    "static/media/Instagram.svg": "/Portfolio/static/media/Instagram.d952e494be3bf270959636f4955ab5e7.svg",
-    "static/media/Django.svg": "/Portfolio/static/media/Django.3c7e955655d04dc92ca7d3d77742751b.svg",
-    "static/media/Python.svg": "/Portfolio/static/media/Python.1ac0a39db41c15496bc0470e08ce09eb.svg",
-    "static/media/JavaScript.svg": "/Portfolio/static/media/JavaScript.462fff441713be8699bef99e789178e5.svg",
-    "static/media/LinkedIn.svg": "/Portfolio/static/media/LinkedIn.77a124775529efbff91b54a35451ee2c.svg",
+    "static/media/case-movato.png": "/Portfolio/static/media/case-movato.81c594bbf6e569ded134.png",
+    "static/media/case-englishtests.png": "/Portfolio/static/media/case-englishtests.73ded49abb6f0ca544a3.png",
+    "static/media/case-kalkulyator.png": "/Portfolio/static/media/case-kalkulyator.01a3df7e99fab434b6bd.png",
     "index.html": "/Portfolio/index.html",
-    "main.00af9090.css.map": "/Portfolio/static/css/main.00af9090.css.map",
-    "main.d565054a.js.map": "/Portfolio/static/js/main.d565054a.js.map"
+    "main.395a3717.css.map": "/Portfolio/static/css/main.395a3717.css.map",
+    "main.513d0fde.js.map": "/Portfolio/static/js/main.513d0fde.js.map"
   },
   "entrypoints": [
-    "static/css/main.00af9090.css",
-    "static/js/main.d565054a.js"
+    "static/css/main.395a3717.css",
+    "static/js/main.513d0fde.js"
   ]
 }
