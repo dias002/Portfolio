@@ -1,20 +1,13 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.6fb5ec4f.css",
-    "main.js": "/Portfolio/static/js/main.2236fc83.js",
-    "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
-    "static/media/AirAstana.png": "/Portfolio/static/media/AirAstana.e2b25585f80a347dfe81.png",
-    "static/media/Group 6.png": "/Portfolio/static/media/Group 6.1f803e61ed6665331665.png",
-    "static/media/Group 5.png": "/Portfolio/static/media/Group 5.3cfb35c7c394eb446591.png",
-    "static/media/case-movato.png": "/Portfolio/static/media/case-movato.81c594bbf6e569ded134.png",
-    "static/media/case-englishtests.png": "/Portfolio/static/media/case-englishtests.73ded49abb6f0ca544a3.png",
-    "static/media/case-kalkulyator.png": "/Portfolio/static/media/case-kalkulyator.01a3df7e99fab434b6bd.png",
+    "main.css": "/Portfolio/static/css/main.2c0be34c.css",
+    "main.js": "/Portfolio/static/js/main.d0214836.js",
     "index.html": "/Portfolio/index.html",
-    "main.6fb5ec4f.css.map": "/Portfolio/static/css/main.6fb5ec4f.css.map",
-    "main.2236fc83.js.map": "/Portfolio/static/js/main.2236fc83.js.map"
+    "main.2c0be34c.css.map": "/Portfolio/static/css/main.2c0be34c.css.map",
+    "main.d0214836.js.map": "/Portfolio/static/js/main.d0214836.js.map"
   },
   "entrypoints": [
-    "static/css/main.6fb5ec4f.css",
-    "static/js/main.2236fc83.js"
+    "static/css/main.2c0be34c.css",
+    "static/js/main.d0214836.js"
   ]
 }
