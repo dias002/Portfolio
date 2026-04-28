@@ -1,13 +1,25 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.2c0be34c.css",
-    "main.js": "/Portfolio/static/js/main.d0214836.js",
+    "main.css": "/Portfolio/static/css/main.951844cc.css",
+    "main.js": "/Portfolio/static/js/main.435f00ee.js",
+    "static/media/project1.png": "/Portfolio/static/media/project1.433037978f6176546910.png",
+    "static/media/Frame2.svg": "/Portfolio/static/media/Frame2.87a755db5e76467ebdb0ccc203272477.svg",
+    "static/media/PostgreSQL.svg": "/Portfolio/static/media/PostgreSQL.de0f6ee3942b1f005d897941d4092e05.svg",
+    "static/media/React.svg": "/Portfolio/static/media/React.80a41169d3390b050fa99f5f000fe4bb.svg",
+    "static/media/Telegram.svg": "/Portfolio/static/media/Telegram.4aceccc43d39d035050ca7cfaf614316.svg",
+    "static/media/Gear.svg": "/Portfolio/static/media/Gear.4e7707c63f11f318e0f25a099054c4da.svg",
+    "static/media/Instagram.svg": "/Portfolio/static/media/Instagram.d952e494be3bf270959636f4955ab5e7.svg",
+    "static/media/Django.svg": "/Portfolio/static/media/Django.3c7e955655d04dc92ca7d3d77742751b.svg",
+    "static/media/Python.svg": "/Portfolio/static/media/Python.1ac0a39db41c15496bc0470e08ce09eb.svg",
+    "static/media/Wrench.svg": "/Portfolio/static/media/Wrench.6a4e2a4425d57b1a3f95cf7fe29c9261.svg",
+    "static/media/JavaScript.svg": "/Portfolio/static/media/JavaScript.462fff441713be8699bef99e789178e5.svg",
+    "static/media/LinkedIn.svg": "/Portfolio/static/media/LinkedIn.77a124775529efbff91b54a35451ee2c.svg",
     "index.html": "/Portfolio/index.html",
-    "main.2c0be34c.css.map": "/Portfolio/static/css/main.2c0be34c.css.map",
-    "main.d0214836.js.map": "/Portfolio/static/js/main.d0214836.js.map"
+    "main.951844cc.css.map": "/Portfolio/static/css/main.951844cc.css.map",
+    "main.435f00ee.js.map": "/Portfolio/static/js/main.435f00ee.js.map"
   },
   "entrypoints": [
-    "static/css/main.2c0be34c.css",
-    "static/js/main.d0214836.js"
+    "static/css/main.951844cc.css",
+    "static/js/main.435f00ee.js"
   ]
 }
