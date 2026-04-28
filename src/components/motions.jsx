@@ -154,10 +154,15 @@ export const PortfolioCards = () => {
 
 
 export const AboutMeMotion =({children, className})=>{
-    <motion.div
-    className={className}
-    initial={{opacity:1, y:40}}
-    whileInView={{opacity:1, y:0}}
-    transition={{duration:0.3, ease:"easeOut"}}
-    viewport={{once:true}}>{children}</motion.div>
+    return (
+      <motion.div
+        className={className}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.35 }}
+      >
+        {children}
+      </motion.div>
+    );
 }
