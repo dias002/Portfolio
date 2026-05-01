@@ -1,12 +1,15 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
-function TypewriterText() {
-  const texts = useMemo(() => [" Django Developer",' JavaScript Developer', " React Developer", " Fullstack Developer"], []);
+function TypewriterText({ texts: providedTexts }) {
+  const texts = useMemo(
+    () => providedTexts || [" Django Developer", " JavaScript Developer", " React Developer", " Full-stack Developer"],
+    [providedTexts]
+  );
 
-  const [textIndex, setTextIndex] = useState(0); // какой текст сейчас
-  const [charIndex, setCharIndex] = useState(0); // какая буква
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
   const [currentText, setCurrentText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false); // печать или удаление
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     let timeout;
@@ -14,25 +17,21 @@ function TypewriterText() {
     const fullText = texts[textIndex];
 
     if (!isDeleting) {
-      // печатаем текст
       if (charIndex < fullText.length) {
         timeout = setTimeout(() => {
           setCurrentText(fullText.slice(0, charIndex + 1));
           setCharIndex(charIndex + 1);
-        }, 150); // скорость печати
+        }, 110);
       } else {
-        // после полного текста ждём 1 секунду и начинаем стирать
-        timeout = setTimeout(() => setIsDeleting(true), 1000);
+        timeout = setTimeout(() => setIsDeleting(true), 1200);
       }
     } else {
-      // стираем текст
       if (charIndex > 0) {
         timeout = setTimeout(() => {
           setCurrentText(fullText.slice(0, charIndex - 1));
           setCharIndex(charIndex - 1);
-        }, 50); 
+        }, 45);
       } else {
-       
         setIsDeleting(false);
         setTextIndex((textIndex + 1) % texts.length);
       }

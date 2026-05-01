@@ -2,7 +2,7 @@ import { motion, AnimatePresence} from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { useState } from 'react';
-import {HomeCards} from './projectCards'
+import { HomeCards } from './projectCards'
 import './../styles/style.scss';
 
 // ------------------- Иконки движения -------------------
@@ -122,7 +122,8 @@ const { t} = useTranslation();
         stiffness: 200,
         damping: 20
       }}
-    > <img src={`./assets/${card.image}`} alt={t(card.titleKey)} className="cardImage" />
+    >
+      <img src={card.img} alt={t(card.titleKey)} className="cardImage" loading="lazy" />
       <div className="cardTitle">
         <h3>{t(card.titleKey)}</h3>
         <p>{t(card.descKey)}</p></div>

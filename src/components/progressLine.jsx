@@ -7,9 +7,14 @@ export const ProgressLine = () => {
     const handleScroll = () => {
       const scrollTop = window.scrollY;
       const docHeight = document.body.scrollHeight - window.innerHeight;
-      setScroll((scrollTop / docHeight) * 100); // процент
+      if (docHeight <= 0) {
+        setScroll(0);
+        return;
+      }
+      setScroll((scrollTop / docHeight) * 100);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 

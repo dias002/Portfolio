@@ -4,6 +4,9 @@ import { initReactI18next } from "react-i18next";
 import en from "./locales/en/translation.json";
 import ru from "./locales/ru/translation.json";
 
+const savedLanguage =
+  typeof window !== "undefined" ? localStorage.getItem("lang") : null;
+
 i18n
   .use(initReactI18next)
   .init({
@@ -11,9 +14,9 @@ i18n
       en: { translation: en },
       ru: { translation: ru },
     },
-    lng: "ru",
+    lng: savedLanguage || "ru",
     fallbackLng: "en",
-    debug: true,
+    debug: false,
     interpolation: {
       escapeValue: false,
     },

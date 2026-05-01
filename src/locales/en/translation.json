@@ -1,32 +1,52 @@
 {
-  "home": {
-    "hello": "Hello, my name is Dias",
-    "im": "and I am ",
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
     "contact": "Contact",
-    "projects":"PROJECTS",
-    "home":"HOME"
+    "cta": "Let's talk"
   },
-  "cards": {
-    "ecommerce": {
-      "title": "E-Commerce Platform",
-      "description": "A full-stack e-commerce website with React, Django, and PostgreSQL.",
-      "label":"About Me"
-    },
-    "task": {
-      "title": "Task Management App",
-      "description": "A collaborative task management application built with React and Node.js.",
-      "label":"Skills"
-    },
-    "dashboard": {
-      "title": "Data Visualization Dashboard",
-      "description": "An interactive dashboard for data analysis using D3.js and Python.",
-      "label":"Projects"
-    },
-    "mobile": {
-      "title": "Mobile App Backend",
-      "description": "RESTful API for a mobile application developed with Django REST Framework.",
-      "label":"Contact"
-    }
+  "hero": {
+    "eyebrow": "AVAILABLE FOR FREELANCE AND PRODUCT WORK",
+    "title": "I design and build digital products that look premium and work like a real business tool.",
+    "lead": "Full-stack developer focused on interfaces that attract trust, backend systems that scale, and product flows that help clients act fast.",
+    "typePrefix": "I work as",
+    "primaryCta": "View selected work",
+    "secondaryCta": "Discuss a project",
+    "metaLocation": "Based in Kazakhstan, working remotely worldwide",
+    "metaAvailability": "React, Django, API, automation, product UX",
+    "badgePrimary": "Frontend with product thinking",
+    "badgeSecondary": "Backend built for real workflows"
+  },
+  "featured": {
+    "eyebrow": "SELECTED WORK",
+    "title": "Projects shaped around clarity, structure and conversion",
+    "lead": "I focus on product decisions that help the user understand the offer faster and help the business move cleaner.",
+    "caseLabel": "Case study"
+  },
+  "services": {
+    "eyebrow": "WHAT CLIENTS HIRE ME FOR",
+    "title": "The kind of work I am strongest at",
+    "lead": "I combine execution speed with enough product judgment to avoid building impressive but ineffective interfaces."
+  },
+  "about": {
+    "eyebrow": "ABOUT ME",
+    "title": "I care about how the product feels, not only how the code looks.",
+    "body": "I build web products end to end: structure, interface, backend, APIs and integrations. My focus is always practical - ship something that looks sharp, communicates confidence and solves the task without unnecessary complexity."
+  },
+  "contact": {
+    "eyebrow": "START A PROJECT",
+    "title": "Need a developer who can think in product terms, not just write code?",
+    "lead": "If you need a portfolio site, service platform, admin dashboard, API backend or a custom web tool, I can take it from concept to polished delivery.",
+    "primaryCta": "Message me on Telegram"
+  },
+  "projectsPage": {
+    "eyebrow": "PROJECT ARCHIVE",
+    "title": "A closer look at the products, systems and flows I build.",
+    "lead": "Each case is approached as a product problem first: define the structure, improve the experience, then support it with a stable technical implementation.",
+    "caseLabel": "Selected build",
+    "ctaEyebrow": "NEXT STEP",
+    "ctaTitle": "If you want a sharper, more convincing digital product, I can build it with you.",
+    "ctaLead": "I work best on products where UX, structure and backend execution matter at the same time.",
+    "ctaButton": "Talk about your project"
   }
 }
-

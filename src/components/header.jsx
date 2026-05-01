@@ -1,47 +1,65 @@
+import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import logo from './../assets/Frame2.svg';
+import { ProgressLine } from './progressLine.jsx';
+import './../styles/style.scss';
 
+function Header() {
+  const { i18n, t } = useTranslation();
+  const location = useLocation();
 
-import './../styles/style.scss'
-import logo from './../assets/Frame2.svg'
-import { MotionDivNavbar, LinkNav, ScaleImg, AnimatedText} from './motions.jsx'
-import { useTranslation } from "react-i18next";
-import {useState} from 'react'
-import {ProgressLine} from './progressLine.jsx'
-function Header(){
-    const { i18n } = useTranslation();
-    const { t } = useTranslation();
-    const toggleLanguage = () => {
-        const newLang = i18n.language === "en" ? "ru" : "en";
-        i18n.changeLanguage(newLang);
-        localStorage.setItem("lang", newLang);
-    };
-    const [active, setActive] = useState(false)
-    const handleClick = () => {
-    toggleLanguage();
-    setActive(prev => !prev);
-    };
-    return(
-        <div>
-            <header>
-             <nav className="navbar">
-                    <ScaleImg src={logo} className='logo'/>
-                    <MotionDivNavbar className='navLinks'>
-                        <AnimatedText><LinkNav to='/'>{t("home.home")}</LinkNav></AnimatedText>
-                        <AnimatedText><LinkNav to='/projects'>{t("home.projects")}</LinkNav></AnimatedText>
-                        
-                        <AnimatedText><button className={active ? "ruBtn" : 'enBtn' } onClick={handleClick}>
-                            {i18n.language === "en" ? "RU" : "EN"}
-                        </button></AnimatedText>
-                    </MotionDivNavbar>
-                    
-             </nav>
-             <ProgressLine></ProgressLine>
-            </header>
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'en' ? 'ru' : 'en';
+    i18n.changeLanguage(nextLang);
+    localStorage.setItem('lang', nextLang);
+  };
 
-        </div>
-    )
+  const isProjects = location.pathname === '/projects';
+
+  return (
+    <>
+      <header className="siteHeader">
+        <nav className="siteNav">
+          <Link className="siteBrand" to="/">
+            <img src={logo} alt="Dias Portfolio" className="siteBrand__logo" />
+            <div className="siteBrand__copy">
+              <span className="siteBrand__name">Dias</span>
+              <span className="siteBrand__role">
+                {i18n.language === 'ru' ? 'full-stack developer' : 'full-stack developer'}
+              </span>
+            </div>
+          </Link>
+
+          <div className="siteNav__links">
+            <Link className={`navLink ${!isProjects ? 'isActive' : ''}`} to="/">
+              {t('nav.home')}
+            </Link>
+            <Link className={`navLink ${isProjects ? 'isActive' : ''}`} to="/projects">
+              {t('nav.projects')}
+            </Link>
+            <a className="navLink" href={isProjects ? '/#contact' : '#contact'}>
+              {t('nav.contact')}
+            </a>
+          </div>
+
+          <div className="siteNav__actions">
+            <a
+              className="navButton navButton--ghost"
+              href="https://t.me/Berliyn_h"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t('nav.cta')}
+            </a>
+            <button className="langSwitch" onClick={toggleLanguage} type="button">
+              {i18n.language === 'en' ? 'RU' : 'EN'}
+            </button>
+          </div>
+        </nav>
+      </header>
+      <ProgressLine />
+    </>
+  );
 }
-
-
-
 
 export default Header;
