@@ -255,6 +255,8 @@ module.exports = async function handler(req, res) {
       mode: aiReply ? 'ai' : 'local-estimator',
     });
   } catch (error) {
+    console.error('AI chat fallback:', error.message);
+
     return res.status(200).json({
       reply: buildFallbackReply(normalizeMessages(req.body?.messages), req.body?.language),
       error: 'AI service is temporarily unavailable',
