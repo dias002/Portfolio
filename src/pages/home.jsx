@@ -106,8 +106,12 @@ function Home() {
 
           <div className="featureGrid">
             {featuredProjects.map((project, index) => (
-              <motion.article
+              <motion.a
                 className="featureCard"
+                href={project.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={isRu ? project.titleRu : project.titleEn}
                 key={project.titleEn}
                 style={{ '--accent-color': project.accent }}
                 initial={{ opacity: 0, y: 80, scale: 0.92, filter: 'blur(10px)' }}
@@ -141,7 +145,7 @@ function Home() {
                   </div>
                   <div className="featureOutcome">{isRu ? project.outcomeRu : project.outcomeEn}</div>
                 </div>
-              </motion.article>
+              </motion.a>
             ))}
           </div>
         </div>

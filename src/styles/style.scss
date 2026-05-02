@@ -533,11 +533,32 @@ button {
 }
 
 .featureCard {
+  display: block;
   border-radius: var(--radius-xl);
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
   transition:
     transform 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
+}
+
+.showcaseCard {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.featureCard:focus-visible,
+.showcaseCard:focus-visible {
+  outline: 2px solid var(--accent-color, var(--accent));
+  outline-offset: 5px;
+}
+
+.project-cardLink {
+  color: inherit;
+  text-decoration: none;
 }
 
 .featureCard:hover {

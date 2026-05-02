@@ -16,9 +16,13 @@ function ProjectShowcaseCard({ project, index }) {
   const bodyY = useTransform(scrollYProgress, [0, 0.5, 1], [42, 0, -24]);
 
   return (
-    <motion.article
+    <motion.a
       ref={ref}
+      href={project.href}
+      target="_blank"
+      rel="noreferrer"
       className={`showcaseCard ${index % 2 === 1 ? 'isReverse' : ''}`}
+      aria-label={isRu ? project.titleRu : project.titleEn}
       style={{
         '--accent-color': project.accent,
         '--stack-offset': `${112 + index * 28}px`,
@@ -56,7 +60,7 @@ function ProjectShowcaseCard({ project, index }) {
           ))}
         </div>
       </motion.div>
-    </motion.article>
+    </motion.a>
   );
 }
 

@@ -1,6 +1,6 @@
-import flipkartVisual from './../assets/flipkart-case.svg';
-import airAstanaVisual from './../assets/airastana-case.svg';
-import cleverMarketVisual from './../assets/clevermarket-case.svg';
+import flipkartVisual from './../assets/flipkart-project.png';
+import airAstanaVisual from './../assets/airastana-project.png';
+import cleverMarketVisual from './../assets/clevermarket-project.png';
 import portrait from './../assets/IMAGE 2026-01-07 15:00:34.jpg';
 import reactLogo from './../assets/React.svg';
 import djangoLogo from './../assets/Django.svg';
@@ -82,6 +82,7 @@ export const featuredProjects = [
   {
     accent: '#63e6ff',
     image: flipkartVisual,
+    href: 'https://www.flipkart.com/',
     titleEn: 'Flipkart marketplace experience',
     titleRu: 'Marketplace experience для Flipkart',
     summaryEn: 'Work around dense marketplace surfaces where navigation, offers and price signals need to stay scannable even under heavy merchandising load.',
@@ -103,6 +104,7 @@ export const featuredProjects = [
   {
     accent: '#ff9d6c',
     image: airAstanaVisual,
+    href: 'https://airastana.com/global-en',
     titleEn: 'Air Astana booking and content flow',
     titleRu: 'Booking и контентные сценарии Air Astana',
     summaryEn: 'Airline-facing product work where booking UX, route content and trust-building interface details have to stay premium and operationally clear.',
@@ -124,6 +126,7 @@ export const featuredProjects = [
   {
     accent: '#8cf5bc',
     image: cleverMarketVisual,
+    href: 'https://clevermarket.kz',
     titleEn: 'Clever Market commerce platform',
     titleRu: 'Commerce-платформа Clever Market',
     summaryEn: 'Local e-commerce work focused on promo-led grocery discovery, cleaner category browsing and admin flows that do not slow the business down.',
@@ -169,6 +172,7 @@ export const ListOfCards = featuredProjects.map((project) => ({
   title: project.titleEn,
   tags: project.stack,
   img: project.image,
+  href: project.href,
 }));
 
 export const HomeCards = featuredProjects.map((project) => ({
@@ -176,4 +180,5 @@ export const HomeCards = featuredProjects.map((project) => ({
   descKey: project.summaryEn,
   img: project.image,
   labelKey: project.titleEn,
+  href: project.href,
 }));

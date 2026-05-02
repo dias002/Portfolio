@@ -71,7 +71,7 @@ export default function WorksScroll() {
                     ))}
                   </div>
                   <div className="workCard__actions">
-                    <a className="cyBtn cyBtn--ghost" href="#contact">
+                    <a className="cyBtn cyBtn--ghost" href={card.href} target="_blank" rel="noreferrer">
                       Details
                     </a>
                     <a className="cyBtn" href="#contact">
@@ -91,4 +91,3 @@ export default function WorksScroll() {
     </section>
   );
 }
-
