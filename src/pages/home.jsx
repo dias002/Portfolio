@@ -23,8 +23,13 @@ function Home() {
   const { i18n, t } = useTranslation();
   const isRu = i18n.language === 'ru';
   const typedRoles = isRu
-    ? [' React / Django разработчик', ' backend архитектор', ' full-stack исполнитель', ' product-minded developer']
-    : [' React / Django developer', ' backend architect', ' full-stack builder', ' product-minded developer'];
+    ? [
+        ' React / Django разработчик',
+        ' backend архитектор',
+        ' WordPress / Tilda исполнитель',
+        ' разработчик кастомных CMS',
+      ]
+    : [' React / Django developer', ' backend architect', ' WordPress / Tilda builder', ' custom CMS developer'];
 
   return (
     <main className="homePage">
@@ -100,15 +105,26 @@ function Home() {
           </motion.div>
 
           <div className="featureGrid">
-            {featuredProjects.map((project) => (
+            {featuredProjects.map((project, index) => (
               <motion.article
                 className="featureCard"
                 key={project.titleEn}
                 style={{ '--accent-color': project.accent }}
-                {...reveal}
+                initial={{ opacity: 0, y: 80, scale: 0.92, filter: 'blur(10px)' }}
+                whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                viewport={{ once: true, amount: 0.22 }}
+                transition={{ duration: 0.68, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
               >
                 <div className="featureCard__media">
-                  <img src={project.image} alt={isRu ? project.titleRu : project.titleEn} loading="lazy" />
+                  <motion.img
+                    src={project.image}
+                    alt={isRu ? project.titleRu : project.titleEn}
+                    loading="lazy"
+                    initial={{ scale: 1.08 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true, amount: 0.35 }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+                  />
                 </div>
                 <div className="featureCard__body">
                   <div className="featureCard__header">

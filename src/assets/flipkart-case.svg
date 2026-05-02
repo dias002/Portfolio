@@ -1,0 +1,85 @@
+<svg width="1600" height="1200" viewBox="0 0 1600 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="flip-bg" x1="160" y1="80" x2="1420" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#11182A"/>
+      <stop offset="0.45" stop-color="#16213B"/>
+      <stop offset="1" stop-color="#0C1220"/>
+    </linearGradient>
+    <linearGradient id="flip-panel" x1="281" y1="168" x2="1280" y2="948" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#F5F8FF"/>
+    </linearGradient>
+    <linearGradient id="flip-hero" x1="371" y1="290" x2="1219" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFC929"/>
+      <stop offset="1" stop-color="#FFE89A"/>
+    </linearGradient>
+    <radialGradient id="flip-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1164 254) rotate(135) scale(540 420)">
+      <stop stop-color="#6DE3FF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#6DE3FF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="1200" rx="52" fill="url(#flip-bg)"/>
+  <rect x="86" y="82" width="1428" height="1036" rx="48" fill="url(#flip-glow)"/>
+
+  <rect x="192" y="144" width="1216" height="912" rx="42" fill="url(#flip-panel)"/>
+  <rect x="192" y="144" width="1216" height="86" rx="42" fill="#0F1A31"/>
+  <circle cx="260" cy="187" r="10" fill="#FF7D66"/>
+  <circle cx="292" cy="187" r="10" fill="#FFC44D"/>
+  <circle cx="324" cy="187" r="10" fill="#42D997"/>
+
+  <rect x="1042" y="168" width="268" height="40" rx="20" fill="#1A2848"/>
+  <rect x="1070" y="181" width="124" height="14" rx="7" fill="#5A6D93"/>
+  <rect x="1208" y="181" width="70" height="14" rx="7" fill="#8398C2"/>
+
+  <rect x="244" y="278" width="236" height="670" rx="30" fill="#F1F5FF"/>
+  <rect x="276" y="322" width="172" height="124" rx="24" fill="#0F5BFF"/>
+  <text x="300" y="377" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="700">F</text>
+  <text x="338" y="377" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Flipkart</text>
+
+  <rect x="276" y="488" width="126" height="18" rx="9" fill="#20304E"/>
+  <rect x="276" y="534" width="148" height="16" rx="8" fill="#B3C1E2"/>
+  <rect x="276" y="570" width="136" height="16" rx="8" fill="#B3C1E2"/>
+  <rect x="276" y="606" width="124" height="16" rx="8" fill="#B3C1E2"/>
+  <rect x="276" y="642" width="154" height="16" rx="8" fill="#B3C1E2"/>
+
+  <rect x="536" y="278" width="820" height="196" rx="34" fill="url(#flip-hero)"/>
+  <text x="588" y="352" fill="#0F1A31" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700">Marketplace flow redesign</text>
+  <text x="588" y="402" fill="#1D2A49" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700">High-density catalog made cleaner</text>
+  <rect x="588" y="430" width="264" height="48" rx="24" fill="#0F1A31"/>
+  <text x="632" y="462" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700">Promo systems</text>
+
+  <rect x="902" y="306" width="358" height="122" rx="28" fill="#FFFFFF" fill-opacity="0.52"/>
+  <rect x="934" y="338" width="116" height="22" rx="11" fill="#163974"/>
+  <rect x="934" y="374" width="214" height="16" rx="8" fill="#5673B8"/>
+  <rect x="1178" y="340" width="50" height="50" rx="16" fill="#0F5BFF"/>
+
+  <rect x="536" y="516" width="248" height="360" rx="28" fill="#F8FAFF"/>
+  <rect x="568" y="548" width="184" height="172" rx="24" fill="#EFF5FF"/>
+  <rect x="606" y="584" width="110" height="100" rx="20" fill="#FFC929"/>
+  <rect x="568" y="752" width="152" height="20" rx="10" fill="#22314F"/>
+  <rect x="568" y="786" width="104" height="16" rx="8" fill="#8A9EC5"/>
+  <rect x="568" y="824" width="130" height="20" rx="10" fill="#0F5BFF"/>
+
+  <rect x="822" y="516" width="248" height="360" rx="28" fill="#F8FAFF"/>
+  <rect x="854" y="548" width="184" height="172" rx="24" fill="#EFF5FF"/>
+  <rect x="888" y="578" width="116" height="110" rx="22" fill="#6DE3FF"/>
+  <rect x="854" y="752" width="128" height="20" rx="10" fill="#22314F"/>
+  <rect x="854" y="786" width="144" height="16" rx="8" fill="#8A9EC5"/>
+  <rect x="854" y="824" width="154" height="20" rx="10" fill="#0F5BFF"/>
+
+  <rect x="1108" y="516" width="248" height="360" rx="28" fill="#F8FAFF"/>
+  <rect x="1140" y="548" width="184" height="172" rx="24" fill="#EFF5FF"/>
+  <rect x="1178" y="578" width="108" height="110" rx="22" fill="#FF9A75"/>
+  <rect x="1140" y="752" width="136" height="20" rx="10" fill="#22314F"/>
+  <rect x="1140" y="786" width="120" height="16" rx="8" fill="#8A9EC5"/>
+  <rect x="1140" y="824" width="168" height="20" rx="10" fill="#0F5BFF"/>
+
+  <rect x="1040" y="686" width="272" height="296" rx="34" fill="#0F1A31"/>
+  <rect x="1064" y="720" width="224" height="48" rx="24" fill="#172644"/>
+  <rect x="1086" y="735" width="84" height="18" rx="9" fill="#6DE3FF"/>
+  <rect x="1064" y="794" width="224" height="118" rx="26" fill="#13213D"/>
+  <rect x="1090" y="826" width="102" height="18" rx="9" fill="#F5F8FF"/>
+  <rect x="1090" y="858" width="156" height="14" rx="7" fill="#7A8FB6"/>
+  <rect x="1064" y="930" width="224" height="28" rx="14" fill="#0F5BFF"/>
+</svg>

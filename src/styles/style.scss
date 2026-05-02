@@ -271,6 +271,20 @@ button {
   border-radius: var(--radius-xl);
 }
 
+.heroCopy::before,
+.heroVisual::after,
+.contactPanel::after {
+  content: '';
+  position: absolute;
+  inset: auto -12% -24% auto;
+  width: 240px;
+  height: 240px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(99, 230, 255, 0.18), transparent 66%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
 .heroTitle {
   margin-top: 18px;
   max-width: 11ch;
@@ -326,14 +340,21 @@ button {
   flex-wrap: wrap;
   gap: 14px;
   margin-top: 30px;
+  align-items: stretch;
 }
 
 .primaryButton,
 .secondaryButton {
-  min-height: 52px;
-  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 72px;
+  padding: 18px 30px;
   border-radius: 999px;
   font-weight: 700;
+  font-size: clamp(17px, 1.7vw, 20px);
+  line-height: 1.08;
+  text-align: center;
 }
 
 .heroMeta {
@@ -348,7 +369,7 @@ button {
 }
 
 .heroVisual {
-  min-height: 620px;
+  min-height: 680px;
   border-radius: 36px;
   padding: 24px;
 }
@@ -366,7 +387,7 @@ button {
 
 .heroPortraitCard {
   position: absolute;
-  inset: 24px 24px 150px 24px;
+  inset: 112px 24px 152px 24px;
   border-radius: 28px;
   overflow: hidden;
   background: #0e141e;
@@ -385,7 +406,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 18%;
+  object-position: center 14%;
 }
 
 .heroBadge {
@@ -396,19 +417,20 @@ button {
   background: rgba(8, 12, 19, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 18px 32px rgba(0, 0, 0, 0.3);
-  max-width: 220px;
+  max-width: min(240px, calc(50% - 28px));
   font-weight: 500;
   line-height: 1.4;
 }
 
 .heroBadge--top {
-  top: 42px;
-  right: 14px;
+  top: 24px;
+  right: 24px;
 }
 
 .heroBadge--bottom {
-  left: 18px;
-  bottom: 104px;
+  left: 24px;
+  top: 24px;
+  bottom: auto;
 }
 
 .heroStack {
@@ -418,7 +440,7 @@ button {
   bottom: 24px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
+  gap: 14px;
 }
 
 .stackPill,
@@ -429,8 +451,9 @@ button {
   min-height: 54px;
   padding: 12px 14px;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.055);
   border: 1px solid var(--line);
+  backdrop-filter: blur(12px);
 }
 
 .stackPill img,
@@ -511,6 +534,16 @@ button {
 
 .featureCard {
   border-radius: var(--radius-xl);
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-6px);
+  border-color: color-mix(in srgb, var(--accent-color, var(--accent)) 32%, rgba(255, 255, 255, 0.12));
+  box-shadow: 0 38px 80px rgba(0, 0, 0, 0.42);
 }
 
 .featureCard::before,
@@ -527,12 +560,18 @@ button {
   aspect-ratio: 16 / 11;
   overflow: hidden;
   border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(11, 17, 28, 0.14));
 }
 
 .featureCard__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.featureCard:hover .featureCard__media img {
+  transform: scale(1.04);
 }
 
 .featureCard__body {
@@ -590,7 +629,7 @@ button {
 }
 
 .serviceGrid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .serviceCard {
@@ -663,7 +702,7 @@ button {
 
 .stackCloud {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
   margin-top: 28px;
 }
@@ -740,13 +779,17 @@ button {
 .showcaseGrid {
   display: grid;
   gap: 24px;
+  padding-bottom: 16px;
 }
 
 .showcaseCard {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
   gap: 0;
+  min-height: 560px;
   border-radius: 34px;
+  position: sticky;
+  top: var(--stack-offset, 112px);
 }
 
 .showcaseCard.isReverse {
@@ -762,9 +805,11 @@ button {
 }
 
 .showcaseCard__media {
+  position: relative;
   min-height: 100%;
   border-right: 1px solid var(--line);
   overflow: hidden;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(11, 17, 28, 0.18));
 }
 
 .showcaseCard__media img {
@@ -772,10 +817,14 @@ button {
   height: 100%;
   min-height: 420px;
   object-fit: cover;
+  transform-origin: center top;
 }
 
 .showcaseCard__body {
   padding: 34px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .showcaseCard__list {
@@ -825,7 +874,7 @@ button {
   }
 
   .heroVisual {
-    min-height: 560px;
+    min-height: 620px;
   }
 
   .featureGrid,
@@ -837,6 +886,12 @@ button {
   .showcaseCard__media {
     border-right: none;
     border-bottom: 1px solid var(--line);
+  }
+
+  .showcaseCard {
+    position: relative;
+    top: auto;
+    min-height: 0;
   }
 
   .showcaseCard.isReverse .showcaseCard__media,
@@ -889,15 +944,15 @@ button {
   }
 
   .heroVisual {
-    min-height: 500px;
+    min-height: 600px;
   }
 
   .heroPortraitCard {
-    inset: 20px 20px 152px 20px;
+    inset: 104px 20px 152px 20px;
   }
 
   .heroBadge {
-    max-width: 180px;
+    max-width: min(180px, calc(50% - 24px));
     font-size: 14px;
   }
 
@@ -906,7 +961,7 @@ button {
   }
 
   .stackCloud {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .contactPanel,
@@ -942,27 +997,31 @@ button {
   }
 
   .heroVisual {
-    min-height: 440px;
+    min-height: 580px;
   }
 
   .heroPortraitCard {
-    inset: 16px 16px 150px 16px;
+    inset: 98px 16px 166px 16px;
   }
 
   .heroBadge--top {
-    top: 18px;
-    right: 10px;
+    top: 16px;
+    right: 16px;
   }
 
   .heroBadge--bottom {
-    left: 10px;
-    bottom: 114px;
+    left: 16px;
+    top: 16px;
   }
 
   .featureCard__header h3,
   .serviceCard h3,
   .showcaseCard__body h2 {
     font-size: 24px;
+  }
+
+  .stackCloud {
+    grid-template-columns: 1fr;
   }
 
   .showcaseCard__media img {

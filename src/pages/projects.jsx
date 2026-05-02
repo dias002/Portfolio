@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import ProjectShowcaseCard from './../components/ProjectShowcaseCard.jsx';
 import { featuredProjects } from './../components/projectCards.jsx';
 import './../styles/style.scss';
 
@@ -11,8 +12,7 @@ const reveal = {
 };
 
 function ProjectsPage() {
-  const { i18n, t } = useTranslation();
-  const isRu = i18n.language === 'ru';
+  const { t } = useTranslation();
 
   return (
     <main className="projectsPage">
@@ -29,36 +29,7 @@ function ProjectsPage() {
       <section className="sectionBlock">
         <div className="shell showcaseGrid">
           {featuredProjects.map((project, index) => (
-            <motion.article
-              className={`showcaseCard ${index % 2 === 1 ? 'isReverse' : ''}`}
-              key={project.titleEn}
-              style={{ '--accent-color': project.accent }}
-              {...reveal}
-            >
-              <div className="showcaseCard__media">
-                <img src={project.image} alt={isRu ? project.titleRu : project.titleEn} loading="lazy" />
-              </div>
-
-              <div className="showcaseCard__body">
-                <span className="showcaseCard__label">{t('projectsPage.caseLabel')}</span>
-                <h2>{isRu ? project.titleRu : project.titleEn}</h2>
-                <p>{isRu ? project.summaryRu : project.summaryEn}</p>
-
-                <ul className="showcaseCard__list">
-                  {(isRu ? project.detailsRu : project.detailsEn).map((line) => (
-                    <li key={`${project.titleEn}-${line}`}>{line}</li>
-                  ))}
-                </ul>
-
-                <div className="chipRow">
-                  {project.stack.map((stackItem) => (
-                    <span className="chip" key={`${project.titleEn}-${stackItem}`}>
-                      {stackItem}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.article>
+            <ProjectShowcaseCard project={project} index={index} key={project.titleEn} />
           ))}
         </div>
       </section>
