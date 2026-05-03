@@ -31,6 +31,26 @@ const SERVICES = [
     includes: ['структура', 'адаптивная верстка', 'форма заявки', 'базовая SEO-подготовка'],
   },
   {
+    id: 'simple-multipage',
+    label: 'простой сайт 3-4 страницы по готовому дизайну',
+    min: 160000,
+    max: 350000,
+    timeline: '6-12 рабочих дней',
+    priority: 7,
+    keywords: [
+      'простой сайт',
+      'дизайн есть',
+      'готовый дизайн',
+      '3-4 страниц',
+      '3-4 страницы',
+      '3 страницы',
+      '4 страницы',
+      'несколько страниц',
+      'сайт простой',
+    ],
+    includes: ['верстка 3-4 страниц', 'адаптив', 'форма заявки', 'подключение домена', 'базовая SEO-подготовка'],
+  },
+  {
     id: 'wordpress-site',
     label: 'сайт на WordPress',
     min: 140000,
@@ -67,7 +87,22 @@ const SERVICES = [
     max: 1600000,
     timeline: '3-8 недель',
     priority: 6,
-    keywords: ['магазин', 'e-commerce', 'ecommerce', 'товар', 'каталог', 'корзина', 'оплата', 'checkout', 'woocommerce'],
+    keywords: [
+      'магазин',
+      'e-commerce',
+      'ecommerce',
+      'товар',
+      'каталог',
+      'корзина',
+      'оплата',
+      'checkout',
+      'woocommerce',
+      'маркетплейс',
+      'marketplace',
+      'как kaspi',
+      'как flipkart',
+      'как amazon',
+    ],
     includes: ['каталог', 'карточки товаров', 'корзина', 'заказы', 'админка'],
   },
   {
@@ -111,9 +146,47 @@ const SERVICES = [
     min: 250000,
     max: 850000,
     timeline: '1-4 недели',
-    priority: 6,
-    keywords: ['бот', 'ai', 'ии', 'чат', 'ассистент', 'openai', 'gemini', 'gpt', 'llm', 'цены'],
+    priority: 11,
+    keywords: [
+      'бот',
+      'ai',
+      'ии',
+      'чат',
+      'ассистент',
+      'openai',
+      'gemini',
+      'gpt',
+      'llm',
+      'цены',
+      'база знаний',
+      'расчет цен',
+      'расчетом цен',
+      'лиды',
+      'telegram',
+    ],
     includes: ['чат-виджет', 'серверный API', 'правила консультации', 'передача заявки'],
+  },
+  {
+    id: 'developer-retainer',
+    label: 'постоянная работа с разработчиком',
+    min: 300000,
+    max: 1800000,
+    timeline: 'помесячно',
+    priority: 9,
+    keywords: [
+      'нанять',
+      'постоянную основу',
+      'постоянно',
+      'программист',
+      'разработчик',
+      'аутстаф',
+      'full time',
+      'part time',
+      'retainer',
+      'сопровождение',
+      'поддержка сайта',
+    ],
+    includes: ['фиксированные часы', 'разработка задач', 'поддержка проекта', 'созвоны и планирование'],
   },
 ];
 
@@ -213,6 +286,132 @@ const ADDONS = [
   },
 ];
 
+const BUDGET_TIERS = [
+  {
+    id: 'micro-start',
+    min: 0,
+    max: 50000,
+    label: 'микро-бюджет до 50 000 ₸',
+    bestFit: 'стартовый этап, правки или подготовка',
+    canOffer: [
+      'проверить дизайн и собрать короткое ТЗ',
+      'подготовить структуру 3-4 страниц и список контента',
+      'сделать одну простую страницу или черновой каркас без сложного адаптива',
+      'настроить базовый WordPress/Tilda, домен, форму или небольшие правки',
+    ],
+    notIncluded: [
+      'полноценная сборка 3-4 страниц под ключ',
+      'кастомные анимации',
+      'backend, оплата, личный кабинет и интеграции',
+      'подготовка текстов и сложная SEO-настройка',
+    ],
+    recommendation: 'разбить работу на этапы: за этот бюджет сделать старт/каркас, затем довести сайт до полноценного запуска',
+  },
+  {
+    id: 'lean-template',
+    min: 50000,
+    max: 100000,
+    label: 'эконом-старт 50 000-100 000 ₸',
+    bestFit: 'одна простая страница или очень легкий сайт по готовому дизайну',
+    canOffer: [
+      'собрать 1 страницу на Tilda/WordPress по готовому шаблону',
+      'перенести готовые тексты и фото',
+      'подключить простую форму заявки',
+      'сделать базовый адаптив без сложных анимаций',
+    ],
+    notIncluded: ['3-4 страницы под ключ с глубокой версткой', 'индивидуальный дизайн', 'сложные интеграции'],
+    recommendation: 'оставить только самые важные блоки и запускать минимальную версию',
+  },
+  {
+    id: 'simple-launch',
+    min: 100000,
+    max: 180000,
+    label: 'простой запуск 100 000-180 000 ₸',
+    bestFit: 'одностраничный сайт или 2-3 простые статичные страницы при готовом дизайне',
+    canOffer: [
+      'собрать сайт на WordPress/Tilda',
+      'адаптировать готовый дизайн',
+      'подключить форму, домен и базовую SEO-подготовку',
+      'подготовить запуск без backend и сложной логики',
+    ],
+    notIncluded: ['магазин', 'личный кабинет', 'кастомная CMS', 'много интеграций'],
+    recommendation: 'делать простой релиз без лишних модулей, а расширение вынести во второй этап',
+  },
+  {
+    id: 'standard-site',
+    min: 180000,
+    max: 350000,
+    label: 'стандартный сайт 180 000-350 000 ₸',
+    bestFit: 'лендинг или 3-4 страницы по готовому дизайну',
+    canOffer: [
+      'собрать 3-4 страницы',
+      'сделать нормальный адаптив',
+      'подключить формы, аналитику, домен и базовую SEO',
+      'добавить умеренные анимации',
+    ],
+    notIncluded: ['сложный backend', 'личный кабинет', 'интернет-магазин под ключ'],
+    recommendation: 'это оптимальная зона для простого сайта с готовым дизайном',
+  },
+  {
+    id: 'advanced',
+    min: 350000,
+    max: 800000,
+    label: 'расширенный проект 350 000-800 000 ₸',
+    bestFit: 'корпоративный сайт, CMS, интеграции или небольшой каталог',
+    canOffer: ['несколько разделов', 'CMS', 'интеграции', 'расширенная SEO/аналитика', 'больше UX-проработки'],
+    notIncluded: ['большой магазин или сложная кастомная платформа без отдельного бюджета'],
+    recommendation: 'можно планировать уже полноценную реализацию с запасом на качество',
+  },
+  {
+    id: 'product',
+    min: 800000,
+    max: 999999999,
+    label: 'продуктовая разработка от 800 000 ₸',
+    bestFit: 'backend, PostgreSQL, личные кабинеты, кастомная CMS, AI-боты, магазины',
+    canOffer: ['архитектуру', 'frontend/backend', 'базу данных', 'роли', 'админку', 'интеграции и деплой'],
+    notIncluded: ['финальная цена без ТЗ'],
+    recommendation: 'нужно собрать ТЗ и оценивать модулями',
+  },
+];
+
+const HIRING_OPTIONS = [
+  {
+    label: 'частичная занятость',
+    min: 300000,
+    max: 650000,
+    timeline: '40-80 часов в месяц',
+    includes: ['поддержка сайта', 'небольшие фичи', 'правки', 'интеграции'],
+  },
+  {
+    label: 'проектный retainer',
+    min: 650000,
+    max: 1200000,
+    timeline: '80-120 часов в месяц',
+    includes: ['планирование спринтов', 'frontend/backend задачи', 'регулярные релизы'],
+  },
+  {
+    label: 'выделенный full-time разработчик',
+    min: 1200000,
+    max: 1800000,
+    timeline: 'полная занятость в месяц',
+    includes: ['полное вовлечение', 'разработка продукта', 'техническая поддержка команды'],
+  },
+];
+
+const PRICE_LIST = {
+  currency: 'KZT',
+  services: SERVICES,
+  addons: ADDONS,
+  budgetTiers: BUDGET_TIERS,
+  hiringOptions: HIRING_OPTIONS,
+  rules: [
+    'Если клиент назвал бюджет, сначала сравни его с прайс-листом и предложи лучший вариант в рамках суммы.',
+    'Если бюджет ниже реальной стоимости, не отказывай сухо: предложи урезанный MVP, первый этап или альтернативу.',
+    'Не обещай полноценный сайт, backend, магазин или интеграции за микро-бюджет.',
+    'Всегда отделяй "что можно сделать за этот бюджет" от "что лучше вынести во второй этап".',
+  ],
+};
+
 const QUESTION_SETS = {
   generic: [
     'Какой тип проекта нужен: лендинг, WordPress/Tilda, интернет-магазин, backend/API, CMS или AI-бот?',
@@ -243,6 +442,12 @@ const QUESTION_SETS = {
     'Откуда брать знания: фиксированный прайс, документы, база данных, сайт или админка?',
     'Какой AI-провайдер планируется: Gemini, OpenAI, локальная модель или уже есть свой ключ?',
     'Нужны ли история диалогов, аналитика, антиспам, ограничения по темам и панель настройки ответов?',
+  ],
+  hiring: [
+    'Какой формат нужен: part-time, проектный retainer или full-time разработчик?',
+    'Какой стек и задачи: frontend, backend, WordPress, Node.js, PostgreSQL, интеграции?',
+    'Сколько часов в месяц или какая загрузка ожидается?',
+    'Нужен один разработчик или команда с менеджментом и дизайном?',
   ],
 };
 
@@ -304,8 +509,63 @@ function parsePageCount(text) {
     return 1;
   }
 
+  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|page|экран|раздел|блок)/);
+  if (rangeMatch) {
+    return Number(rangeMatch[2]);
+  }
+
   const match = normalized.match(/(\d{1,3})\s*(страниц|page|экран|раздел|блок)/);
   return match ? Number(match[1]) : null;
+}
+
+function parseBudget(text) {
+  const normalized = normalizeText(text).replace(/\u00a0/g, ' ');
+  const patterns = [
+    {
+      hasBudgetContext: true,
+      regex:
+        /(?:бюджет|за|до|есть|имею|готов\w*|выделил\w*|заплачу|потрачу|на руках)\s*(?:заплатить|потратить|примерно|около|порядка|до)?\s*(\d[\d\s]*(?:[.,]\d+)?)\s*(тыс|к|k|млн|миллион|миллиона|тенге|тг|₸)?/,
+    },
+    {
+      hasBudgetContext: false,
+      regex: /(\d[\d\s]*(?:[.,]\d+)?)\s*(тыс|к|k|млн|миллион|миллиона)\s*(?:тенге|тг|₸)?/,
+    },
+    {
+      hasBudgetContext: false,
+      regex: /(\d[\d\s]{3,})\s*(?:тенге|тг|₸)/,
+    },
+  ];
+
+  for (const pattern of patterns) {
+    const match = normalized.match(pattern.regex);
+    if (!match) {
+      continue;
+    }
+
+    const rawNumber = match[1].replace(/\s/g, '').replace(',', '.');
+    const value = Number(rawNumber);
+    const suffix = match[2] || '';
+
+    if (!Number.isFinite(value) || value <= 0) {
+      continue;
+    }
+
+    if (/млн|миллион/.test(suffix)) {
+      return Math.round(value * 1000000);
+    }
+
+    if (/тыс|к|k/.test(suffix)) {
+      return Math.round(value * 1000);
+    }
+
+    if (pattern.hasBudgetContext && value < 1000) {
+      return Math.round(value * 1000);
+    }
+
+    return Math.round(value);
+  }
+
+  return null;
 }
 
 function unique(values) {
@@ -333,6 +593,7 @@ function getQuestionSet(service) {
   if (service.id === 'ecommerce') return QUESTION_SETS.ecommerce;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS.backend;
   if (service.id === 'ai-assistant') return QUESTION_SETS.aiAssistant;
+  if (service.id === 'developer-retainer') return QUESTION_SETS.hiring;
   return QUESTION_SETS.simpleSite;
 }
 
@@ -382,6 +643,16 @@ function getMissingQuestions(text, service) {
     });
   }
 
+  if (service.id === 'developer-retainer') {
+    return questions.filter((question) => {
+      if (question.includes('формат')) return !/part[-\s]?time|full[-\s]?time|полная|частичная|постоянн|месяц|retainer/.test(normalized);
+      if (question.includes('стек')) return !/frontend|backend|wordpress|node|postgres|react|python|django|интеграц/.test(normalized);
+      if (question.includes('часов')) return !/\d{1,3}\s*(час|ч)|полная загрузка|каждый день|месяц/.test(normalized);
+      if (question.includes('один разработчик')) return !/один|команд|дизайн|менедж/.test(normalized);
+      return true;
+    });
+  }
+
   return questions.filter((question) => {
     if (question.includes('Дизайн')) return !hasDesign;
     if (question.includes('блоки')) return !pageCount && !/hero|проекты|услуги|отзывы|контакты|форма|портфолио|блок/.test(normalized);
@@ -400,6 +671,8 @@ function isProjectRequest(text) {
 
   return /сколько|цена|стоим|оцен|сайт|лендинг|магазин|бот|cms|wordpress|вордпресс|tilda|node|postgres|backend|api|портфолио/.test(
     normalized
+  ) || /нанять|программист|разработчик|аутстаф|full[-\s]?time|part[-\s]?time|retainer|поддержка/.test(
+    normalized
   );
 }
 
@@ -413,6 +686,10 @@ function getComplexity(service, addons, text) {
 
   if (!service) {
     return { level: 'не определена', reasons };
+  }
+
+  if (service.id === 'developer-retainer') {
+    return { level: 'помесячная работа', reasons: ['формат зависит от загрузки, стека и зоны ответственности'] };
   }
 
   if (['ecommerce', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
@@ -431,11 +708,102 @@ function getComplexity(service, addons, text) {
     return { level: 'сложная', reasons: unique(reasons) };
   }
 
-  if (addons.length || service.id === 'business' || service.id === 'wordpress-site') {
+  if (addons.length || service.id === 'business' || service.id === 'wordpress-site' || service.id === 'simple-multipage') {
     return { level: 'средняя', reasons: addons.length ? addons.map((addon) => addon.label) : ['несколько страниц или CMS'] };
   }
 
   return { level: 'простая', reasons: ['1 страница без сложной серверной логики'] };
+}
+
+function getBudgetTier(budget) {
+  return BUDGET_TIERS.find((tier) => budget >= tier.min && budget <= tier.max) || BUDGET_TIERS[BUDGET_TIERS.length - 1];
+}
+
+function getServiceBudgetScope(service) {
+  if (!service) {
+    return null;
+  }
+
+  if (service.id === 'ai-assistant') {
+    return {
+      bestFit: 'прототип AI-консультанта и правила ответов без сложных интеграций',
+      canOffer: [
+        'подготовить сценарии ответов, прайс и ограничения для бота',
+        'сделать простой FAQ/консультанта без базы знаний и CRM',
+        'настроить черновой prompt и тестовые диалоги',
+        'спланировать второй этап: CRM, Telegram, история, база знаний',
+      ],
+      notIncluded: [
+        'полноценный AI-виджет под ключ',
+        'интеграция с CRM и Telegram',
+        'база знаний/RAG и хранение истории',
+        'админка для настройки ответов',
+      ],
+      recommendation: 'начать с прототипа и правил ответов, а полноценного бота вынести отдельным этапом',
+    };
+  }
+
+  if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') {
+    return {
+      bestFit: 'архитектура, ТЗ или маленький технический прототип',
+      canOffer: [
+        'описать архитектуру и схему базы',
+        'сделать небольшой прототип или один ключевой API endpoint',
+        'подготовить ТЗ, оценку модулей и план разработки',
+        'провести аудит готового кода или сервера',
+      ],
+      notIncluded: [
+        'полноценный backend под ключ',
+        'админ-панель и роли пользователей',
+        'безопасность, тестирование и деплой production-уровня',
+        'интеграции с внешними сервисами',
+      ],
+      recommendation: 'продавать это как подготовительный этап, после которого можно точно оценить разработку',
+    };
+  }
+
+  if (service.id === 'ecommerce') {
+    return {
+      bestFit: 'preorder-страница или прототип магазина без checkout',
+      canOffer: [
+        'собрать landing/preorder-страницу для проверки спроса',
+        'подготовить структуру каталога и ТЗ магазина',
+        'сделать статичный прототип нескольких товарных карточек',
+        'спланировать этапы: каталог, корзина, оплата, админка',
+      ],
+      notIncluded: [
+        'корзина и checkout под ключ',
+        'онлайн-оплата и доставка',
+        'личный кабинет и статусы заказов',
+        'интеграции со складом, CRM или Kaspi',
+      ],
+      recommendation: 'сначала запустить витрину или preorder, а магазин делать отдельным бюджетом',
+    };
+  }
+
+  return null;
+}
+
+function buildBudgetPlan({ budget, service, min, max }) {
+  if (!budget) {
+    return null;
+  }
+
+  const tier = getBudgetTier(budget);
+  const serviceScope = budget < min ? getServiceBudgetScope(service) : null;
+  const fit = !service ? 'needs_project_type' : budget < min ? 'below_estimate' : budget <= max ? 'within_estimate' : 'above_estimate';
+  const gap = service && budget < min ? min - budget : 0;
+
+  return {
+    budget,
+    tier,
+    fit,
+    gap,
+    bestFit: serviceScope?.bestFit || tier.bestFit,
+    canOffer: serviceScope?.canOffer || tier.canOffer,
+    notIncluded: serviceScope?.notIncluded || tier.notIncluded,
+    recommendation: serviceScope?.recommendation || tier.recommendation,
+  };
 }
 
 function estimateFromMessages(messages) {
@@ -444,28 +812,34 @@ function estimateFromMessages(messages) {
   const normalized = normalizeText(text);
   const serviceMatches = findMatches(normalized, SERVICES);
   const service = serviceMatches[0] || null;
-  const addonMatches = findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
+  const isHiring = service?.id === 'developer-retainer';
+  const addonMatches = isHiring ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
   const pageCount = parsePageCount(normalized);
+  const budget = parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
   const projectRequest = isProjectRequest(normalized);
-  const shouldAskFirst = projectRequest && userMessages.length <= 1;
-  const ready = Boolean(service && !shouldAskFirst && missingQuestions.length <= 2);
+  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
   const min = service ? service.min + addonMin : null;
   const max = service ? service.max + addonMax : null;
   const complexity = getComplexity(service, addonMatches, normalized);
+  const budgetPlan = buildBudgetPlan({ budget, service, min, max });
+  const ready = Boolean(service && (isHiring || budget || (!shouldAskFirst && missingQuestions.length <= 2)));
+  const phase = isHiring ? 'hiring_guidance' : budget ? 'budget_guidance' : ready ? 'estimate_allowed' : 'questions_only';
 
   return {
     service,
     addons: addonMatches,
     technologies,
     pageCount,
+    budget,
+    budgetPlan,
     min,
     max,
     ready,
-    phase: ready ? 'estimate_allowed' : 'questions_only',
+    phase,
     complexity,
     missingQuestions,
     summary: service
@@ -517,6 +891,86 @@ function buildEstimateReply(estimate, language) {
   ].join(' ');
 }
 
+function formatList(items) {
+  return items.map((item) => `- ${item}`).join('\n');
+}
+
+function buildBudgetReply(estimate, language) {
+  const isRu = language !== 'en';
+  const plan = estimate.budgetPlan;
+  const budget = formatPrice(plan.budget);
+  const serviceLabel = estimate.service?.label || (isRu ? 'проект' : 'project');
+  const expectedRange = estimate.service
+    ? `${formatPrice(estimate.min)} - ${formatPrice(estimate.max)}`
+    : isRu
+      ? 'зависит от типа проекта'
+      : 'depends on the project type';
+  const canOffer = formatList(plan.canOffer.slice(0, 4));
+  const notIncluded = formatList(plan.notIncluded.slice(0, 4));
+
+  if (!isRu) {
+    if (plan.fit === 'within_estimate' || plan.fit === 'above_estimate') {
+      return [
+        `Budget ${budget} is workable for ${serviceLabel}. The realistic range is ${expectedRange}, so I would keep the scope focused and avoid adding hidden backend or integrations.`,
+      `Best option for this budget: ${plan.bestFit}.`,
+        `Can include:\n${canOffer}`,
+        `I would clarify final details next: platform, exact pages, form/SEO/hosting and who provides content.`,
+      ].join('\n\n');
+    }
+
+    return [
+      `Budget ${budget} is clear. For ${serviceLabel}, a full build is usually around ${expectedRange}, so I would not promise the whole project inside this amount.`,
+      `Best option inside the budget: ${plan.bestFit}.`,
+      `Can offer now:\n${canOffer}`,
+      `Not included at this stage:\n${notIncluded}`,
+      `Optimal proposal: ${plan.recommendation}.`,
+    ].join('\n\n');
+  }
+
+  if (plan.fit === 'within_estimate' || plan.fit === 'above_estimate') {
+    return [
+      `Бюджет ${budget} понял. Для задачи “${serviceLabel}” это рабочий бюджет: ориентир по прайсу ${expectedRange}.`,
+      `Оптимальный вариант за эту сумму: ${plan.bestFit}.`,
+      `Что можно включить:\n${canOffer}`,
+      'Следующим шагом я бы уточнил платформу, точный список страниц, форму/SEO/хостинг и кто дает контент.',
+    ].join('\n\n');
+  }
+
+  return [
+    `Бюджет ${budget} понял. Полноценный вариант “${serviceLabel}” обычно стоит ${expectedRange}, поэтому я бы не обещал весь проект под ключ за эту сумму.`,
+    `Оптимальный вариант в рамках бюджета: ${plan.bestFit}.`,
+    `Что можно предложить сейчас:\n${canOffer}`,
+    `Что лучше не включать в этот этап:\n${notIncluded}`,
+    `Как подать клиенту: ${plan.recommendation}.`,
+  ].join('\n\n');
+}
+
+function buildHiringReply(estimate, language) {
+  const isRu = language !== 'en';
+  const budget = estimate.budget ? formatPrice(estimate.budget) : null;
+  const options = HIRING_OPTIONS.map(
+    (option) => `${option.label}: ${formatPrice(option.min)} - ${formatPrice(option.max)}, ${option.timeline}`
+  ).join('\n');
+
+  if (!isRu) {
+    return [
+      budget
+        ? `With a monthly budget of ${budget}, the closest format is part-time support unless the scope is very small.`
+        : 'Yes, a developer can be hired on a monthly format.',
+      `Reference ranges:\n${options}`,
+      'To choose the right format, I would ask: stack, expected hours per month, task list and whether project management/design is needed.',
+    ].join('\n\n');
+  }
+
+  return [
+    budget
+      ? `Бюджет ${budget} на постоянную работу понял. Ближайший реалистичный формат — частичная занятость или фиксированный пакет часов, если задач немного.`
+      : 'Да, можно работать в формате постоянного разработчика или помесячного сопровождения.',
+    `Ориентиры по прайсу:\n${options}`,
+    'Чтобы подобрать формат, нужно уточнить стек, количество часов в месяц, список задач и нужен ли менеджмент/дизайн вместе с разработкой.',
+  ].join('\n\n');
+}
+
 function buildFallbackReply(messages, language) {
   const lastText = messages[messages.length - 1]?.content || '';
   const estimate = estimateFromMessages(messages);
@@ -526,6 +980,14 @@ function buildFallbackReply(messages, language) {
     return isRu
       ? 'Привет. Опишите задачу: тип сайта, платформа, объем, дизайн, функции и нужен ли сервер/backend. Я сначала задам уточняющие вопросы, потом посчитаю вилку.'
       : 'Hi. Describe the task: website type, platform, scope, design, features and whether backend/server work is needed. I will ask clarifying questions first, then calculate a range.';
+  }
+
+  if (estimate.service?.id === 'developer-retainer') {
+    return buildHiringReply(estimate, language);
+  }
+
+  if (estimate.budgetPlan) {
+    return buildBudgetReply(estimate, language);
   }
 
   if (!estimate.ready) {
@@ -544,7 +1006,7 @@ You are Dias's website assistant for potential clients. Speak ${isRu ? 'Russian'
 Core behavior:
 - Write like a calm human consultant, not a scripted FAQ.
 - Be concise and practical.
-- Help estimate websites, WordPress/Tilda, ecommerce, Node.js, PostgreSQL, backend, CMS, integrations and AI-bot work.
+- Help estimate websites, WordPress/Tilda, ecommerce, Node.js, PostgreSQL, backend, CMS, integrations, AI-bot work and monthly developer hiring.
 - Never say a price is final. Use "ориентир", "примерно", "вилка" / "rough range".
 - If the client seems ready, suggest continuing in Telegram: https://t.me/Berliyn_h.
 
@@ -552,16 +1014,19 @@ Pricing gate:
 - Current phase is "${estimate.phase}".
 - If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, KZT/tenge amount, or final estimate. Ask 3-5 concrete questions from suggestedQuestions and say that the estimate comes after answers.
 - If phase is "estimate_allowed", give a realistic range using only the provided pricing data, then explain the task characteristics: platform/stack, complexity, modules, timeline and what is included.
+- If phase is "budget_guidance", the user already gave a budget. Do not ignore it. Compare the budget with the price list, explain what can fit into that amount, what cannot fit, and suggest the optimal reduced scope or phased plan.
+- If phase is "hiring_guidance", explain monthly hiring/retainer options from hiringOptions and ask only the missing details needed to choose a format.
 - If Node.js, PostgreSQL, backend, auth, server setup, payment or integrations are mentioned, treat the task as more complex than a simple site.
 - For a one-page WordPress portfolio, do not use the broad generic WordPress range if it is simple; use the specific WordPress portfolio service and add modules only when the user mentions them.
+- For low budgets like 30,000 KZT, never promise a full 3-4 page site. Offer a micro-start: brief, structure, one simple page/draft, setup or phased launch.
 
 Dias offer:
 - Full-stack development with React, Django, Node.js, Python, PostgreSQL.
 - WordPress, Tilda and custom CMS builds.
 - Product-minded UI, backend, integrations, admin panels and AI assistants.
 
-Pricing data, KZT:
-${JSON.stringify({ services: SERVICES, addons: ADDONS, currentEstimate: estimate, suggestedQuestions: estimate.missingQuestions }, null, 2)}
+Full price list and current estimate, KZT:
+${JSON.stringify({ priceList: PRICE_LIST, currentEstimate: estimate, suggestedQuestions: estimate.missingQuestions }, null, 2)}
 `.trim();
 }
 
@@ -582,6 +1047,24 @@ function extractGeminiText(data) {
 function containsPrice(text) {
   const normalized = normalizeText(text);
   return /(\d[\d\s.,]{2,})\s*(₸|тг|тенге|kzt)|от\s+\d|до\s+\d|\d+\s*-\s*\d+\s*(тыс|млн|k|₸)/.test(normalized);
+}
+
+function isBudgetGuidanceUseful(text, estimate) {
+  if (estimate.phase !== 'budget_guidance') {
+    return true;
+  }
+
+  const normalized = normalizeText(text);
+  const hasBudgetContext = /бюджет|в рамках|за эту сумму|за такой бюджет|budget/.test(normalized);
+  const hasReducedScope = /этап|прототип|mvp|каркас|можно предлож|не включ|не обещ|не получится|лучше вынести|урезан|preorder/.test(
+    normalized
+  );
+
+  if (estimate.budgetPlan?.fit === 'below_estimate') {
+    return hasBudgetContext && hasReducedScope;
+  }
+
+  return hasBudgetContext;
 }
 
 async function callGemini(messages, estimate, language) {
@@ -623,7 +1106,11 @@ async function callGemini(messages, estimate, language) {
     throw new Error('Gemini returned an empty response');
   }
 
-  if (!estimate.ready && containsPrice(outputText)) {
+  if (estimate.phase === 'questions_only' && containsPrice(outputText)) {
+    return null;
+  }
+
+  if (!isBudgetGuidanceUseful(outputText, estimate)) {
     return null;
   }
 
@@ -658,6 +1145,8 @@ module.exports = async function handler(req, res) {
         max: estimate.ready ? estimate.max : null,
         ready: estimate.ready,
         phase: estimate.phase,
+        budget: estimate.budget,
+        budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
         summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
@@ -679,6 +1168,8 @@ module.exports = async function handler(req, res) {
         max: estimate.ready ? estimate.max : null,
         ready: estimate.ready,
         phase: estimate.phase,
+        budget: estimate.budget,
+        budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
         summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
