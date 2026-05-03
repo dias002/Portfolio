@@ -1402,6 +1402,7 @@ function extractGeminiText(data) {
 function cleanAssistantReply(text) {
   return String(text || '')
     .replace(/\r\n/g, '\n')
+    .replace(/\bKZT\b/g, '₸')
     .replace(/\*\*([^*\n]+)\*\*/g, '$1')
     .replace(/__([^_\n]+)__/g, '$1')
     .replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?;:]|$)/g, '$1$2')
@@ -1460,6 +1461,14 @@ function isReplySafe(text, estimate) {
   const cleaned = cleanAssistantReply(text);
 
   if (!cleaned || cleaned.length > 2600) {
+    return false;
+  }
+
+  if (['budget_guidance', 'hiring_guidance', 'module_pricing'].includes(estimate.phase) && cleaned.length < 320) {
+    return false;
+  }
+
+  if (!/[.!?)]$/.test(cleaned) && !/https?:\/\/\S+$/.test(cleaned)) {
     return false;
   }
 
