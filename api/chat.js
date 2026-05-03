@@ -1,3 +1,14 @@
+const VELOR_PRICING = require('./velorPricing.json');
+
+const MODULE_SERVICE = {
+  id: 'module-work',
+  label: 'модульные доработки сайта по прайсу',
+  min: 0,
+  max: 0,
+  timeline: 'по выбранным пунктам',
+  includes: ['аудит задачи', 'подбор модулей', 'оценка сроков', 'приоритизация этапов'],
+};
+
 const SERVICES = [
   {
     id: 'wordpress-onepage-portfolio',
@@ -404,6 +415,18 @@ const PRICE_LIST = {
   addons: ADDONS,
   budgetTiers: BUDGET_TIERS,
   hiringOptions: HIRING_OPTIONS,
+  modularPricing: {
+    source: VELOR_PRICING.source,
+    displayCurrency: VELOR_PRICING.displayCurrency,
+    rubToKztRate: VELOR_PRICING.rubToKztRate,
+    blocks: VELOR_PRICING.blocks.map((block) => ({
+      id: block.id,
+      title: block.title,
+      timeline: block.timeline,
+      itemCount: block.items.length,
+    })),
+    recommendedRoadmap: VELOR_PRICING.recommendedRoadmap,
+  },
   rules: [
     'Если клиент назвал бюджет, сначала сравни его с прайс-листом и предложи лучший вариант в рамках суммы.',
     'Если бюджет ниже реальной стоимости, не отказывай сухо: предложи урезанный MVP, первый этап или альтернативу.',
@@ -411,6 +434,24 @@ const PRICE_LIST = {
     'Всегда отделяй "что можно сделать за этот бюджет" от "что лучше вынести во второй этап".',
   ],
 };
+
+const CONVERSATION_EXAMPLES = [
+  {
+    user: 'У меня сайт тормозит, что можно сделать?',
+    assistant:
+      'Сначала я бы не лез в дизайн или новые функции. По таким симптомам логичнее начать с производительности: CDN, кэширование, lazy loading и оптимизация веса CSS/JS. Это даст быстрый эффект без переделки всего сайта. По модульному прайсу такой старт обычно собирается из 3-5 небольших задач, а точный набор лучше выбрать после короткого аудита.',
+  },
+  {
+    user: 'Хочу маркетплейс как Kaspi за 100 тысяч',
+    assistant:
+      'За 100 000 ₸ полноценный маркетплейс с оплатой, доставкой, кабинетами и админкой я бы не обещал. Реалистичный вариант - сделать витрину или preorder-страницу, чтобы проверить спрос и собрать заявки. Каталог, корзину, оплату и кабинеты лучше вынести во второй этап, иначе получится слабый продукт, который будет сложно поддерживать.',
+  },
+  {
+    user: 'Мне нужен поиск по товарам, чтобы понимал ошибки',
+    assistant:
+      'Это уже не обычная строка поиска, а отдельный поисковый контур. Я бы рассматривал Meilisearch, индексацию товаров, fuzzy-поиск и отдельный API для выдачи. Так поиск будет понимать опечатки, транслит и похожие формулировки, а не просто искать точное совпадение по названию.',
+  },
+];
 
 const QUESTION_SETS = {
   generic: [
@@ -475,8 +516,196 @@ function formatPrice(value) {
   return `${new Intl.NumberFormat('ru-KZ').format(value)} ₸`;
 }
 
+function getVelorItems() {
+  return VELOR_PRICING.blocks.flatMap((block) =>
+    block.items.map((item) => ({
+      ...item,
+      blockTitle: block.title,
+      blockTimeline: block.timeline,
+    }))
+  );
+}
+
+const VELOR_ITEMS = getVelorItems();
+
 function hasAny(text, keywords = []) {
   return keywords.some((keyword) => text.includes(normalizeText(keyword)));
+}
+
+function getSearchTokens(text) {
+  return unique(
+    normalizeText(text)
+      .replace(/[^a-zа-я0-9+./-]+/gi, ' ')
+      .split(/\s+/)
+      .map((token) => token.trim())
+      .filter((token) => token.length >= 3)
+  );
+}
+
+function getVelorBlockBoost(text, item) {
+  const normalized = normalizeText(text);
+  const block = normalizeText(item.blockTitle);
+  let boost = 0;
+
+  if (/скорост|ускор|быстр|производитель|кэш|cache|redis|opcache|cloudflare|cdn|lazy|минификац|шрифт|backup|бэкап|uptime|404|500/.test(normalized) && block.includes('производительность')) boost += 5;
+  if (/seo|сео|sitemap|robots|canonical|json-ld|чпу|редирект|404|мета|title|description|перелинков/.test(normalized) && block.includes('seo')) boost += 5;
+  if (/поиск|meili|опечат|транслит|синоним|артикул|штрихкод|autocomplete|фото|голос/.test(normalized) && block.includes('поиск')) boost += 5;
+  if (/каталог|категор|товар|карточк|популярн|новинк|просмотр|аналог|страна происх/.test(normalized) && block.includes('каталог')) boost += 5;
+  if (/фильтр|filter|ajax|range|slider|drawer|пагинац|сброс/.test(normalized) && block.includes('фильтр')) boost += 5;
+  if (/дизайн-систем|дизайн главн|дизайн каталог|дизайн карточ|ui|ux|шапк|футер|checkout|кабинет|корзин/.test(normalized) && block.includes('дизайн')) boost += 5;
+  if (/верстк|адаптив|frontend|фронт|кроссбраузер|мобильн меню|бургер/.test(normalized) && block.includes('верстка')) boost += 5;
+  if (/crm|email|рассыл|wishlist|избран|сравнен|лояльност|отзыв|рейтинг|ожидания/.test(normalized) && block.includes('crm')) boost += 5;
+  if (/главн|город|cookie|баннер|реферал|simaland|цвет|размер/.test(normalized) && block.includes('главная')) boost += 5;
+  if (/excel|pdf|word|кп|юрлиц|валют|конкурент|безопасност|2fa|rate/.test(normalized) && block.includes('бизнес')) boost += 5;
+  if (/мобильн|приложен|app store|google play|push|dark|темн|robokassa/.test(normalized) && block.includes('мобильное')) boost += 5;
+
+  return boost;
+}
+
+function getVelorDirectBoost(text, item) {
+  const normalized = normalizeText(text);
+  const task = normalizeText(item.task);
+  let boost = 0;
+
+  const pairs = [
+    [/cloudflare|cdn/, /cloudflare|cdn/],
+    [/redis|opcache|кэш|cache/, /redis|opcache|кэш/],
+    [/lazy|loading|ленив/, /lazy loading/],
+    [/минификац|css|js|html|tree/, /минификац|tree-shaking/],
+    [/шрифт/, /шрифт/],
+    [/индекс|индексы бд/, /индексы бд/],
+    [/бэкап|backup/, /автобэкап/],
+    [/uptime|логирован|404|500|telegram-алерт/, /uptimerobot|404|500|telegram/],
+    [/sitemap/, /sitemap/],
+    [/robots/, /robots/],
+    [/canonical/, /canonical/],
+    [/json-ld|schema|product|breadcrumb|organization/, /json-ld|product|breadcrumblist|organization/],
+    [/чпу|алиас|301|редирект/, /чпу|301|редирект/],
+    [/опечат|транслит|синоним|fuzzy/, /fuzzy|опечат|транслит|синоним/],
+    [/артикул|штрихкод|атрибут/, /артикул|штрихкод|атрибут/],
+    [/autocomplete|подсказ/, /autocomplete|подсказ/],
+    [/аналитик.*запрос|что ищут/, /аналитика запрос/],
+    [/поиск.*фото|фото.*поиск|камер/, /поиск по фото|камер/],
+    [/голосов.*поиск|голос/, /голосовой поиск/],
+    [/фасет|фильтр.*выдач/, /фасет/],
+    [/ранжирован/, /ранжирован/],
+    [/нулев.*результ|нет результатов/, /нулевом результате/],
+    [/ajax.*фильтр|фильтр.*ajax/, /ajax-эндпоинт фильтрации/],
+    [/url.*фильтр|фильтр.*url/, /синхронизация фильтров с url/],
+    [/range|slider|цена/, /range slider/],
+    [/drawer|мобильн.*фильтр/, /мобильный drawer/],
+    [/wishlist|избран/, /wishlist|избран/],
+    [/сравнен/, /сравнение/],
+    [/брошен.*корзин/, /брошенная корзина/],
+    [/лояльност|бонус/, /программа лояльности/],
+    [/отзыв|рейтинг/, /отзывы|рейтинг/],
+    [/excel/, /excel/],
+    [/pdf|word|кп|коммерческ/, /pdf|word|кп/],
+    [/юрлиц|юрлицо|реквизит/, /юрлиц/],
+    [/мультивалют|валют/, /мультивалюта/],
+    [/безопасност|https|rate|2fa/, /безопасность|https|2fa|rate/],
+    [/push/, /push/],
+    [/app store|google play|публикац/, /app store|google play|публикац/],
+    [/robokassa|оплата/, /robokassa|оплата/],
+  ];
+
+  pairs.forEach(([needle, target]) => {
+    if (needle.test(normalized) && target.test(task)) {
+      boost += 14;
+    }
+  });
+
+  return boost;
+}
+
+function scoreVelorItem(text, item) {
+  const normalized = normalizeText(text);
+  const haystack = normalizeText(`${item.blockTitle} ${item.task} ${item.ownerExplanation} ${item.scope}`);
+  const tokens = getSearchTokens(normalized);
+  let score = getVelorBlockBoost(normalized, item) + getVelorDirectBoost(normalized, item);
+
+  if (haystack.includes(normalized) || normalized.includes(normalizeText(item.task))) {
+    score += 20;
+  }
+
+  tokens.forEach((token) => {
+    if (haystack.includes(token)) {
+      score += token.length > 5 ? 3 : 1;
+    }
+  });
+
+  return score;
+}
+
+function getVelorAllowedBlocks(text) {
+  const normalized = normalizeText(text);
+  const blocks = [];
+
+  if (/скорост|ускор|производитель|cloudflare|redis|opcache|cdn|lazy|минификац|кэш|cache|шрифт|бэкап|backup|uptime/.test(normalized)) blocks.push('Производительность и инфраструктура');
+  if (/seo|сео|sitemap|robots|canonical|json-ld|чпу|редирект|404|301|302|мета|title|description|перелинков/.test(normalized)) blocks.push('Техническое SEO');
+  if (/поиск|meili|autocomplete|опечат|транслит|синоним|артикул|штрихкод|голос|по фото|камер/.test(normalized)) blocks.push('Поиск');
+  if (/каталог|категор|карточк товар|рекоменд|часто покуп|просмотр|аналог|страна происх/.test(normalized)) blocks.push('Каталог');
+  if (/фильтр|filter|ajax|range slider|drawer|пагинац|сброс/.test(normalized)) blocks.push('Фильтр');
+  if (/дизайн-систем|дизайн главн|дизайн каталог|дизайн карточ|ui|ux|checkout|личный кабинет|шапк|футер/.test(normalized)) blocks.push('Дизайн');
+  if (/верстк|адаптив|frontend|фронт|кроссбраузер|бургер|мобильн меню/.test(normalized)) blocks.push('Адаптация и верстка');
+  if (/crm|email|рассыл|wishlist|избран|сравнен|лояльност|отзыв|рейтинг|лист ожидания/.test(normalized)) blocks.push('Маркетинг / CRM');
+  if (/cookie|выбор город|баннер|реферал|simaland|главн.*сценар/.test(normalized)) blocks.push('Главная и сценарии входа');
+  if (/excel|pdf|word|кп|юрлиц|мультивалют|конкурент|безопасност|2fa|rate/.test(normalized)) blocks.push('Бизнес-функции');
+  if (/мобильн прилож|приложение|app store|google play|push|robokassa|dark|темн.*тема/.test(normalized)) blocks.push('Мобильное приложение');
+
+  return unique(blocks);
+}
+
+function findVelorMatches(text, limit = 7) {
+  const normalized = normalizeText(text);
+  const allowedBlocks = getVelorAllowedBlocks(normalized);
+
+  if (!normalized || normalized.length < 4) {
+    return [];
+  }
+
+  return VELOR_ITEMS.map((item) => ({
+    ...item,
+    score: scoreVelorItem(normalized, item),
+  }))
+    .filter((item) => !allowedBlocks.length || allowedBlocks.includes(item.blockTitle))
+    .filter((item) => item.score >= 8)
+    .sort((a, b) => b.score - a.score || b.priceKzt - a.priceKzt)
+    .slice(0, limit);
+}
+
+function shouldUseVelorPricing(text) {
+  const normalized = normalizeText(text);
+
+  return /cloudflare|redis|opcache|cdn|lazy|sitemap|robots|canonical|json-ld|чпу|редирект|meili|поиск|autocomplete|опечат|транслит|артикул|штрихкод|каталог|карточк товар|фильтр|ajax|range slider|drawer|crm|рассыл|wishlist|избран|сравнен|лояльност|отзыв|excel|pdf|word|кп|юрлиц|мультивалюта|безопасност|2fa|мобильн прилож|app store|google play|push|robokassa|скорост|ускор|производитель|техническ(ое|ий) seo|seo|сео|оптимизац|верстк|кроссбраузер|минификац/.test(
+    normalized
+  );
+}
+
+function summarizeVelorMatches(matches) {
+  if (!matches.length) {
+    return null;
+  }
+
+  const total = matches.reduce((sum, item) => sum + item.priceKzt, 0);
+  const blocks = unique(matches.map((item) => item.blockTitle));
+
+  return {
+    totalKzt: total,
+    minKzt: total,
+    maxKzt: Math.round(total * 1.2),
+    blocks,
+    items: matches.map((item) => ({
+      id: item.id,
+      blockTitle: item.blockTitle,
+      task: item.task,
+      explanation: item.ownerExplanation,
+      scope: item.scope,
+      timeline: item.timeline,
+      priceKzt: item.priceKzt,
+    })),
+    roadmap: VELOR_PRICING.recommendedRoadmap,
+  };
 }
 
 function scoreItem(text, item) {
@@ -710,6 +939,10 @@ function getComplexity(service, addons, text) {
     return { level: 'помесячная работа', reasons: ['формат зависит от загрузки, стека и зоны ответственности'] };
   }
 
+  if (service.id === 'module-work') {
+    return { level: 'модульная доработка', reasons: ['стоимость считается по отдельным пунктам прайса'] };
+  }
+
   if (['ecommerce', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
     reasons.push('есть backend, база данных или бизнес-логика');
   }
@@ -829,8 +1062,10 @@ function estimateFromMessages(messages) {
   const text = userMessages.map((message) => message.content).join(' ');
   const normalized = normalizeText(text);
   const pageCount = parsePageCount(normalized);
+  const velorMatches = shouldUseVelorPricing(normalized) ? findVelorMatches(normalized) : [];
+  const velorSummary = summarizeVelorMatches(velorMatches);
   const serviceMatches = filterServiceMatches(findMatches(normalized, SERVICES), normalized, pageCount);
-  const service = serviceMatches[0] || null;
+  const service = velorSummary ? MODULE_SERVICE : serviceMatches[0] || null;
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
@@ -840,12 +1075,12 @@ function estimateFromMessages(messages) {
   const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
-  const min = service ? service.min + addonMin : null;
-  const max = service ? service.max + addonMax : null;
+  const min = velorSummary ? velorSummary.minKzt : service ? service.min + addonMin : null;
+  const max = velorSummary ? velorSummary.maxKzt : service ? service.max + addonMax : null;
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
-  const ready = Boolean(service && (isHiring || budget || (!shouldAskFirst && missingQuestions.length <= 2)));
-  const phase = isHiring ? 'hiring_guidance' : budget ? 'budget_guidance' : ready ? 'estimate_allowed' : 'questions_only';
+  const ready = Boolean(service && (velorSummary || isHiring || budget || (!shouldAskFirst && missingQuestions.length <= 2)));
+  const phase = isHiring ? 'hiring_guidance' : budget ? 'budget_guidance' : velorSummary ? 'module_pricing' : ready ? 'estimate_allowed' : 'questions_only';
 
   return {
     service,
@@ -854,6 +1089,8 @@ function estimateFromMessages(messages) {
     pageCount,
     budget,
     budgetPlan,
+    velorMatches,
+    velorSummary,
     min,
     max,
     ready,
@@ -887,6 +1124,32 @@ function buildQuestionsReply(estimate, language) {
 
 function buildEstimateReply(estimate, language) {
   const isRu = language !== 'en';
+
+  if (estimate.velorSummary) {
+    const items = estimate.velorSummary.items
+      .slice(0, 5)
+      .map((item) => `- ${item.task}: ${formatPrice(item.priceKzt)}, ${item.timeline}. ${item.explanation}`)
+      .join('\n');
+    const total = `${formatPrice(estimate.velorSummary.minKzt)} - ${formatPrice(estimate.velorSummary.maxKzt)}`;
+    const blocks = estimate.velorSummary.blocks.join(', ');
+
+    if (!isRu) {
+      return [
+        `I found this in the modular price list. The closest area is: ${blocks}.`,
+        `Relevant modules:\n${items}`,
+        `Rough range for these selected modules: ${total}.`,
+        `I would prioritize it this way: first the items that affect speed, SEO and purchase flow, then design/CRM, and mobile app work as a separate phase.`,
+      ].join('\n\n');
+    }
+
+    return [
+      `По модульному прайсу это ближе всего к блоку: ${blocks}.`,
+      `Что я бы заложил в оценку:\n${items}`,
+      `Ориентир по этим пунктам: ${total}.`,
+      `По порядку работ я бы шел так: сначала то, что влияет на скорость, SEO и путь к покупке; затем поиск, дизайн и CRM; мобильное приложение - отдельным этапом.`,
+    ].join('\n\n');
+  }
+
   const addons = estimate.addons.length ? estimate.addons.map((item) => item.label).join(', ') : null;
   const tech = estimate.technologies.length ? estimate.technologies.join(', ') : estimate.service.label;
   const included = estimate.service.includes.slice(0, 4).join(', ');
@@ -925,6 +1188,39 @@ function buildBudgetReply(estimate, language) {
       : 'depends on the project type';
   const canOffer = formatList(plan.canOffer.slice(0, 4));
   const notIncluded = formatList(plan.notIncluded.slice(0, 4));
+
+  if (estimate.velorSummary) {
+    const affordableItems = [];
+    let runningTotal = 0;
+
+    estimate.velorSummary.items.forEach((item) => {
+      if (runningTotal + item.priceKzt <= plan.budget) {
+        affordableItems.push(item);
+        runningTotal += item.priceKzt;
+      }
+    });
+
+    const selected = affordableItems.length
+      ? affordableItems.map((item) => `- ${item.task}: ${formatPrice(item.priceKzt)}, ${item.timeline}`).join('\n')
+      : '- короткий аудит и приоритизация задач перед разработкой';
+    const totalText = affordableItems.length ? formatPrice(runningTotal) : null;
+
+    if (!isRu) {
+      return [
+        `Budget ${budget} is clear. From the modular price list, the full selected set is around ${expectedRange}.`,
+        `Inside the current budget I would start with:\n${selected}`,
+        totalText ? `This first step is about ${totalText}.` : 'This should be treated as a preparation step, not a full implementation.',
+        'The rest should go into the next phase so quality does not collapse.',
+      ].join('\n\n');
+    }
+
+    return [
+      `Бюджет ${budget} понял. По модульному прайсу полный выбранный набор тянет примерно на ${expectedRange}.`,
+      `Внутри текущего бюджета я бы начал с этого:\n${selected}`,
+      totalText ? `Такой первый этап выходит примерно на ${totalText}.` : 'Это лучше подать как подготовительный этап, а не как полноценную разработку.',
+      'Остальные пункты лучше вынести во второй этап, чтобы не просесть по качеству.',
+    ].join('\n\n');
+  }
 
   if (!isRu) {
     if (plan.fit === 'within_estimate' || plan.fit === 'above_estimate') {
@@ -1015,6 +1311,35 @@ function buildFallbackReply(messages, language) {
   return buildEstimateReply(estimate, language);
 }
 
+function buildPromptEstimate(estimate) {
+  return {
+    service: estimate.service?.label || null,
+    minKzt: estimate.min,
+    maxKzt: estimate.max,
+    ready: estimate.ready,
+    phase: estimate.phase,
+    budgetKzt: estimate.budget,
+    budgetFit: estimate.budgetPlan?.fit || null,
+    complexity: estimate.complexity.level,
+    technologies: estimate.technologies,
+    pageCount: estimate.pageCount,
+    addons: estimate.addons.map((addon) => ({
+      label: addon.label,
+      minKzt: addon.min,
+      maxKzt: addon.max,
+    })),
+    modularPricing: estimate.velorSummary
+      ? {
+          blocks: estimate.velorSummary.blocks,
+          totalKzt: estimate.velorSummary.totalKzt,
+          rangeKzt: [estimate.velorSummary.minKzt, estimate.velorSummary.maxKzt],
+          roadmap: estimate.velorSummary.roadmap,
+          matchedItems: estimate.velorSummary.items,
+        }
+      : null,
+  };
+}
+
 function buildInstructions(estimate, language) {
   const isRu = language !== 'en';
 
@@ -1036,6 +1361,7 @@ Pricing gate:
 - If phase is "estimate_allowed", give a realistic range using only the provided pricing data, then explain the task characteristics: platform/stack, complexity, modules, timeline and what is included.
 - If phase is "budget_guidance", the user already gave a budget. Do not ignore it. Compare the budget with the price list, explain what can fit into that amount, what cannot fit, and suggest the optimal reduced scope or phased plan.
 - If phase is "hiring_guidance", explain monthly hiring/retainer options from hiringOptions and ask only the missing details needed to choose a format.
+- If phase is "module_pricing", use matched modular pricing items. Mention the module names, client-facing value, KZT price and timeline. Do not mention source RUB prices.
 - If Node.js, PostgreSQL, backend, auth, server setup, payment or integrations are mentioned, treat the task as more complex than a simple site.
 - For a one-page WordPress portfolio, do not use the broad generic WordPress range if it is simple; use the specific WordPress portfolio service and add modules only when the user mentions them.
 - For low budgets like 30,000 KZT, never promise a full 3-4 page site. Offer a micro-start: brief, structure, one simple page/draft, setup or phased launch.
@@ -1046,7 +1372,16 @@ Dias offer:
 - Product-minded UI, backend, integrations, admin panels and AI assistants.
 
 Full price list and current estimate, KZT:
-${JSON.stringify({ priceList: PRICE_LIST, currentEstimate: estimate, suggestedQuestions: estimate.missingQuestions }, null, 2)}
+${JSON.stringify(
+  {
+    priceList: PRICE_LIST,
+    currentEstimate: buildPromptEstimate(estimate),
+    suggestedQuestions: estimate.missingQuestions,
+    styleExamples: CONVERSATION_EXAMPLES,
+  },
+  null,
+  2
+)}
 `.trim();
 }
 
@@ -1103,14 +1438,42 @@ function isBudgetGuidanceUseful(text, estimate) {
   return hasBudgetContext;
 }
 
+function isHiringGuidanceUseful(text, estimate) {
+  if (estimate.phase !== 'hiring_guidance') {
+    return true;
+  }
+
+  const normalized = normalizeText(text);
+  return /месяц|час|частич|retainer|full|полная|разработчик|команд/.test(normalized);
+}
+
+function isModulePricingUseful(text, estimate) {
+  if (estimate.phase !== 'module_pricing') {
+    return true;
+  }
+
+  const normalized = normalizeText(text);
+  return /модул|прайс|ориентир|срок|задач|работ|этап/.test(normalized) && containsPrice(text);
+}
+
+function isReplySafe(text, estimate) {
+  const cleaned = cleanAssistantReply(text);
+
+  if (!cleaned || cleaned.length > 2600) {
+    return false;
+  }
+
+  if (/₽|руб|rub/i.test(cleaned)) {
+    return false;
+  }
+
+  return isBudgetGuidanceUseful(cleaned, estimate) && isHiringGuidanceUseful(cleaned, estimate) && isModulePricingUseful(cleaned, estimate);
+}
+
 async function callGemini(messages, estimate, language) {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
   if (!apiKey) {
-    return null;
-  }
-
-  if (estimate.phase === 'budget_guidance' || estimate.phase === 'hiring_guidance') {
     return null;
   }
 
@@ -1127,9 +1490,9 @@ async function callGemini(messages, estimate, language) {
       },
       contents: toGeminiContents(messages),
       generationConfig: {
-        temperature: 0.62,
+        temperature: 0.68,
         topP: 0.9,
-        maxOutputTokens: 760,
+        maxOutputTokens: 1100,
       },
     }),
   });
@@ -1150,7 +1513,7 @@ async function callGemini(messages, estimate, language) {
     return null;
   }
 
-  if (!isBudgetGuidanceUseful(outputText, estimate)) {
+  if (!isReplySafe(outputText, estimate)) {
     return null;
   }
 
@@ -1189,6 +1552,12 @@ module.exports = async function handler(req, res) {
         budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
+        modules: estimate.velorSummary?.items?.map((item) => ({
+          id: item.id,
+          task: item.task,
+          priceKzt: item.priceKzt,
+          timeline: item.timeline,
+        })) || [],
         summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
       },
       mode: aiReply ? 'gemini' : 'local-estimator',
@@ -1212,6 +1581,12 @@ module.exports = async function handler(req, res) {
         budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
+        modules: estimate.velorSummary?.items?.map((item) => ({
+          id: item.id,
+          task: item.task,
+          priceKzt: item.priceKzt,
+          timeline: item.timeline,
+        })) || [],
         summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
       },
       error: 'AI service is temporarily unavailable',
