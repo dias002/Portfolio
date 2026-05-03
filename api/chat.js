@@ -502,6 +502,24 @@ function findMatches(text, items) {
     .map((match) => match.item);
 }
 
+function filterServiceMatches(matches, text, pageCount) {
+  const normalized = normalizeText(text);
+  const isExplicitOnePage = /одностранич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
+  const isPortfolio = /портфолио|portfolio/.test(normalized);
+
+  return matches.filter((service) => {
+    if (service.id !== 'wordpress-onepage-portfolio') {
+      return true;
+    }
+
+    if (pageCount && pageCount > 1) {
+      return false;
+    }
+
+    return isExplicitOnePage || isPortfolio;
+  });
+}
+
 function parsePageCount(text) {
   const normalized = normalizeText(text);
 
@@ -810,12 +828,12 @@ function estimateFromMessages(messages) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const text = userMessages.map((message) => message.content).join(' ');
   const normalized = normalizeText(text);
-  const serviceMatches = findMatches(normalized, SERVICES);
+  const pageCount = parsePageCount(normalized);
+  const serviceMatches = filterServiceMatches(findMatches(normalized, SERVICES), normalized, pageCount);
   const service = serviceMatches[0] || null;
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
-  const pageCount = parsePageCount(normalized);
   const budget = parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
   const projectRequest = isProjectRequest(normalized);
@@ -1006,6 +1024,8 @@ You are Dias's website assistant for potential clients. Speak ${isRu ? 'Russian'
 Core behavior:
 - Write like a calm human consultant, not a scripted FAQ.
 - Be concise and practical.
+- Output plain text only. Do not use Markdown formatting, no **bold**, no * bullet points, no headings, no tables, no code blocks.
+- For lists use either "1. ..." numbered lines or "- ..." lines only.
 - Help estimate websites, WordPress/Tilda, ecommerce, Node.js, PostgreSQL, backend, CMS, integrations, AI-bot work and monthly developer hiring.
 - Never say a price is final. Use "ориентир", "примерно", "вилка" / "rough range".
 - If the client seems ready, suggest continuing in Telegram: https://t.me/Berliyn_h.
@@ -1041,6 +1061,22 @@ function extractGeminiText(data) {
   return data.candidates?.[0]?.content?.parts
     ?.map((part) => part.text || '')
     .join('')
+    .trim();
+}
+
+function cleanAssistantReply(text) {
+  return String(text || '')
+    .replace(/\r\n/g, '\n')
+    .replace(/\*\*([^*\n]+)\*\*/g, '$1')
+    .replace(/__([^_\n]+)__/g, '$1')
+    .replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?;:]|$)/g, '$1$2')
+    .replace(/(^|\s)_([^_\n]+)_(?=\s|[.,!?;:]|$)/g, '$1$2')
+    .replace(/^\s*[*•]\s+/gm, '- ')
+    .replace(/^\s{0,3}#{1,6}\s+/gm, '')
+    .replace(/`([^`\n]+)`/g, '$1')
+    .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '$1: $2')
+    .replace(/[ \t]+\n/g, '\n')
+    .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
@@ -1118,7 +1154,7 @@ async function callGemini(messages, estimate, language) {
     return null;
   }
 
-  return outputText;
+  return cleanAssistantReply(outputText);
 }
 
 module.exports = async function handler(req, res) {
@@ -1139,7 +1175,7 @@ module.exports = async function handler(req, res) {
 
     const estimate = estimateFromMessages(messages);
     const aiReply = await callGemini(messages, estimate, language);
-    const reply = aiReply || buildFallbackReply(messages, language);
+    const reply = cleanAssistantReply(aiReply || buildFallbackReply(messages, language));
 
     return res.status(200).json({
       reply,
@@ -1165,7 +1201,7 @@ module.exports = async function handler(req, res) {
     const estimate = estimateFromMessages(messages);
 
     return res.status(200).json({
-      reply: buildFallbackReply(messages, language),
+      reply: cleanAssistantReply(buildFallbackReply(messages, language)),
       estimate: {
         service: estimate.service?.label || null,
         min: estimate.ready ? estimate.min : null,
