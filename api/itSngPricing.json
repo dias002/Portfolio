@@ -1,0 +1,3701 @@
+{
+  "source": "prais_list_IT_SNG_WordPress_Tilda.docx",
+  "sourceCurrency": "KZT",
+  "updatedAt": "2026-05-03T17:07:49.744Z",
+  "sections": [
+    {
+      "title": "2. Самый продаваемый короткий прайс",
+      "itemCount": 18
+    },
+    {
+      "title": "4.1. Сайты с нуля",
+      "itemCount": 16
+    },
+    {
+      "title": "4.2. CMS: WordPress",
+      "itemCount": 18
+    },
+    {
+      "title": "4.3. CMS: Tilda",
+      "itemCount": 16
+    },
+    {
+      "title": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "itemCount": 9
+    },
+    {
+      "title": "4.5. Telegram-боты",
+      "itemCount": 14
+    },
+    {
+      "title": "4.6. AI-боты и ИИ-ассистенты",
+      "itemCount": 11
+    },
+    {
+      "title": "4.7. Автоматизация",
+      "itemCount": 10
+    },
+    {
+      "title": "4.8. Парсеры и сбор данных",
+      "itemCount": 9
+    },
+    {
+      "title": "4.9. Backend и API",
+      "itemCount": 9
+    },
+    {
+      "title": "4.10. Админ-панели и личные кабинеты",
+      "itemCount": 7
+    },
+    {
+      "title": "4.11. MVP / SaaS / Web-приложения",
+      "itemCount": 8
+    },
+    {
+      "title": "4.12. Мобильные приложения",
+      "itemCount": 8
+    },
+    {
+      "title": "4.13. Desktop-программы",
+      "itemCount": 7
+    },
+    {
+      "title": "4.14. Дизайн и прототипы",
+      "itemCount": 7
+    },
+    {
+      "title": "4.15. Деплой новых проектов",
+      "itemCount": 7
+    },
+    {
+      "title": "4.16. Базы данных",
+      "itemCount": 5
+    },
+    {
+      "title": "4.17. Обучающие и учебные проекты",
+      "itemCount": 4
+    }
+  ],
+  "items": [
+    {
+      "id": "it-sng-001",
+      "order": 1,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Сайт-визитка",
+      "stack": "HTML/CSS/JS, WordPress, Tilda",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "от 40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сайтвизитка",
+        "html",
+        "css",
+        "wordpress",
+        "tilda"
+      ]
+    },
+    {
+      "id": "it-sng-002",
+      "order": 2,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Landing page",
+      "stack": "HTML/CSS/JS, React, WordPress, Tilda",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "от 50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "html",
+        "css",
+        "react",
+        "wordpress",
+        "tilda"
+      ]
+    },
+    {
+      "id": "it-sng-003",
+      "order": 3,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Landing page с заявками",
+      "stack": "HTML/CSS/JS, Telegram API, CMS",
+      "minKzt": 100000,
+      "maxKzt": 100000,
+      "priceText": "от 100 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "заявками",
+        "html",
+        "css",
+        "telegram",
+        "api",
+        "cms"
+      ]
+    },
+    {
+      "id": "it-sng-004",
+      "order": 4,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Многостраничный сайт",
+      "stack": "React/Next.js, WordPress, Tilda",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "от 120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "многостраничный",
+        "сайт",
+        "react",
+        "next",
+        "wordpress",
+        "tilda"
+      ]
+    },
+    {
+      "id": "it-sng-005",
+      "order": 5,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Корпоративный сайт",
+      "stack": "React/Next.js, WordPress",
+      "minKzt": 170000,
+      "maxKzt": 170000,
+      "priceText": "от 170 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "корпоративный",
+        "сайт",
+        "react",
+        "next",
+        "wordpress"
+      ]
+    },
+    {
+      "id": "it-sng-006",
+      "order": 6,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Интернет-магазин",
+      "stack": "Next.js, WooCommerce, Tilda Store",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "от 290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интернетмагазин",
+        "next",
+        "woocommerce",
+        "tilda",
+        "store"
+      ]
+    },
+    {
+      "id": "it-sng-007",
+      "order": 7,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "WordPress-сайт",
+      "stack": "WordPress, Elementor/блоки, WooCommerce",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "от 50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpressсайт",
+        "wordpress",
+        "elementor",
+        "блоки",
+        "woocommerce"
+      ]
+    },
+    {
+      "id": "it-sng-008",
+      "order": 8,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Tilda-сайт",
+      "stack": "Tilda, Zero Block, формы, каталог",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "от 20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tildaсайт",
+        "tilda",
+        "zero",
+        "block",
+        "формы",
+        "каталог"
+      ]
+    },
+    {
+      "id": "it-sng-009",
+      "order": 9,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Telegram-бот",
+      "stack": "Python aiogram / Node.js Telegraf",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "от 25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "telegramбот",
+        "python",
+        "aiogram",
+        "node",
+        "telegraf"
+      ]
+    },
+    {
+      "id": "it-sng-010",
+      "order": 10,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Бот для заявок",
+      "stack": "Python/Node.js + Telegram API",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "от 90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "для",
+        "заявок",
+        "python",
+        "node",
+        "telegram",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-011",
+      "order": 11,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Бот с базой данных",
+      "stack": "Python/Node.js + SQLite/PostgreSQL",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "от 140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "базой",
+        "данных",
+        "python",
+        "node",
+        "sqlite",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-012",
+      "order": 12,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "AI-бот",
+      "stack": "Python/Node.js + OpenAI API",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "от 190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "python",
+        "node",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-013",
+      "order": 13,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Парсер",
+      "stack": "Python + BeautifulSoup/Scrapy/Playwright",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "от 20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "python",
+        "beautifulsoup",
+        "scrapy",
+        "playwright"
+      ]
+    },
+    {
+      "id": "it-sng-014",
+      "order": 14,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Автоматизация",
+      "stack": "Python / Google Apps Script / API",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "от 25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматизация",
+        "python",
+        "google",
+        "apps",
+        "script",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-015",
+      "order": 15,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Backend/API",
+      "stack": "FastAPI / Node.js + PostgreSQL",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "от 90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "backend",
+        "api",
+        "fastapi",
+        "node",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-016",
+      "order": 16,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Админ-панель",
+      "stack": "React + Python/Node.js",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "от 140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "админпанель",
+        "react",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-017",
+      "order": 17,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "Мобильное приложение",
+      "stack": "Flutter / React Native",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "от 240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "мобильное",
+        "приложение",
+        "flutter",
+        "react",
+        "native"
+      ]
+    },
+    {
+      "id": "it-sng-018",
+      "order": 18,
+      "section": "2. Самый продаваемый короткий прайс",
+      "title": "MVP / web-сервис",
+      "stack": "Next.js + backend + DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "от 490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "mvp",
+        "webсервис",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-019",
+      "order": 19,
+      "section": "4.1. Сайты с нуля",
+      "title": "Мини-сайт на 1 экран",
+      "stack": "HTML, CSS, JavaScript",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "минисайт",
+        "экран",
+        "html",
+        "css",
+        "javascript"
+      ]
+    },
+    {
+      "id": "it-sng-020",
+      "order": 20,
+      "section": "4.1. Сайты с нуля",
+      "title": "Простой сайт-визитка",
+      "stack": "HTML, CSS, JavaScript",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "сайтвизитка",
+        "html",
+        "css",
+        "javascript"
+      ]
+    },
+    {
+      "id": "it-sng-021",
+      "order": 21,
+      "section": "4.1. Сайты с нуля",
+      "title": "Сайт-визитка до 5 блоков",
+      "stack": "HTML, CSS, JavaScript",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сайтвизитка",
+        "блоков",
+        "html",
+        "css",
+        "javascript"
+      ]
+    },
+    {
+      "id": "it-sng-022",
+      "order": 22,
+      "section": "4.1. Сайты с нуля",
+      "title": "Landing page простой",
+      "stack": "HTML, CSS, JavaScript",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "простой",
+        "html",
+        "css",
+        "javascript"
+      ]
+    },
+    {
+      "id": "it-sng-023",
+      "order": 23,
+      "section": "4.1. Сайты с нуля",
+      "title": "Landing page нормальный, адаптивный",
+      "stack": "HTML, CSS, JS / React",
+      "minKzt": 80000,
+      "maxKzt": 80000,
+      "priceText": "80 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "нормальный",
+        "адаптивный",
+        "html",
+        "css",
+        "react"
+      ]
+    },
+    {
+      "id": "it-sng-024",
+      "order": 24,
+      "section": "4.1. Сайты с нуля",
+      "title": "Landing page с формой заявки в Telegram",
+      "stack": "HTML, CSS, JS, Telegram API",
+      "minKzt": 100000,
+      "maxKzt": 100000,
+      "priceText": "100 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "формой",
+        "заявки",
+        "telegram",
+        "html",
+        "css",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-025",
+      "order": 25,
+      "section": "4.1. Сайты с нуля",
+      "title": "Landing page с уникальным дизайном",
+      "stack": "React / Next.js",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "landing",
+        "page",
+        "уникальным",
+        "дизайном",
+        "react",
+        "next"
+      ]
+    },
+    {
+      "id": "it-sng-026",
+      "order": 26,
+      "section": "4.1. Сайты с нуля",
+      "title": "Личный сайт / портфолио",
+      "stack": "HTML, CSS, JS / React",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "личный",
+        "сайт",
+        "портфолио",
+        "html",
+        "css",
+        "react"
+      ]
+    },
+    {
+      "id": "it-sng-027",
+      "order": 27,
+      "section": "4.1. Сайты с нуля",
+      "title": "Сайт для малого бизнеса",
+      "stack": "React / Next.js",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сайт",
+        "для",
+        "малого",
+        "бизнеса",
+        "react",
+        "next"
+      ]
+    },
+    {
+      "id": "it-sng-028",
+      "order": 28,
+      "section": "4.1. Сайты с нуля",
+      "title": "Многостраничный сайт 3–5 страниц",
+      "stack": "React / Next.js",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "многостраничный",
+        "сайт",
+        "35",
+        "страниц",
+        "react",
+        "next"
+      ]
+    },
+    {
+      "id": "it-sng-029",
+      "order": 29,
+      "section": "4.1. Сайты с нуля",
+      "title": "Корпоративный сайт простой",
+      "stack": "React / Next.js",
+      "minKzt": 170000,
+      "maxKzt": 170000,
+      "priceText": "170 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "корпоративный",
+        "сайт",
+        "простой",
+        "react",
+        "next"
+      ]
+    },
+    {
+      "id": "it-sng-030",
+      "order": 30,
+      "section": "4.1. Сайты с нуля",
+      "title": "Корпоративный сайт с формами и админкой",
+      "stack": "Next.js + Node.js / Python",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "корпоративный",
+        "сайт",
+        "формами",
+        "админкой",
+        "next",
+        "node",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-031",
+      "order": 31,
+      "section": "4.1. Сайты с нуля",
+      "title": "Сайт-каталог без оплаты",
+      "stack": "React / Next.js + DB",
+      "minKzt": 200000,
+      "maxKzt": 200000,
+      "priceText": "200 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сайткаталог",
+        "без",
+        "оплаты",
+        "react",
+        "next"
+      ]
+    },
+    {
+      "id": "it-sng-032",
+      "order": 32,
+      "section": "4.1. Сайты с нуля",
+      "title": "Интернет-магазин простой",
+      "stack": "Next.js + Node.js / Python + DB",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интернетмагазин",
+        "простой",
+        "next",
+        "node",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-033",
+      "order": 33,
+      "section": "4.1. Сайты с нуля",
+      "title": "Интернет-магазин с корзиной",
+      "stack": "Next.js + backend + DB",
+      "minKzt": 350000,
+      "maxKzt": 350000,
+      "priceText": "350 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интернетмагазин",
+        "корзиной",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-034",
+      "order": 34,
+      "section": "4.1. Сайты с нуля",
+      "title": "Интернет-магазин с оплатой",
+      "stack": "Next.js + backend + платежный API",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интернетмагазин",
+        "оплатой",
+        "next",
+        "backend",
+        "платежный",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-035",
+      "order": 35,
+      "section": "4.2. CMS: WordPress",
+      "title": "Новый WordPress-сайт по готовой теме",
+      "stack": "WordPress + тема + базовая настройка",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "новый",
+        "wordpressсайт",
+        "готовой",
+        "теме",
+        "wordpress",
+        "тема",
+        "базовая",
+        "настройка"
+      ]
+    },
+    {
+      "id": "it-sng-036",
+      "order": 36,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress-визитка до 5 блоков",
+      "stack": "WordPress + Elementor/блоки",
+      "minKzt": 60000,
+      "maxKzt": 60000,
+      "priceText": "60 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpressвизитка",
+        "блоков",
+        "wordpress",
+        "elementor",
+        "блоки"
+      ]
+    },
+    {
+      "id": "it-sng-037",
+      "order": 37,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress Landing page",
+      "stack": "WordPress + Elementor / Gutenberg",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "landing",
+        "page",
+        "elementor",
+        "gutenberg"
+      ]
+    },
+    {
+      "id": "it-sng-038",
+      "order": 38,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress Landing page с формой заявки",
+      "stack": "WordPress + формы + Telegram/email",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "landing",
+        "page",
+        "формой",
+        "заявки",
+        "формы",
+        "telegram",
+        "email"
+      ]
+    },
+    {
+      "id": "it-sng-039",
+      "order": 39,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress сайт 3–5 страниц",
+      "stack": "WordPress + тема + адаптив",
+      "minKzt": 110000,
+      "maxKzt": 110000,
+      "priceText": "110 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "сайт",
+        "35",
+        "страниц",
+        "тема",
+        "адаптив"
+      ]
+    },
+    {
+      "id": "it-sng-040",
+      "order": 40,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress многостраничный сайт",
+      "stack": "WordPress + Elementor / Gutenberg",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "многостраничный",
+        "сайт",
+        "elementor",
+        "gutenberg"
+      ]
+    },
+    {
+      "id": "it-sng-041",
+      "order": 41,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress корпоративный сайт простой",
+      "stack": "WordPress + роли + страницы + формы",
+      "minKzt": 170000,
+      "maxKzt": 170000,
+      "priceText": "170 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "корпоративный",
+        "сайт",
+        "простой",
+        "роли",
+        "страницы",
+        "формы"
+      ]
+    },
+    {
+      "id": "it-sng-042",
+      "order": 42,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress корпоративный сайт с админкой контента",
+      "stack": "WordPress + кастомные типы записей",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "корпоративный",
+        "сайт",
+        "админкой",
+        "контента",
+        "кастомные",
+        "типы",
+        "записей"
+      ]
+    },
+    {
+      "id": "it-sng-043",
+      "order": 43,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress каталог без оплаты",
+      "stack": "WordPress + каталог/карточки + фильтры",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "каталог",
+        "без",
+        "оплаты",
+        "карточки",
+        "фильтры"
+      ]
+    },
+    {
+      "id": "it-sng-044",
+      "order": 44,
+      "section": "4.2. CMS: WordPress",
+      "title": "WooCommerce магазин простой",
+      "stack": "WordPress + WooCommerce + товары",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "woocommerce",
+        "магазин",
+        "простой",
+        "wordpress",
+        "товары"
+      ]
+    },
+    {
+      "id": "it-sng-045",
+      "order": 45,
+      "section": "4.2. CMS: WordPress",
+      "title": "WooCommerce магазин с корзиной",
+      "stack": "WordPress + WooCommerce + checkout",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "woocommerce",
+        "магазин",
+        "корзиной",
+        "wordpress",
+        "checkout"
+      ]
+    },
+    {
+      "id": "it-sng-046",
+      "order": 46,
+      "section": "4.2. CMS: WordPress",
+      "title": "WooCommerce магазин с оплатой",
+      "stack": "WordPress + WooCommerce + платежный API",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "woocommerce",
+        "магазин",
+        "оплатой",
+        "wordpress",
+        "платежный",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-047",
+      "order": 47,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress + блог/новости",
+      "stack": "WordPress + категории + шаблоны записей",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "блог",
+        "новости",
+        "категории",
+        "шаблоны",
+        "записей"
+      ]
+    },
+    {
+      "id": "it-sng-048",
+      "order": 48,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress сайт с мультиязычностью",
+      "stack": "WordPress + language plugin",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "сайт",
+        "мультиязычностью",
+        "language",
+        "plugin"
+      ]
+    },
+    {
+      "id": "it-sng-049",
+      "order": 49,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress + базовая SEO-настройка нового сайта",
+      "stack": "Title/description, sitemap, robots, ЧПУ",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "базовая",
+        "seoнастройка",
+        "нового",
+        "сайта",
+        "title",
+        "description",
+        "sitemap",
+        "robots",
+        "чпу"
+      ]
+    },
+    {
+      "id": "it-sng-050",
+      "order": 50,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress + подключение аналитики",
+      "stack": "Google Analytics / Яндекс.Метрика",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "подключение",
+        "аналитики",
+        "google",
+        "analytics",
+        "яндекс",
+        "метрика"
+      ]
+    },
+    {
+      "id": "it-sng-051",
+      "order": 51,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress + домен, SSL, хостинг для нового сайта",
+      "stack": "DNS + SSL + установка на хостинг",
+      "minKzt": 35000,
+      "maxKzt": 35000,
+      "priceText": "35 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "домен",
+        "ssl",
+        "хостинг",
+        "для",
+        "нового",
+        "сайта",
+        "dns",
+        "установка"
+      ]
+    },
+    {
+      "id": "it-sng-052",
+      "order": 52,
+      "section": "4.2. CMS: WordPress",
+      "title": "WordPress + обучение клиента управлению сайтом",
+      "stack": "1–2 часа инструкции + мини-гайд",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "wordpress",
+        "обучение",
+        "клиента",
+        "управлению",
+        "сайтом",
+        "12",
+        "часа",
+        "инструкции",
+        "минигайд"
+      ]
+    },
+    {
+      "id": "it-sng-053",
+      "order": 53,
+      "section": "4.3. CMS: Tilda",
+      "title": "Мини-сайт на Tilda",
+      "stack": "Tilda, готовые блоки",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "минисайт",
+        "tilda",
+        "готовые",
+        "блоки"
+      ]
+    },
+    {
+      "id": "it-sng-054",
+      "order": 54,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda сайт-визитка",
+      "stack": "Tilda, адаптивные блоки",
+      "minKzt": 30000,
+      "maxKzt": 30000,
+      "priceText": "30 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "сайтвизитка",
+        "адаптивные",
+        "блоки"
+      ]
+    },
+    {
+      "id": "it-sng-055",
+      "order": 55,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda Landing page простой",
+      "stack": "Tilda, готовые блоки",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "landing",
+        "page",
+        "простой",
+        "готовые",
+        "блоки"
+      ]
+    },
+    {
+      "id": "it-sng-056",
+      "order": 56,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda Landing page стандартный",
+      "stack": "Tilda + формы + адаптив",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "landing",
+        "page",
+        "стандартный",
+        "формы",
+        "адаптив"
+      ]
+    },
+    {
+      "id": "it-sng-057",
+      "order": 57,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda Landing page с Zero Block",
+      "stack": "Tilda + Zero Block + адаптив",
+      "minKzt": 80000,
+      "maxKzt": 80000,
+      "priceText": "80 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "landing",
+        "page",
+        "zero",
+        "block",
+        "адаптив"
+      ]
+    },
+    {
+      "id": "it-sng-058",
+      "order": 58,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda многостраничный сайт",
+      "stack": "Tilda, 3–5 страниц",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "многостраничный",
+        "сайт",
+        "35",
+        "страниц"
+      ]
+    },
+    {
+      "id": "it-sng-059",
+      "order": 59,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda сайт для марафона/курса",
+      "stack": "Tilda + формы + страницы уроков/описаний",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "сайт",
+        "для",
+        "марафона",
+        "курса",
+        "формы",
+        "страницы",
+        "уроков",
+        "описаний"
+      ]
+    },
+    {
+      "id": "it-sng-060",
+      "order": 60,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda каталог услуг/товаров",
+      "stack": "Tilda + карточки + фильтры/разделы",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "каталог",
+        "услуг",
+        "товаров",
+        "карточки",
+        "фильтры",
+        "разделы"
+      ]
+    },
+    {
+      "id": "it-sng-061",
+      "order": 61,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda интернет-магазин простой",
+      "stack": "Tilda Store + корзина",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "интернетмагазин",
+        "простой",
+        "store",
+        "корзина"
+      ]
+    },
+    {
+      "id": "it-sng-062",
+      "order": 62,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda интернет-магазин с оплатой",
+      "stack": "Tilda Store + платежный сервис",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "интернетмагазин",
+        "оплатой",
+        "store",
+        "платежный",
+        "сервис"
+      ]
+    },
+    {
+      "id": "it-sng-063",
+      "order": 63,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda квиз/анкета заявки",
+      "stack": "Tilda forms / quiz block",
+      "minKzt": 45000,
+      "maxKzt": 45000,
+      "priceText": "45 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "квиз",
+        "анкета",
+        "заявки",
+        "forms",
+        "quiz",
+        "block"
+      ]
+    },
+    {
+      "id": "it-sng-064",
+      "order": 64,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda + интеграция с Telegram/email",
+      "stack": "Forms + webhook/уведомления",
+      "minKzt": 35000,
+      "maxKzt": 35000,
+      "priceText": "35 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "интеграция",
+        "telegram",
+        "email",
+        "forms",
+        "webhook",
+        "уведомления"
+      ]
+    },
+    {
+      "id": "it-sng-065",
+      "order": 65,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda + интеграция с CRM/Google Sheets",
+      "stack": "Forms + API/интеграции",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "интеграция",
+        "crm",
+        "google",
+        "sheets",
+        "forms",
+        "api",
+        "интеграции"
+      ]
+    },
+    {
+      "id": "it-sng-066",
+      "order": 66,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda + базовая SEO-настройка нового сайта",
+      "stack": "Title/description, sitemap, robots",
+      "minKzt": 30000,
+      "maxKzt": 30000,
+      "priceText": "30 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "базовая",
+        "seoнастройка",
+        "нового",
+        "сайта",
+        "title",
+        "description",
+        "sitemap",
+        "robots"
+      ]
+    },
+    {
+      "id": "it-sng-067",
+      "order": 67,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda + домен и SSL",
+      "stack": "DNS + подключение домена + HTTPS",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "домен",
+        "ssl",
+        "dns",
+        "подключение",
+        "домена",
+        "https"
+      ]
+    },
+    {
+      "id": "it-sng-068",
+      "order": 68,
+      "section": "4.3. CMS: Tilda",
+      "title": "Tilda + обучение клиента управлению сайтом",
+      "stack": "1 час инструкции + мини-гайд",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "tilda",
+        "обучение",
+        "клиента",
+        "управлению",
+        "сайтом",
+        "час",
+        "инструкции",
+        "минигайд"
+      ]
+    },
+    {
+      "id": "it-sng-069",
+      "order": 69,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Подбор CMS под задачу",
+      "stack": "WordPress / Tilda / custom",
+      "minKzt": 15000,
+      "maxKzt": 15000,
+      "priceText": "15 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "подбор",
+        "cms",
+        "под",
+        "задачу",
+        "wordpress",
+        "tilda",
+        "custom"
+      ]
+    },
+    {
+      "id": "it-sng-070",
+      "order": 70,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Настройка структуры страниц нового CMS-сайта",
+      "stack": "WordPress / Tilda",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "настройка",
+        "структуры",
+        "страниц",
+        "нового",
+        "cmsсайта",
+        "wordpress",
+        "tilda"
+      ]
+    },
+    {
+      "id": "it-sng-071",
+      "order": 71,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Наполнение нового сайта до 10 страниц",
+      "stack": "CMS + контент клиента",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "наполнение",
+        "нового",
+        "сайта",
+        "страниц",
+        "cms",
+        "контент",
+        "клиента"
+      ]
+    },
+    {
+      "id": "it-sng-072",
+      "order": 72,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Карточки товаров до 20 шт.",
+      "stack": "WooCommerce / Tilda Store",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "карточки",
+        "товаров",
+        "woocommerce",
+        "tilda",
+        "store"
+      ]
+    },
+    {
+      "id": "it-sng-073",
+      "order": 73,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Форма заявки + уведомление админу",
+      "stack": "CMS + Telegram/email",
+      "minKzt": 30000,
+      "maxKzt": 30000,
+      "priceText": "30 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "форма",
+        "заявки",
+        "уведомление",
+        "админу",
+        "cms",
+        "telegram",
+        "email"
+      ]
+    },
+    {
+      "id": "it-sng-074",
+      "order": 74,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Подключение онлайн-оплаты в новом CMS-проекте",
+      "stack": "CMS + платежный сервис",
+      "minKzt": 80000,
+      "maxKzt": 80000,
+      "priceText": "80 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "подключение",
+        "онлайноплаты",
+        "новом",
+        "cmsпроекте",
+        "cms",
+        "платежный",
+        "сервис"
+      ]
+    },
+    {
+      "id": "it-sng-075",
+      "order": 75,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Интеграция CMS с Google Sheets",
+      "stack": "Forms/API",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интеграция",
+        "cms",
+        "google",
+        "sheets",
+        "forms",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-076",
+      "order": 76,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Интеграция CMS с CRM",
+      "stack": "Forms/API/webhook",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интеграция",
+        "cms",
+        "crm",
+        "forms",
+        "api",
+        "webhook"
+      ]
+    },
+    {
+      "id": "it-sng-077",
+      "order": 77,
+      "section": "4.4. Дополнительные CMS-услуги для новых проектов",
+      "title": "Мини-гайд для клиента по CMS",
+      "stack": "PDF/Docx инструкция",
+      "minKzt": 15000,
+      "maxKzt": 15000,
+      "priceText": "15 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "минигайд",
+        "для",
+        "клиента",
+        "cms",
+        "pdf",
+        "docx",
+        "инструкция"
+      ]
+    },
+    {
+      "id": "it-sng-078",
+      "order": 78,
+      "section": "4.5. Telegram-боты",
+      "title": "Простой бот с командами",
+      "stack": "Python aiogram / Node.js Telegraf",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "бот",
+        "командами",
+        "python",
+        "aiogram",
+        "node",
+        "telegraf"
+      ]
+    },
+    {
+      "id": "it-sng-079",
+      "order": 79,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот-меню для бизнеса",
+      "stack": "Python / Node.js",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "ботменю",
+        "для",
+        "бизнеса",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-080",
+      "order": 80,
+      "section": "4.5. Telegram-боты",
+      "title": "FAQ-бот",
+      "stack": "Python / Node.js",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "faqбот",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-081",
+      "order": 81,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот для заявок",
+      "stack": "Python / Node.js + Telegram API",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "для",
+        "заявок",
+        "python",
+        "node",
+        "telegram",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-082",
+      "order": 82,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот с отправкой заявок админу",
+      "stack": "Python / Node.js",
+      "minKzt": 100000,
+      "maxKzt": 100000,
+      "priceText": "100 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "отправкой",
+        "заявок",
+        "админу",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-083",
+      "order": 83,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот с базой данных",
+      "stack": "Python / Node.js + SQLite/PostgreSQL",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "базой",
+        "данных",
+        "python",
+        "node",
+        "sqlite",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-084",
+      "order": 84,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот для записи на услуги",
+      "stack": "Python / Node.js + DB",
+      "minKzt": 170000,
+      "maxKzt": 170000,
+      "priceText": "170 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "для",
+        "записи",
+        "услуги",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-085",
+      "order": 85,
+      "section": "4.5. Telegram-боты",
+      "title": "Лид-бот с CRM/Google Sheets",
+      "stack": "Python / Node.js + API",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "лидбот",
+        "crm",
+        "google",
+        "sheets",
+        "python",
+        "node",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-086",
+      "order": 86,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот-магазин без оплаты",
+      "stack": "Python / Node.js + DB",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "ботмагазин",
+        "без",
+        "оплаты",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-087",
+      "order": 87,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот-магазин с оплатой",
+      "stack": "Python / Node.js + платежный API",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "ботмагазин",
+        "оплатой",
+        "python",
+        "node",
+        "платежный",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-088",
+      "order": 88,
+      "section": "4.5. Telegram-боты",
+      "title": "Бот с админ-панелью",
+      "stack": "Python / Node.js + React",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "бот",
+        "админпанелью",
+        "python",
+        "node",
+        "react"
+      ]
+    },
+    {
+      "id": "it-sng-089",
+      "order": 89,
+      "section": "4.5. Telegram-боты",
+      "title": "Транзакционный бот: оплата + кабинет",
+      "stack": "Python / Node.js + DB + API",
+      "minKzt": 690000,
+      "maxKzt": 690000,
+      "priceText": "690 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "транзакционный",
+        "бот:",
+        "оплата",
+        "кабинет",
+        "python",
+        "node",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-090",
+      "order": 90,
+      "section": "4.5. Telegram-боты",
+      "title": "Telegram Mini App простой",
+      "stack": "React / Next.js + Telegram API",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "telegram",
+        "mini",
+        "app",
+        "простой",
+        "react",
+        "next",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-091",
+      "order": 91,
+      "section": "4.5. Telegram-боты",
+      "title": "Telegram Mini App с backend",
+      "stack": "React / Next.js + Python/Node.js",
+      "minKzt": 590000,
+      "maxKzt": 590000,
+      "priceText": "590 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "telegram",
+        "mini",
+        "app",
+        "backend",
+        "react",
+        "next",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-092",
+      "order": 92,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "Простой AI-бот в Telegram",
+      "stack": "Python / Node.js + OpenAI API",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "aiбот",
+        "telegram",
+        "python",
+        "node",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-093",
+      "order": 93,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот для ответов клиентам",
+      "stack": "Python / Node.js + OpenAI API",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "для",
+        "ответов",
+        "клиентам",
+        "python",
+        "node",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-094",
+      "order": 94,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот с памятью диалога",
+      "stack": "Python + DB + OpenAI API",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "памятью",
+        "диалога",
+        "python",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-095",
+      "order": 95,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот по документам",
+      "stack": "Python + RAG + Vector DB",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "документам",
+        "python",
+        "rag",
+        "vector"
+      ]
+    },
+    {
+      "id": "it-sng-096",
+      "order": 96,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот по базе знаний компании",
+      "stack": "Python + RAG + PostgreSQL/Vector DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "базе",
+        "знаний",
+        "компании",
+        "python",
+        "rag",
+        "postgresql",
+        "vector"
+      ]
+    },
+    {
+      "id": "it-sng-097",
+      "order": 97,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот для PDF/Word/Excel",
+      "stack": "Python + document processing",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "для",
+        "pdf",
+        "word",
+        "excel",
+        "python",
+        "document",
+        "processing"
+      ]
+    },
+    {
+      "id": "it-sng-098",
+      "order": 98,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-ассистент с доступом к папке",
+      "stack": "Python + local tools + OpenAI API",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiассистент",
+        "доступом",
+        "папке",
+        "python",
+        "local",
+        "tools",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-099",
+      "order": 99,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-ассистент с браузером/поиском",
+      "stack": "Python + browser automation",
+      "minKzt": 690000,
+      "maxKzt": 690000,
+      "priceText": "690 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiассистент",
+        "браузером",
+        "поиском",
+        "python",
+        "browser",
+        "automation"
+      ]
+    },
+    {
+      "id": "it-sng-100",
+      "order": 100,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот с CRM-интеграцией",
+      "stack": "Python / Node.js + CRM API",
+      "minKzt": 690000,
+      "maxKzt": 690000,
+      "priceText": "690 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "crmинтеграцией",
+        "python",
+        "node",
+        "crm",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-101",
+      "order": 101,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "AI-бот для бизнеса под ключ",
+      "stack": "Python / Node.js + DB + API",
+      "minKzt": 890000,
+      "maxKzt": 890000,
+      "priceText": "890 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiбот",
+        "для",
+        "бизнеса",
+        "под",
+        "ключ",
+        "python",
+        "node",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-102",
+      "order": 102,
+      "section": "4.6. AI-боты и ИИ-ассистенты",
+      "title": "Сложный AI-бот компании",
+      "stack": "Python + RAG + admin panel",
+      "minKzt": 1200000,
+      "maxKzt": 1200000,
+      "priceText": "1 200 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сложный",
+        "aiбот",
+        "компании",
+        "python",
+        "rag",
+        "admin",
+        "panel"
+      ]
+    },
+    {
+      "id": "it-sng-103",
+      "order": 103,
+      "section": "4.7. Автоматизация",
+      "title": "Простой скрипт автоматизации",
+      "stack": "Python",
+      "minKzt": 25000,
+      "maxKzt": 25000,
+      "priceText": "25 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "скрипт",
+        "автоматизации",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-104",
+      "order": 104,
+      "section": "4.7. Автоматизация",
+      "title": "Автоматизация Excel/таблиц",
+      "stack": "Python / Google Apps Script",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматизация",
+        "excel",
+        "таблиц",
+        "python",
+        "google",
+        "apps",
+        "script"
+      ]
+    },
+    {
+      "id": "it-sng-105",
+      "order": 105,
+      "section": "4.7. Автоматизация",
+      "title": "Автоматическая обработка файлов",
+      "stack": "Python",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматическая",
+        "обработка",
+        "файлов",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-106",
+      "order": 106,
+      "section": "4.7. Автоматизация",
+      "title": "Скрипт для уведомлений в Telegram",
+      "stack": "Python / Node.js",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "скрипт",
+        "для",
+        "уведомлений",
+        "telegram",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-107",
+      "order": 107,
+      "section": "4.7. Автоматизация",
+      "title": "Автоматизация заявок",
+      "stack": "Python / Node.js + Telegram/email",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматизация",
+        "заявок",
+        "python",
+        "node",
+        "telegram",
+        "email"
+      ]
+    },
+    {
+      "id": "it-sng-108",
+      "order": 108,
+      "section": "4.7. Автоматизация",
+      "title": "Генератор отчётов",
+      "stack": "Python + Excel/PDF",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "генератор",
+        "отчетов",
+        "python",
+        "excel",
+        "pdf"
+      ]
+    },
+    {
+      "id": "it-sng-109",
+      "order": 109,
+      "section": "4.7. Автоматизация",
+      "title": "Автоматизация браузера",
+      "stack": "Python + Playwright/Selenium",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматизация",
+        "браузера",
+        "python",
+        "playwright",
+        "selenium"
+      ]
+    },
+    {
+      "id": "it-sng-110",
+      "order": 110,
+      "section": "4.7. Автоматизация",
+      "title": "Автоматизация бизнес-процесса",
+      "stack": "Python / n8n / API",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "автоматизация",
+        "бизнеспроцесса",
+        "python",
+        "n8n",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-111",
+      "order": 111,
+      "section": "4.7. Автоматизация",
+      "title": "AI-автоматизация бизнеса",
+      "stack": "Python / n8n + OpenAI API",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "aiавтоматизация",
+        "бизнеса",
+        "python",
+        "n8n",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-112",
+      "order": 112,
+      "section": "4.7. Автоматизация",
+      "title": "Система автоматизации под бизнес",
+      "stack": "Python / Node.js + DB",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "система",
+        "автоматизации",
+        "под",
+        "бизнес",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-113",
+      "order": 113,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Мини-парсер одной страницы",
+      "stack": "Python + requests/BeautifulSoup",
+      "minKzt": 20000,
+      "maxKzt": 20000,
+      "priceText": "20 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "минипарсер",
+        "одной",
+        "страницы",
+        "python",
+        "requests",
+        "beautifulsoup"
+      ]
+    },
+    {
+      "id": "it-sng-114",
+      "order": 114,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер с выгрузкой в CSV/Excel",
+      "stack": "Python + pandas/openpyxl",
+      "minKzt": 30000,
+      "maxKzt": 30000,
+      "priceText": "30 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "выгрузкой",
+        "csv",
+        "excel",
+        "python",
+        "pandas",
+        "openpyxl"
+      ]
+    },
+    {
+      "id": "it-sng-115",
+      "order": 115,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер каталога товаров",
+      "stack": "Python + BeautifulSoup/Scrapy",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "каталога",
+        "товаров",
+        "python",
+        "beautifulsoup",
+        "scrapy"
+      ]
+    },
+    {
+      "id": "it-sng-116",
+      "order": 116,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер цен",
+      "stack": "Python",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "цен",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-117",
+      "order": 117,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер с сохранением в базу",
+      "stack": "Python + PostgreSQL/SQLite",
+      "minKzt": 80000,
+      "maxKzt": 80000,
+      "priceText": "80 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "сохранением",
+        "базу",
+        "python",
+        "postgresql",
+        "sqlite"
+      ]
+    },
+    {
+      "id": "it-sng-118",
+      "order": 118,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер с авторизацией",
+      "stack": "Python + Playwright/Selenium",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "авторизацией",
+        "python",
+        "playwright",
+        "selenium"
+      ]
+    },
+    {
+      "id": "it-sng-119",
+      "order": 119,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер маркетплейса/каталога",
+      "stack": "Python + Playwright/Scrapy",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "маркетплейса",
+        "каталога",
+        "python",
+        "playwright",
+        "scrapy"
+      ]
+    },
+    {
+      "id": "it-sng-120",
+      "order": 120,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Парсер с расписанием запуска",
+      "stack": "Python + cron/Docker",
+      "minKzt": 170000,
+      "maxKzt": 170000,
+      "priceText": "170 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "парсер",
+        "расписанием",
+        "запуска",
+        "python",
+        "cron",
+        "docker"
+      ]
+    },
+    {
+      "id": "it-sng-121",
+      "order": 121,
+      "section": "4.8. Парсеры и сбор данных",
+      "title": "Мониторинг цен + Telegram-уведомления",
+      "stack": "Python + DB + Telegram API",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "мониторинг",
+        "цен",
+        "telegramуведомления",
+        "python",
+        "telegram",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-122",
+      "order": 122,
+      "section": "4.9. Backend и API",
+      "title": "Простое API",
+      "stack": "Python FastAPI / Node.js Express",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простое",
+        "api",
+        "python",
+        "fastapi",
+        "node",
+        "express"
+      ]
+    },
+    {
+      "id": "it-sng-123",
+      "order": 123,
+      "section": "4.9. Backend и API",
+      "title": "API с базой данных",
+      "stack": "FastAPI / Express + PostgreSQL",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "api",
+        "базой",
+        "данных",
+        "fastapi",
+        "express",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-124",
+      "order": 124,
+      "section": "4.9. Backend и API",
+      "title": "API с авторизацией",
+      "stack": "FastAPI / Node.js + JWT",
+      "minKzt": 180000,
+      "maxKzt": 180000,
+      "priceText": "180 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "api",
+        "авторизацией",
+        "fastapi",
+        "node",
+        "jwt"
+      ]
+    },
+    {
+      "id": "it-sng-125",
+      "order": 125,
+      "section": "4.9. Backend и API",
+      "title": "Backend для сайта",
+      "stack": "Python / Node.js + PostgreSQL",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "backend",
+        "для",
+        "сайта",
+        "python",
+        "node",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-126",
+      "order": 126,
+      "section": "4.9. Backend и API",
+      "title": "Backend для магазина",
+      "stack": "Python / Node.js + DB + payments",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "backend",
+        "для",
+        "магазина",
+        "python",
+        "node",
+        "payments"
+      ]
+    },
+    {
+      "id": "it-sng-127",
+      "order": 127,
+      "section": "4.9. Backend и API",
+      "title": "Backend для мобильного приложения",
+      "stack": "FastAPI / Node.js + DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "backend",
+        "для",
+        "мобильного",
+        "приложения",
+        "fastapi",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-128",
+      "order": 128,
+      "section": "4.9. Backend и API",
+      "title": "Интеграция платежей в новый проект",
+      "stack": "Python / Node.js + payment API",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интеграция",
+        "платежей",
+        "новый",
+        "проект",
+        "python",
+        "node",
+        "payment",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-129",
+      "order": 129,
+      "section": "4.9. Backend и API",
+      "title": "Интеграция Telegram/email/SMS",
+      "stack": "Python / Node.js + API",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "интеграция",
+        "telegram",
+        "email",
+        "sms",
+        "python",
+        "node",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-130",
+      "order": 130,
+      "section": "4.9. Backend и API",
+      "title": "Корпоративное API/ПО",
+      "stack": "Python / Java / C# / Node.js",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "корпоративное",
+        "api",
+        "python",
+        "java",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-131",
+      "order": 131,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Простая админка заявок",
+      "stack": "React / HTML + backend",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простая",
+        "админка",
+        "заявок",
+        "react",
+        "html",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-132",
+      "order": 132,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Админка для Telegram-бота",
+      "stack": "React + Python/Node.js",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "админка",
+        "для",
+        "telegramбота",
+        "react",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-133",
+      "order": 133,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Админка для товаров",
+      "stack": "React + PostgreSQL",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "админка",
+        "для",
+        "товаров",
+        "react",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-134",
+      "order": 134,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Dashboard с графиками",
+      "stack": "React + Chart.js + DB",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "dashboard",
+        "графиками",
+        "react",
+        "chart"
+      ]
+    },
+    {
+      "id": "it-sng-135",
+      "order": 135,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Личный кабинет пользователя",
+      "stack": "React / Next.js + backend",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "личный",
+        "кабинет",
+        "пользователя",
+        "react",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-136",
+      "order": 136,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "CRM-mini для малого бизнеса",
+      "stack": "React + backend + DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "crmmini",
+        "для",
+        "малого",
+        "бизнеса",
+        "react",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-137",
+      "order": 137,
+      "section": "4.10. Админ-панели и личные кабинеты",
+      "title": "Панель управления AI-ботом",
+      "stack": "React + Python/Node.js + DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "панель",
+        "управления",
+        "aiботом",
+        "react",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-138",
+      "order": 138,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "Простой MVP",
+      "stack": "Next.js + backend + DB",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "mvp",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-139",
+      "order": 139,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "MVP с авторизацией",
+      "stack": "Next.js + Python/Node.js",
+      "minKzt": 590000,
+      "maxKzt": 590000,
+      "priceText": "590 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "mvp",
+        "авторизацией",
+        "next",
+        "python",
+        "node"
+      ]
+    },
+    {
+      "id": "it-sng-140",
+      "order": 140,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "MVP с оплатой",
+      "stack": "Next.js + backend + payment API",
+      "minKzt": 790000,
+      "maxKzt": 790000,
+      "priceText": "790 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "mvp",
+        "оплатой",
+        "next",
+        "backend",
+        "payment",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-141",
+      "order": 141,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "MVP с AI-функциями",
+      "stack": "Next.js + Python + OpenAI API",
+      "minKzt": 890000,
+      "maxKzt": 890000,
+      "priceText": "890 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "mvp",
+        "aiфункциями",
+        "next",
+        "python",
+        "openai",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-142",
+      "order": 142,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "SaaS-mini",
+      "stack": "Next.js + backend + DB",
+      "minKzt": 890000,
+      "maxKzt": 890000,
+      "priceText": "890 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "saasmini",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-143",
+      "order": 143,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "SaaS с личным кабинетом",
+      "stack": "Next.js + backend + PostgreSQL",
+      "minKzt": 1200000,
+      "maxKzt": 1200000,
+      "priceText": "1 200 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "saas",
+        "личным",
+        "кабинетом",
+        "next",
+        "backend",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-144",
+      "order": 144,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "MVP маркетплейса простой",
+      "stack": "Next.js + backend + DB",
+      "minKzt": 1500000,
+      "maxKzt": 1500000,
+      "priceText": "1 500 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "mvp",
+        "маркетплейса",
+        "простой",
+        "next",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-145",
+      "order": 145,
+      "section": "4.11. MVP / SaaS / Web-приложения",
+      "title": "Сложный web-сервис",
+      "stack": "Next.js + backend + DB + integrations",
+      "minKzt": 2000000,
+      "maxKzt": 2000000,
+      "priceText": "2 000 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "сложный",
+        "webсервис",
+        "next",
+        "backend",
+        "integrations"
+      ]
+    },
+    {
+      "id": "it-sng-146",
+      "order": 146,
+      "section": "4.12. Мобильные приложения",
+      "title": "Простое приложение 5–7 экранов",
+      "stack": "Flutter / React Native",
+      "minKzt": 240000,
+      "maxKzt": 240000,
+      "priceText": "240 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простое",
+        "приложение",
+        "57",
+        "экранов",
+        "flutter",
+        "react",
+        "native"
+      ]
+    },
+    {
+      "id": "it-sng-147",
+      "order": 147,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение-визитка",
+      "stack": "Flutter / React Native",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложениевизитка",
+        "flutter",
+        "react",
+        "native"
+      ]
+    },
+    {
+      "id": "it-sng-148",
+      "order": 148,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение с авторизацией",
+      "stack": "Flutter / React Native + Firebase/backend",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложение",
+        "авторизацией",
+        "flutter",
+        "react",
+        "native",
+        "firebase",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-149",
+      "order": 149,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение с API",
+      "stack": "Flutter / React Native + backend",
+      "minKzt": 590000,
+      "maxKzt": 590000,
+      "priceText": "590 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложение",
+        "api",
+        "flutter",
+        "react",
+        "native",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-150",
+      "order": 150,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение с базой данных",
+      "stack": "Flutter / React Native + DB",
+      "minKzt": 690000,
+      "maxKzt": 690000,
+      "priceText": "690 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложение",
+        "базой",
+        "данных",
+        "flutter",
+        "react",
+        "native"
+      ]
+    },
+    {
+      "id": "it-sng-151",
+      "order": 151,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение с оплатой",
+      "stack": "Flutter / React Native + payment API",
+      "minKzt": 890000,
+      "maxKzt": 890000,
+      "priceText": "890 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложение",
+        "оплатой",
+        "flutter",
+        "react",
+        "native",
+        "payment",
+        "api"
+      ]
+    },
+    {
+      "id": "it-sng-152",
+      "order": 152,
+      "section": "4.12. Мобильные приложения",
+      "title": "Приложение + админка",
+      "stack": "Flutter + React admin + backend",
+      "minKzt": 1200000,
+      "maxKzt": 1200000,
+      "priceText": "1 200 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "приложение",
+        "админка",
+        "flutter",
+        "react",
+        "admin",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-153",
+      "order": 153,
+      "section": "4.12. Мобильные приложения",
+      "title": "Маркетплейс MVP",
+      "stack": "Flutter / React Native + backend",
+      "minKzt": 2000000,
+      "maxKzt": 2000000,
+      "priceText": "2 000 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "маркетплейс",
+        "mvp",
+        "flutter",
+        "react",
+        "native",
+        "backend"
+      ]
+    },
+    {
+      "id": "it-sng-154",
+      "order": 154,
+      "section": "4.13. Desktop-программы",
+      "title": "Простая программа для ПК",
+      "stack": "Python Tkinter / PyQt",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простая",
+        "программа",
+        "для",
+        "python",
+        "tkinter",
+        "pyqt"
+      ]
+    },
+    {
+      "id": "it-sng-155",
+      "order": 155,
+      "section": "4.13. Desktop-программы",
+      "title": "Desktop-программа с интерфейсом",
+      "stack": "Python PyQt / Electron",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "desktopпрограмма",
+        "интерфейсом",
+        "python",
+        "pyqt",
+        "electron"
+      ]
+    },
+    {
+      "id": "it-sng-156",
+      "order": 156,
+      "section": "4.13. Desktop-программы",
+      "title": "Программа для обработки файлов",
+      "stack": "Python",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "программа",
+        "для",
+        "обработки",
+        "файлов",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-157",
+      "order": 157,
+      "section": "4.13. Desktop-программы",
+      "title": "Программа для учёта",
+      "stack": "Python / C# + SQLite",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "программа",
+        "для",
+        "учета",
+        "python",
+        "sqlite"
+      ]
+    },
+    {
+      "id": "it-sng-158",
+      "order": 158,
+      "section": "4.13. Desktop-программы",
+      "title": "Desktop-инструмент автоматизации",
+      "stack": "Python / C# / Electron",
+      "minKzt": 290000,
+      "maxKzt": 290000,
+      "priceText": "290 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "desktopинструмент",
+        "автоматизации",
+        "python",
+        "electron"
+      ]
+    },
+    {
+      "id": "it-sng-159",
+      "order": 159,
+      "section": "4.13. Desktop-программы",
+      "title": "Локальный AI-инструмент",
+      "stack": "Python + OpenAI/local model",
+      "minKzt": 390000,
+      "maxKzt": 390000,
+      "priceText": "390 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "локальный",
+        "aiинструмент",
+        "python",
+        "openai",
+        "local",
+        "model"
+      ]
+    },
+    {
+      "id": "it-sng-160",
+      "order": 160,
+      "section": "4.13. Desktop-программы",
+      "title": "Корпоративное desktop/ПО",
+      "stack": "Python / C# / Java",
+      "minKzt": 490000,
+      "maxKzt": 490000,
+      "priceText": "490 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "корпоративное",
+        "desktop",
+        "python",
+        "java"
+      ]
+    },
+    {
+      "id": "it-sng-161",
+      "order": 161,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Простой логотип",
+      "stack": "Figma / Illustrator",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простой",
+        "логотип",
+        "figma",
+        "illustrator"
+      ]
+    },
+    {
+      "id": "it-sng-162",
+      "order": 162,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Дизайн лендинга",
+      "stack": "Figma",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "дизайн",
+        "лендинга",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-163",
+      "order": 163,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Дизайн сайта-визитки",
+      "stack": "Figma",
+      "minKzt": 60000,
+      "maxKzt": 60000,
+      "priceText": "60 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "дизайн",
+        "сайтавизитки",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-164",
+      "order": 164,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Дизайн многостраничного сайта",
+      "stack": "Figma",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "дизайн",
+        "многостраничного",
+        "сайта",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-165",
+      "order": 165,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Дизайн админки",
+      "stack": "Figma",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "дизайн",
+        "админки",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-166",
+      "order": 166,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "UI-kit",
+      "stack": "Figma",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "uikit",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-167",
+      "order": 167,
+      "section": "4.14. Дизайн и прототипы",
+      "title": "Прототип MVP",
+      "stack": "Figma",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "прототип",
+        "mvp",
+        "figma"
+      ]
+    },
+    {
+      "id": "it-sng-168",
+      "order": 168,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Залить сайт на Vercel/Netlify",
+      "stack": "Vercel / Netlify",
+      "minKzt": 15000,
+      "maxKzt": 15000,
+      "priceText": "15 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "залить",
+        "сайт",
+        "vercel",
+        "netlify"
+      ]
+    },
+    {
+      "id": "it-sng-169",
+      "order": 169,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Настроить домен",
+      "stack": "DNS",
+      "minKzt": 15000,
+      "maxKzt": 15000,
+      "priceText": "15 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "настроить",
+        "домен",
+        "dns"
+      ]
+    },
+    {
+      "id": "it-sng-170",
+      "order": 170,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Настроить SSL",
+      "stack": "SSL / HTTPS",
+      "minKzt": 15000,
+      "maxKzt": 15000,
+      "priceText": "15 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "настроить",
+        "ssl",
+        "https"
+      ]
+    },
+    {
+      "id": "it-sng-171",
+      "order": 171,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Деплой backend",
+      "stack": "VPS / Docker",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "деплой",
+        "backend",
+        "vps",
+        "docker"
+      ]
+    },
+    {
+      "id": "it-sng-172",
+      "order": 172,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Деплой сайта + backend",
+      "stack": "VPS / Docker / Nginx",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "деплой",
+        "сайта",
+        "backend",
+        "vps",
+        "docker",
+        "nginx"
+      ]
+    },
+    {
+      "id": "it-sng-173",
+      "order": 173,
+      "section": "4.15. Деплой новых проектов",
+      "title": "Настройка сервера",
+      "stack": "Linux + Nginx + Docker",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "настройка",
+        "сервера",
+        "linux",
+        "nginx",
+        "docker"
+      ]
+    },
+    {
+      "id": "it-sng-174",
+      "order": 174,
+      "section": "4.15. Деплой новых проектов",
+      "title": "CI/CD для нового проекта",
+      "stack": "GitHub Actions / Docker",
+      "minKzt": 120000,
+      "maxKzt": 120000,
+      "priceText": "120 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "для",
+        "нового",
+        "проекта",
+        "github",
+        "actions",
+        "docker"
+      ]
+    },
+    {
+      "id": "it-sng-175",
+      "order": 175,
+      "section": "4.16. Базы данных",
+      "title": "Простая база данных",
+      "stack": "SQLite / PostgreSQL",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "простая",
+        "база",
+        "данных",
+        "sqlite",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-176",
+      "order": 176,
+      "section": "4.16. Базы данных",
+      "title": "БД для сайта/бота",
+      "stack": "PostgreSQL / MySQL",
+      "minKzt": 70000,
+      "maxKzt": 70000,
+      "priceText": "70 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "для",
+        "сайта",
+        "бота",
+        "postgresql",
+        "mysql"
+      ]
+    },
+    {
+      "id": "it-sng-177",
+      "order": 177,
+      "section": "4.16. Базы данных",
+      "title": "Проектирование структуры БД",
+      "stack": "PostgreSQL / MySQL",
+      "minKzt": 90000,
+      "maxKzt": 90000,
+      "priceText": "90 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "проектирование",
+        "структуры",
+        "postgresql",
+        "mysql"
+      ]
+    },
+    {
+      "id": "it-sng-178",
+      "order": 178,
+      "section": "4.16. Базы данных",
+      "title": "API + база данных",
+      "stack": "FastAPI / Node.js + PostgreSQL",
+      "minKzt": 140000,
+      "maxKzt": 140000,
+      "priceText": "140 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "api",
+        "база",
+        "данных",
+        "fastapi",
+        "node",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-179",
+      "order": 179,
+      "section": "4.16. Базы данных",
+      "title": "Dashboard по данным",
+      "stack": "Python / React + PostgreSQL",
+      "minKzt": 190000,
+      "maxKzt": 190000,
+      "priceText": "190 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "dashboard",
+        "данным",
+        "python",
+        "react",
+        "postgresql"
+      ]
+    },
+    {
+      "id": "it-sng-180",
+      "order": 180,
+      "section": "4.17. Обучающие и учебные проекты",
+      "title": "Учебный сайт с объяснением",
+      "stack": "HTML, CSS, JS",
+      "minKzt": 30000,
+      "maxKzt": 30000,
+      "priceText": "30 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "учебный",
+        "сайт",
+        "объяснением",
+        "html",
+        "css"
+      ]
+    },
+    {
+      "id": "it-sng-181",
+      "order": 181,
+      "section": "4.17. Обучающие и учебные проекты",
+      "title": "Учебный Telegram-бот",
+      "stack": "Python / JavaScript",
+      "minKzt": 50000,
+      "maxKzt": 50000,
+      "priceText": "50 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "учебный",
+        "telegramбот",
+        "python",
+        "javascript"
+      ]
+    },
+    {
+      "id": "it-sng-182",
+      "order": 182,
+      "section": "4.17. Обучающие и учебные проекты",
+      "title": "Учебный Python-проект",
+      "stack": "Python",
+      "minKzt": 40000,
+      "maxKzt": 40000,
+      "priceText": "40 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "учебный",
+        "pythonпроект",
+        "python"
+      ]
+    },
+    {
+      "id": "it-sng-183",
+      "order": 183,
+      "section": "4.17. Обучающие и учебные проекты",
+      "title": "Учебный проект с базой данных",
+      "stack": "Python / JS + SQLite/PostgreSQL",
+      "minKzt": 80000,
+      "maxKzt": 80000,
+      "priceText": "80 000 ₸",
+      "pricingType": "from",
+      "hourly": false,
+      "keywords": [
+        "учебный",
+        "проект",
+        "базой",
+        "данных",
+        "python",
+        "sqlite",
+        "postgresql"
+      ]
+    }
+  ]
+}

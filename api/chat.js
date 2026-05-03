@@ -1,4 +1,6 @@
 const VELOR_PRICING = require('./velorPricing.json');
+const IT_SNG_PRICING = require('./itSngPricing.json');
+const SALES_PLAYBOOK = require('./salesPlaybook.json');
 
 const MODULE_SERVICE = {
   id: 'module-work',
@@ -20,13 +22,24 @@ const SERVICES = [
     keywords: [
       'wordpress',
       'вордпресс',
+      'вп',
       'портфолио',
       'portfolio',
       'одностранич',
+      '1 странич',
       '1 страниц',
       'одна страниц',
       'one page',
       'one-page',
+      'one pager',
+      'single page',
+      'single-page',
+      'brochure site',
+      'info site',
+      'one pager wp',
+      'wp one pager',
+      'personal site',
+      'personal website',
       'визитка',
     ],
     includes: ['установка WordPress', 'сборка 1 страницы', 'адаптив', 'базовая форма заявки', 'базовая SEO-подготовка'],
@@ -38,7 +51,28 @@ const SERVICES = [
     max: 340000,
     timeline: '5-10 рабочих дней',
     priority: 4,
-    keywords: ['лендинг', 'landing', 'одностранич', 'сайт услуг', 'услуги', 'визитка', 'портфолио'],
+    keywords: [
+      'лендинг',
+      'landing',
+      'landing page',
+      'website',
+      'site',
+      'home page',
+      'service page',
+      'brochure site',
+      'promo site',
+      'sales page',
+      'squeeze page',
+      'lead page',
+      'small biz site',
+      'business site',
+      'одностранич',
+      'сайт услуг',
+      'услуги',
+      'визитка',
+      'портфолио',
+      'нужен сайт',
+    ],
     includes: ['структура', 'адаптивная верстка', 'форма заявки', 'базовая SEO-подготовка'],
   },
   {
@@ -54,9 +88,18 @@ const SERVICES = [
       'готовый дизайн',
       '3-4 страниц',
       '3-4 страницы',
+      '3-4 pages',
       '3 страницы',
+      '3 pages',
       '4 страницы',
+      '4 pages',
       'несколько страниц',
+      'few pages',
+      'simple website',
+      'small website',
+      'starter website',
+      'basic website',
+      'brochure website',
       'сайт простой',
     ],
     includes: ['верстка 3-4 страниц', 'адаптив', 'форма заявки', 'подключение домена', 'базовая SEO-подготовка'],
@@ -68,7 +111,7 @@ const SERVICES = [
     max: 480000,
     timeline: '5-16 рабочих дней',
     priority: 5,
-    keywords: ['wordpress', 'вордпресс', 'elementor', 'woocommerce', 'wp', 'cms', 'блог'],
+    keywords: ['wordpress', 'вордпресс', 'elementor', 'woocommerce', 'wp', 'cms', 'блог', 'blog', 'wp site', 'wordpress site', 'wp website', 'wp build'],
     includes: ['настройка CMS', 'сборка страниц', 'адаптив', 'формы', 'базовая SEO-подготовка'],
   },
   {
@@ -78,7 +121,7 @@ const SERVICES = [
     max: 360000,
     timeline: '4-12 рабочих дней',
     priority: 5,
-    keywords: ['tilda', 'тильда', 'zero block', 'зеро блок'],
+    keywords: ['tilda', 'тильда', 'zero block', 'зеро блок', 'tilda site'],
     includes: ['сборка на Tilda', 'адаптив', 'формы', 'базовая SEO-подготовка'],
   },
   {
@@ -88,7 +131,7 @@ const SERVICES = [
     max: 750000,
     timeline: '10-22 рабочих дня',
     priority: 3,
-    keywords: ['корпоратив', 'компания', 'страниц', 'бизнес сайт', 'сайт компании', 'разделы'],
+    keywords: ['корпоратив', 'компания', 'страниц', 'бизнес сайт', 'сайт компании', 'разделы', 'business website', 'company website', 'corporate site'],
     includes: ['несколько страниц', 'админка или CMS', 'контактные формы', 'мультиязычность по необходимости'],
   },
   {
@@ -102,6 +145,14 @@ const SERVICES = [
       'магазин',
       'e-commerce',
       'ecommerce',
+      'online store',
+      'web shop',
+      'webshop',
+      'shop',
+      'ecom',
+      'ecomm',
+      'ecom site',
+      'shop site',
       'товар',
       'каталог',
       'корзина',
@@ -110,6 +161,8 @@ const SERVICES = [
       'woocommerce',
       'маркетплейс',
       'marketplace',
+      'multi vendor',
+      'multi-vendor',
       'как kaspi',
       'как flipkart',
       'как amazon',
@@ -138,6 +191,12 @@ const SERVICES = [
       'сервер',
       'база данных',
       'database',
+      'server side',
+      'server-side',
+      'database app',
+      'server work',
+      'api server',
+      'rest api',
     ],
     includes: ['серверная логика', 'структура базы данных', 'API', 'валидация данных', 'подготовка к деплою'],
   },
@@ -148,8 +207,39 @@ const SERVICES = [
     max: 2600000,
     timeline: '4-10 недель',
     priority: 7,
-    keywords: ['кастом', 'custom', 'cms', 'админ', 'crm', 'сервис', 'панель', 'dashboard', 'личный кабинет', 'роли'],
+    keywords: ['кастом', 'custom', 'cms', 'админ', 'crm', 'сервис', 'панель', 'dashboard', 'личный кабинет', 'роли', 'admin panel', 'user account', 'members area', 'portal', 'client portal', 'customer portal', 'member portal', 'internal tool'],
     includes: ['backend', 'база данных', 'админ-панель', 'роли', 'API'],
+  },
+  {
+    id: 'telegram-bot',
+    label: 'Telegram-бот',
+    min: 25000,
+    max: 250000,
+    timeline: '2-10 рабочих дней',
+    priority: 12,
+    keywords: [
+      'telegram-бот',
+      'телеграм бот',
+      'telegram bot',
+      'tg bot',
+      'bot for leads',
+      'lead bot',
+      'order bot',
+      'booking bot',
+      'appointment bot',
+      'tg automation',
+      'telegram automation',
+      'бот для заявок',
+      'бот заявок',
+      'простои бот',
+      'бот меню',
+      'кнопки',
+      'заявки в telegram',
+      'google sheets',
+      'sheets',
+      'aiogram',
+    ],
+    includes: ['сценарии и кнопки', 'прием заявок', 'уведомления админу', 'простая инструкция'],
   },
   {
     id: 'ai-assistant',
@@ -161,18 +251,30 @@ const SERVICES = [
     keywords: [
       'бот',
       'ai',
+      'artificial intelligence',
       'ии',
       'чат',
+      'chatbot',
+      'chat bot',
       'ассистент',
+      'assistant',
       'openai',
       'gemini',
       'gpt',
       'llm',
       'цены',
+      'pricing',
+      'quote',
+      'quote bot',
+      'sales bot',
+      'support bot',
+      'ai chat',
       'база знаний',
+      'knowledge base',
       'расчет цен',
       'расчетом цен',
       'лиды',
+      'leads',
       'telegram',
     ],
     includes: ['чат-виджет', 'серверный API', 'правила консультации', 'передача заявки'],
@@ -194,6 +296,20 @@ const SERVICES = [
       'full time',
       'part time',
       'retainer',
+      'developer',
+      'dev',
+      'engineer',
+      'contractor',
+      'freelancer',
+      'programmer',
+      'hire dev',
+      'hire developer',
+      'need a dev',
+      'need developer',
+      'monthly',
+      'ongoing',
+      'long term',
+      'long-term',
       'сопровождение',
       'поддержка сайта',
     ],
@@ -207,16 +323,16 @@ const ADDONS = [
     label: 'дизайн с нуля',
     min: 80000,
     max: 260000,
-    keywords: ['дизайн с нуля', 'нет дизайна', 'без дизайна', 'с нуля', 'нужен макет', 'figma сделать', 'брендинг'],
-    skipIf: ['есть дизайн', 'дизайн готов', 'готовый дизайн', 'figma есть', 'макет есть'],
+    keywords: ['дизайн с нуля', 'нет дизайна', 'без дизайна', 'с нуля', 'нужен макет', 'figma сделать', 'брендинг', 'custom design', 'need design', 'no design', 'from scratch', 'figma design', 'brand identity', 'make the design', 'need ui', 'ui from scratch'],
+    skipIf: ['есть дизайн', 'дизайн готов', 'готовый дизайн', 'figma есть', 'макет есть', 'design ready', 'have design', 'figma ready', 'template is ready', 'got design', 'figma is ready', 'already have design'],
   },
   {
     id: 'content',
     label: 'подготовка текстов и контента',
     min: 50000,
     max: 180000,
-    keywords: ['написать тексты', 'тексты с нуля', 'контент с нуля', 'подготовить контент', 'копирайтинг'],
-    skipIf: ['тексты есть', 'контент есть', 'контент готов', 'фото есть'],
+    keywords: ['написать тексты', 'тексты с нуля', 'контент с нуля', 'подготовить контент', 'копирайтинг', 'copywriting', 'write copy', 'content writing', 'need content', 'need copy', 'make content'],
+    skipIf: ['тексты есть', 'контент есть', 'контент готов', 'фото есть', 'content ready', 'copy ready', 'text ready', 'photos ready', 'content is ready', 'got the copy', 'got photos'],
   },
   {
     id: 'animations',
@@ -230,31 +346,31 @@ const ADDONS = [
     label: 'мультиязычность',
     min: 70000,
     max: 220000,
-    keywords: ['англ', 'english', 'каз', 'қазақ', 'язык', 'мультияз', '3 языка', '2 языка'],
-    skipIf: ['без мультиязычности', 'мультиязычность не нужна', 'один язык', 'только русский', 'только один язык'],
+    keywords: ['англ', 'english', 'каз', 'қазақ', 'язык', 'мультияз', '3 языка', '2 языка', 'multilingual', 'multi language', 'multi-language', 'two languages', '3 languages', 'bilingual', 'two-language'],
+    skipIf: ['без мультиязычности', 'мультиязычность не нужна', 'один язык', 'только русский', 'только один язык', 'no multilingual', 'one language', 'english only', 'russian only', 'single language'],
   },
   {
     id: 'payment',
     label: 'онлайн-оплата',
     min: 120000,
     max: 350000,
-    keywords: ['оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay'],
-    skipIf: ['без оплаты', 'оплата не нужна', 'без онлайн-оплаты', 'не нужна оплата'],
+    keywords: ['оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay', 'payment', 'checkout', 'card payments', 'online payment', 'take cards', 'paid orders'],
+    skipIf: ['без оплаты', 'оплата не нужна', 'без онлайн-оплаты', 'не нужна оплата', 'no payment', 'no checkout', 'payment not needed', 'no online payment'],
   },
   {
     id: 'integrations',
     label: 'интеграции с внешними сервисами',
     min: 120000,
     max: 500000,
-    keywords: ['интеграц', 'crm', 'telegram', 'whatsapp', 'amo', 'bitrix', 'webhook', 'zapier', 'api сервиса'],
-    skipIf: ['без интеграций', 'интеграции не нужны', 'crm не нужна', 'без crm'],
+    keywords: ['интеграц', 'crm', 'telegram', 'whatsapp', 'amo', 'bitrix', 'webhook', 'zapier', 'api сервиса', 'integration', 'integrations', 'webhooks', 'connect to crm', 'zap', 'connect apps', 'third-party api'],
+    skipIf: ['без интеграций', 'интеграции не нужны', 'crm не нужна', 'без crm', 'no integrations', 'no crm'],
   },
   {
     id: 'auth-roles',
     label: 'авторизация и роли пользователей',
     min: 160000,
     max: 480000,
-    keywords: ['авторизац', 'регистрац', 'логин', 'роли', 'личный кабинет', 'пользователи', 'jwt', 'oauth'],
+    keywords: ['авторизац', 'регистрац', 'логин', 'роли', 'личный кабинет', 'пользователи', 'jwt', 'oauth', 'auth', 'login', 'signup', 'sign up', 'roles', 'user roles', 'account', 'member login', 'client login'],
     includedIn: ['custom-cms'],
   },
   {
@@ -262,7 +378,7 @@ const ADDONS = [
     label: 'frontend-интерфейс или админ-панель',
     min: 220000,
     max: 800000,
-    keywords: ['frontend', 'фронт', 'интерфейс', 'админка', 'админ-панель', 'dashboard', 'личный кабинет'],
+    keywords: ['frontend', 'фронт', 'интерфейс', 'админка', 'админ-панель', 'dashboard', 'личный кабинет', 'admin panel', 'control panel', 'user dashboard'],
     includedIn: ['custom-cms'],
   },
   {
@@ -278,7 +394,7 @@ const ADDONS = [
     label: 'PostgreSQL база данных',
     min: 180000,
     max: 600000,
-    keywords: ['postgresql', 'postgre sql', 'postgres', 'база данных', 'database', 'sql'],
+    keywords: ['postgresql', 'postgre sql', 'postgres', 'база данных', 'database', 'sql', 'db', 'data model'],
     includedIn: ['node-postgres-backend', 'custom-cms'],
   },
   {
@@ -286,14 +402,14 @@ const ADDONS = [
     label: 'настройка сервера и деплой',
     min: 40000,
     max: 160000,
-    keywords: ['сервер', 'vps', 'nginx', 'pm2', 'docker', 'деплой', 'deploy', 'хостинг', 'домен', 'ssl'],
+    keywords: ['сервер', 'vps', 'nginx', 'pm2', 'docker', 'деплой', 'deploy', 'deployment', 'hosting', 'хостинг', 'домен', 'domain', 'ssl'],
   },
   {
     id: 'analytics-seo',
     label: 'расширенная SEO/аналитика',
     min: 50000,
     max: 180000,
-    keywords: ['seo', 'сео', 'analytics', 'метрика', 'google analytics', 'search console'],
+    keywords: ['seo', 'сео', 'analytics', 'метрика', 'google analytics', 'search console', 'tracking', 'ga4'],
   },
 ];
 
@@ -409,12 +525,71 @@ const HIRING_OPTIONS = [
   },
 ];
 
+const EN_BUDGET_TIER_COPY = {
+  micro: {
+    bestFit: 'a micro-start: brief, structure, one simple draft page or setup task',
+    canOffer: [
+      'check the design and prepare a short scope',
+      'prepare the structure and content checklist',
+      'make one simple draft page or basic setup',
+      'connect a simple form, domain or small WordPress/Tilda setup',
+    ],
+    notIncluded: [
+      'full 3-4 page build',
+      'custom animations',
+      'backend, payment, user accounts or integrations',
+      'copywriting and deep SEO setup',
+    ],
+    recommendation: 'treat it as the first stage, then finish the full launch with a separate budget',
+  },
+  'lean-template': {
+    bestFit: 'one simple page or a very light website with ready design',
+    canOffer: ['build 1 WordPress/Tilda page', 'place ready text and photos', 'connect a simple lead form', 'make basic responsive layout'],
+    notIncluded: ['full 3-4 page build', 'custom design', 'complex integrations'],
+    recommendation: 'keep only the key blocks and launch the smallest useful version',
+  },
+  'simple-launch': {
+    bestFit: 'one-page site or 2-3 simple static pages with ready design',
+    canOffer: ['build the site on WordPress/Tilda', 'adapt the ready design', 'connect form, domain and basic SEO', 'launch without backend or complex logic'],
+    notIncluded: ['online store', 'user account', 'custom CMS', 'many integrations'],
+    recommendation: 'launch a simple release first and move extra modules to phase two',
+  },
+  'standard-site': {
+    bestFit: 'landing page or 3-4 page website with ready design',
+    canOffer: ['build 3-4 pages', 'make responsive layout', 'connect forms, analytics, domain and basic SEO', 'add moderate animations'],
+    notIncluded: ['complex backend', 'user account', 'full online store'],
+    recommendation: 'this is a healthy budget zone for a simple ready-design website',
+  },
+  advanced: {
+    bestFit: 'business website, CMS, integrations or a small catalog',
+    canOffer: ['multiple sections', 'CMS setup', 'integrations', 'advanced SEO/analytics', 'more UX polish'],
+    notIncluded: ['large marketplace or complex custom platform without a separate budget'],
+    recommendation: 'plan a proper implementation with quality reserve',
+  },
+  product: {
+    bestFit: 'product-style development: backend, CMS, AI assistant, store or integrations',
+    canOffer: ['architecture', 'frontend/backend', 'database', 'roles', 'admin panel', 'integrations and deployment'],
+    notIncluded: ['final fixed price without a clear scope'],
+    recommendation: 'prepare a scope and estimate by modules',
+  },
+};
+
 const PRICE_LIST = {
   currency: 'KZT',
   services: SERVICES,
   addons: ADDONS,
   budgetTiers: BUDGET_TIERS,
   hiringOptions: HIRING_OPTIONS,
+  salesPlaybook: {
+    source: SALES_PLAYBOOK.source,
+    updatedAt: SALES_PLAYBOOK.updatedAt,
+  },
+  itSngCatalog: {
+    source: IT_SNG_PRICING.source,
+    displayCurrency: IT_SNG_PRICING.sourceCurrency,
+    sections: IT_SNG_PRICING.sections,
+    itemsCount: IT_SNG_PRICING.items.length,
+  },
   modularPricing: {
     source: VELOR_PRICING.source,
     displayCurrency: VELOR_PRICING.displayCurrency,
@@ -453,6 +628,22 @@ const CONVERSATION_EXAMPLES = [
   },
 ];
 
+const EN_SERVICE_LABELS = {
+  'wordpress-onepage-portfolio': 'one-page WordPress portfolio site',
+  landing: 'landing page or service website',
+  'simple-multipage': 'simple 3-4 page website with ready design',
+  'wordpress-site': 'WordPress website',
+  'tilda-site': 'Tilda website',
+  business: 'business website',
+  ecommerce: 'online store',
+  'node-postgres-backend': 'Node.js backend/API with PostgreSQL',
+  'custom-cms': 'custom CMS or web app',
+  'telegram-bot': 'Telegram bot',
+  'ai-assistant': 'AI assistant for a website',
+  'developer-retainer': 'monthly developer support',
+  'module-work': 'modular website improvements from the price list',
+};
+
 const QUESTION_SETS = {
   generic: [
     'Какой тип проекта нужен: лендинг, WordPress/Tilda, интернет-магазин, backend/API, CMS или AI-бот?',
@@ -484,11 +675,62 @@ const QUESTION_SETS = {
     'Какой AI-провайдер планируется: Gemini, OpenAI, локальная модель или уже есть свой ключ?',
     'Нужны ли история диалогов, аналитика, антиспам, ограничения по темам и панель настройки ответов?',
   ],
+  telegramBot: [
+    'Что должен делать бот: меню, заявки, запись, уведомления, оплата или админ-панель?',
+    'Куда отправлять заявки: Telegram-админу, Google Sheets, CRM или базу данных?',
+    'Нужны ли база данных, роли администратора, рассылки или интеграции?',
+    'Есть ли готовый сценарий кнопок и текстов или его нужно собрать с нуля?',
+  ],
   hiring: [
     'Какой формат нужен: part-time, проектный retainer или full-time разработчик?',
     'Какой стек и задачи: frontend, backend, WordPress, Node.js, PostgreSQL, интеграции?',
     'Сколько часов в месяц или какая загрузка ожидается?',
     'Нужен один разработчик или команда с менеджментом и дизайном?',
+  ],
+};
+
+const QUESTION_SETS_EN = {
+  generic: [
+    'What do you need: landing page, WordPress/Tilda website, online store, backend/API, CMS or AI bot?',
+    'How many pages, products, user roles or main screens are planned for the first version?',
+    'Are design and content ready, or should they be prepared from scratch?',
+    'Do you need forms, payments, multilingual support, integrations, user accounts or server setup?',
+  ],
+  simpleSite: [
+    'Will the design be based on a template, an existing Figma file, or should it be created from scratch?',
+    'Which blocks are needed: hero, about, projects, services, reviews, contacts, lead form?',
+    'Are texts, photos and materials ready?',
+    'Do you need SEO, domain/hosting setup, analytics or Telegram/WhatsApp leads?',
+  ],
+  ecommerce: [
+    'How many products should be added at launch?',
+    'Do you need cart, online payment, delivery, user account and order statuses?',
+    'Should it be WordPress/WooCommerce, a ready CMS or custom development?',
+    'Which integrations are needed: CRM, warehouse, Telegram/WhatsApp, email or payment provider?',
+  ],
+  backend: [
+    'Is it backend/API only, or do you also need frontend and an admin panel?',
+    'Which data entities are needed: users, leads, products, orders, files, payments?',
+    'Do you need authentication, roles, user accounts, logging or moderation?',
+    'Where should it be deployed: VPS/server, Vercel, Render, Docker or another hosting?',
+  ],
+  aiAssistant: [
+    'Should the bot only consult users, or also collect leads, calculate prices and send them to Telegram/CRM?',
+    'Where should knowledge come from: fixed price list, documents, database, website or admin panel?',
+    'Which AI provider do you plan to use: Gemini, OpenAI, local model, or do you already have a key?',
+    'Do you need chat history, analytics, anti-spam, topic limits or an admin panel for answers?',
+  ],
+  telegramBot: [
+    'What should the bot do: menu, leads, booking, notifications, payment or admin panel?',
+    'Where should leads go: Telegram admin, Google Sheets, CRM or database?',
+    'Do you need a database, admin roles, broadcasts or integrations?',
+    'Do you already have button flow and texts, or should they be prepared from scratch?',
+  ],
+  hiring: [
+    'Which format do you need: part-time, project retainer or full-time developer?',
+    'Which stack and tasks: frontend, backend, WordPress, Node.js, PostgreSQL, integrations?',
+    'How many hours per month or what workload do you expect?',
+    'Do you need one developer or a team with design/project management?',
   ],
 };
 
@@ -512,8 +754,74 @@ function normalizeMessages(messages) {
     .filter((message) => message.content.trim());
 }
 
-function formatPrice(value) {
-  return `${new Intl.NumberFormat('ru-KZ').format(value)} ₸`;
+const FX_RATES = {
+  RUB_PER_KZT: Number(process.env.RUB_PER_KZT || 0.19),
+  USD_PER_KZT: Number(process.env.USD_PER_KZT || 0.002),
+};
+
+function getOutputCurrency(language) {
+  if (language === 'en') {
+    return {
+      code: 'USD',
+      symbol: '$',
+      locale: 'en-US',
+      perKzt: FX_RATES.USD_PER_KZT,
+    };
+  }
+
+  return {
+    code: 'RUB',
+    symbol: '₽',
+    locale: 'ru-RU',
+    perKzt: FX_RATES.RUB_PER_KZT,
+  };
+}
+
+function formatPrice(valueKzt, language = 'ru') {
+  const amount = Number(valueKzt);
+  const { symbol, locale, perKzt } = getOutputCurrency(language);
+  const safePerKzt = Number.isFinite(perKzt) && perKzt > 0 ? perKzt : language === 'en' ? 0.002 : 0.19;
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return `0 ${symbol}`;
+  }
+
+  const converted = Math.round(amount * safePerKzt);
+  return `${new Intl.NumberFormat(locale).format(converted)} ${symbol}`;
+}
+
+function formatPriceRange(minKzt, maxKzt, language = 'ru') {
+  const min = Number(minKzt);
+  const max = Number(maxKzt);
+
+  if (!Number.isFinite(min) && !Number.isFinite(max)) {
+    return formatPrice(0, language);
+  }
+
+  if (!Number.isFinite(max) || min === max) {
+    return formatPrice(Number.isFinite(min) ? min : max, language);
+  }
+
+  return `${formatPrice(min, language)} - ${formatPrice(max, language)}`;
+}
+
+function formatTimeline(timeline, language = 'ru') {
+  const value = String(timeline || '');
+
+  if (language !== 'en') {
+    return value;
+  }
+
+  return value
+    .replace(/рабочих\s+д(ня|ней)/g, 'business days')
+    .replace(/рабочий\s+день/g, 'business day')
+    .replace(/д(ня|ней)/g, 'days')
+    .replace(/недел(я|и|ь)/g, 'weeks')
+    .replace(/полная занятость в месяц/g, 'full-time monthly')
+    .replace(/месяц(а|ев)?/g, 'months')
+    .replace(/помесячно/g, 'monthly')
+    .replace(/часов\s+в\s+месяц/g, 'hours/month')
+    .replace(/по выбранным пунктам/g, 'by selected items');
 }
 
 function getVelorItems() {
@@ -528,8 +836,37 @@ function getVelorItems() {
 
 const VELOR_ITEMS = getVelorItems();
 
+function getItsngItems() {
+  return (IT_SNG_PRICING.items || []).map((item) => ({
+    ...item,
+    catalogTitle: item.title,
+    catalogSection: item.section,
+  }));
+}
+
+const ITSNG_ITEMS = getItsngItems();
+
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function includesKeyword(text, keyword) {
+  const normalizedText = normalizeText(text);
+  const normalizedKeyword = normalizeText(keyword).trim();
+
+  if (!normalizedKeyword) {
+    return false;
+  }
+
+  if (/^[a-zа-я0-9]+$/i.test(normalizedKeyword) && normalizedKeyword.length <= 3) {
+    return new RegExp(`(^|[^a-zа-я0-9])${escapeRegExp(normalizedKeyword)}($|[^a-zа-я0-9])`, 'i').test(normalizedText);
+  }
+
+  return normalizedText.includes(normalizedKeyword);
+}
+
 function hasAny(text, keywords = []) {
-  return keywords.some((keyword) => text.includes(normalizeText(keyword)));
+  return keywords.some((keyword) => includesKeyword(text, keyword));
 }
 
 function getSearchTokens(text) {
@@ -547,7 +884,7 @@ function getVelorBlockBoost(text, item) {
   const block = normalizeText(item.blockTitle);
   let boost = 0;
 
-  if (/скорост|ускор|быстр|производитель|кэш|cache|redis|opcache|cloudflare|cdn|lazy|минификац|шрифт|backup|бэкап|uptime|404|500/.test(normalized) && block.includes('производительность')) boost += 5;
+  if (/скорост|ускор|быстр|производитель|кэш|cache|redis|opcache|cloudflare|cdn|lazy|минификац|шрифт|backup|бэкап|uptime|404|500|speed|slow|performance/.test(normalized) && block.includes('производительность')) boost += 10;
   if (/seo|сео|sitemap|robots|canonical|json-ld|чпу|редирект|404|мета|title|description|перелинков/.test(normalized) && block.includes('seo')) boost += 5;
   if (/поиск|meili|опечат|транслит|синоним|артикул|штрихкод|autocomplete|фото|голос/.test(normalized) && block.includes('поиск')) boost += 5;
   if (/каталог|категор|товар|карточк|популярн|новинк|просмотр|аналог|страна происх/.test(normalized) && block.includes('каталог')) boost += 5;
@@ -558,6 +895,7 @@ function getVelorBlockBoost(text, item) {
   if (/главн|город|cookie|баннер|реферал|simaland|цвет|размер/.test(normalized) && block.includes('главная')) boost += 5;
   if (/excel|pdf|word|кп|юрлиц|валют|конкурент|безопасност|2fa|rate/.test(normalized) && block.includes('бизнес')) boost += 5;
   if (/мобильн|приложен|app store|google play|push|dark|темн|robokassa/.test(normalized) && block.includes('мобильное')) boost += 5;
+  if (/audit|аудит|checkup|review/.test(normalized) && /speed|slow|performance|seo|technical|скорост|производитель/.test(normalized)) boost += 4;
 
   return boost;
 }
@@ -637,6 +975,58 @@ function scoreVelorItem(text, item) {
   return score;
 }
 
+function scoreItsngItem(text, item) {
+  const normalized = normalizeText(text);
+  const haystack = normalizeText(`${item.catalogTitle} ${item.stack} ${item.catalogSection}`);
+  const tokens = getSearchTokens(normalized);
+  let score = 0;
+
+  tokens.forEach((token) => {
+    if (haystack.includes(token)) {
+      score += token.length >= 5 ? 3 : 2;
+    }
+  });
+
+  if (normalized.includes(normalizeText(item.catalogTitle))) {
+    score += 10;
+  }
+
+  if (haystack.includes(normalized)) {
+    score += 18;
+  }
+
+  if (/wordpress/.test(normalized) && /wordpress/.test(haystack)) {
+    score += 5;
+  }
+
+  if (/tilda/.test(normalized) && /tilda/.test(haystack)) {
+    score += 5;
+  }
+
+  if (/телеграм|telegram/.test(normalized) && /telegram/.test(haystack)) {
+    score += 6;
+  }
+
+  if (/бот|ai/.test(normalized) && /бот/.test(haystack)) {
+    score += 4;
+  }
+
+  if (item.keywords && item.keywords.length) {
+    item.keywords.forEach((keyword) => {
+      const normalizedKeyword = normalizeText(keyword);
+      if (!normalizedKeyword || normalizedKeyword.length < 3) {
+        return;
+      }
+
+    if (includesKeyword(normalized, normalizedKeyword)) {
+      score += 2;
+    }
+    });
+  }
+
+  return score;
+}
+
 function getVelorAllowedBlocks(text) {
   const normalized = normalizeText(text);
   const blocks = [];
@@ -674,12 +1064,126 @@ function findVelorMatches(text, limit = 7) {
     .slice(0, limit);
 }
 
+function findItsngMatches(text, limit = 7) {
+  const normalized = normalizeText(text);
+
+  const ranked = ITSNG_ITEMS.map((item) => ({
+    ...item,
+    score: scoreItsngItem(normalized, item),
+  }))
+    .filter((item) => item.score >= 8)
+    .sort((a, b) => b.score - a.score || b.minKzt - a.minKzt)
+    .filter((item, index, list) => {
+      const itemKey = normalizeText(`${item.catalogSection}::${item.catalogTitle}::${item.stack || ''}`);
+      return (
+        list.findIndex((entry) => normalizeText(`${entry.catalogSection}::${entry.catalogTitle}::${entry.stack || ''}`) === itemKey) ===
+        index
+      );
+    });
+
+  return ranked.slice(0, limit);
+}
+
 function shouldUseVelorPricing(text) {
   const normalized = normalizeText(text);
 
-  return /cloudflare|redis|opcache|cdn|lazy|sitemap|robots|canonical|json-ld|чпу|редирект|meili|поиск|autocomplete|опечат|транслит|артикул|штрихкод|каталог|карточк товар|фильтр|ajax|range slider|drawer|crm|рассыл|wishlist|избран|сравнен|лояльност|отзыв|excel|pdf|word|кп|юрлиц|мультивалюта|безопасност|2fa|мобильн прилож|app store|google play|push|robokassa|скорост|ускор|производитель|техническ(ое|ий) seo|seo|сео|оптимизац|верстк|кроссбраузер|минификац/.test(
+  return /cloudflare|redis|opcache|cdn|lazy|sitemap|robots|canonical|json-ld|чпу|редирект|redirect|meili|search|поиск|autocomplete|опечат|typo|fuzzy|translit|транслит|артикул|sku|barcode|штрихкод|каталог|catalog|карточк товар|product card|фильтр|filter|ajax|range slider|drawer|crm|рассыл|newsletter|wishlist|избран|compare|сравнен|loyalty|лояльност|review|rating|отзыв|excel|pdf|word|кп|юрлиц|мультивалюта|multi-currency|security|безопасност|2fa|mobile app|мобильн прилож|app store|google play|push|robokassa|скорост|speed|fast|slow|performance|ускор|производитель|technical seo|техническ(ое|ий) seo|seo|сео|optimization|оптимизац|frontend|layout|верстк|кроссбраузер|cross-browser|minify|минификац/.test(
     normalized
   );
+}
+
+function shouldUseItsngPricing(text) {
+  const normalized = normalizeText(text);
+
+  return /wordpress|вордпресс|woocommerce|tilda|тильда|telegram|телеграм|бот|bot|chatbot|chat\s+bot|ai\s+chat|ai|ии|ассистент|assistant|backend|api|node|nestjs|express|postgres|postgre|sql|database|db|база\s*данных|mvp|saas|cms|админ|admin|dashboard|portal|client\s+portal|internal\s+tool|личн(ый|ого)\s+кабинет|user account|парсер|parser|scraper|автоматизац|automation|деплой|deploy|deployment|hosting|хостинг|ssl|domain|домен/.test(
+    normalized
+  );
+}
+
+function hasModuleIntent(text) {
+  const normalized = normalizeText(text);
+
+  return /модул|module|доработ|улучш|improve|improvement|tweak|patch|fix|оптимизац|optimi[sz]e|audit|аудит|чеклист|checklist|поэтап|roadmap|калькуляц|calculator|внедр|implement|интеграц|integration|webhook|connect|технич|technical|seo|производитель|performance|speed|slow|скорост|фильтр|filter|faceted|поиск|search|каталог|catalog/.test(
+    normalized
+  );
+}
+
+function isItsngSummaryReliable(text, matches) {
+  if (!matches.length) {
+    return false;
+  }
+
+  const normalized = normalizeText(text);
+  const topScore = matches[0]?.score || 0;
+  const strongIntent =
+    /wordpress|вордпресс|woocommerce|tilda|тильда|telegram|телеграм|бот|ai|ии|backend|api|node|nestjs|express|postgres|postgre|sql|mvp|saas|cms|админ|парсер|автоматизац/.test(
+      normalized
+    );
+
+  if (strongIntent) {
+    return topScore >= 10;
+  }
+
+  return matches.length >= 2 && topScore >= 14;
+}
+
+function summarizeItsngMatches(matches) {
+  if (!matches.length) {
+    return null;
+  }
+
+  const totalMin = matches.reduce((sum, item) => sum + item.minKzt, 0);
+  const totalMax = matches.reduce((sum, item) => sum + (item.maxKzt || item.minKzt), 0);
+  const sections = unique(matches.map((item) => item.catalogSection));
+
+  return {
+    minKzt: totalMin,
+    maxKzt: totalMax,
+    items: matches.map((item) => ({
+      id: item.id,
+      section: item.catalogSection,
+      title: item.catalogTitle,
+      stack: item.stack,
+      minKzt: item.minKzt,
+      maxKzt: item.maxKzt,
+      pricingType: item.pricingType,
+      hourly: item.hourly,
+      priceText: item.priceText,
+    })),
+    blocks: sections,
+  };
+}
+
+function getModuleSummary(estimate) {
+  if (estimate.service?.id !== MODULE_SERVICE.id) {
+    return null;
+  }
+
+  return estimate.velorSummary || estimate.itsngSummary || null;
+}
+
+function englishModuleText(item) {
+  const text = normalizeText(`${item.task || item.title || ''} ${item.blockTitle || item.section || ''}`);
+
+  if (/cloudflare|cdn/.test(text)) return 'Cloudflare/CDN setup';
+  if (/redis|opcache|кэш|cache/.test(text)) return 'server caching';
+  if (/lazy/.test(text)) return 'lazy loading for images and media';
+  if (/минификац|css|js|html|tree/.test(text)) return 'CSS/JS/HTML optimization';
+  if (/шрифт|font/.test(text)) return 'font optimization';
+  if (/индекс|database|бд/.test(text)) return 'database index optimization';
+  if (/sitemap/.test(text)) return 'sitemap setup';
+  if (/robots/.test(text)) return 'robots.txt setup';
+  if (/canonical/.test(text)) return 'canonical URL cleanup';
+  if (/json-ld|schema|product|breadcrumb|organization/.test(text)) return 'structured data / JSON-LD';
+  if (/чпу|301|redirect|редирект/.test(text)) return 'clean URLs and 301 redirects';
+  if (/перелинков|похожие|просмотренные/.test(text)) return 'internal linking blocks';
+  if (/поиск|search|meili|fuzzy|autocomplete/.test(text)) return 'site search improvement';
+  if (/фильтр|filter|ajax|range|drawer/.test(text)) return 'catalog filters';
+  if (/аудит|audit/.test(text)) return 'technical audit';
+  if (/seo|сео/.test(text)) return 'technical SEO task';
+  if (/скорост|производитель|performance|speed/.test(text)) return 'performance optimization';
+
+  return item.stack ? `${item.stack} task` : 'selected module';
 }
 
 function summarizeVelorMatches(matches) {
@@ -715,7 +1219,7 @@ function scoreItem(text, item) {
 
   const score = item.keywords.reduce((sum, keyword) => {
     const normalizedKeyword = normalizeText(keyword);
-    return text.includes(normalizedKeyword) ? sum + Math.max(1, normalizedKeyword.split(/\s+/).length) : sum;
+    return includesKeyword(text, normalizedKeyword) ? sum + Math.max(1, normalizedKeyword.split(/\s+/).length) : sum;
   }, 0);
 
   return score ? score + (item.priority || 0) : 0;
@@ -733,7 +1237,7 @@ function findMatches(text, items) {
 
 function filterServiceMatches(matches, text, pageCount) {
   const normalized = normalizeText(text);
-  const isExplicitOnePage = /одностранич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
+  const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
 
   return matches.filter((service) => {
@@ -752,61 +1256,89 @@ function filterServiceMatches(matches, text, pageCount) {
 function parsePageCount(text) {
   const normalized = normalizeText(text);
 
-  if (/одностранич|one[-\s]?page|1\s*(страниц|page|экран)/.test(normalized)) {
+  if (/одностранич|1\s*странич|one[-\s]?page|one\s+pager|single[-\s]?page|1\s*(страниц|page|screen|экран)/.test(normalized)) {
     return 1;
   }
 
-  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|page|экран|раздел|блок)/);
+  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел|блок)/);
   if (rangeMatch) {
     return Number(rangeMatch[2]);
   }
 
-  const match = normalized.match(/(\d{1,3})\s*(страниц|page|экран|раздел|блок)/);
+  const match = normalized.match(/(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел|блок)/);
   return match ? Number(match[1]) : null;
 }
 
 function parseBudget(text) {
   const normalized = normalizeText(text).replace(/\u00a0/g, ' ');
+  const rubPerKzt = Number.isFinite(FX_RATES.RUB_PER_KZT) && FX_RATES.RUB_PER_KZT > 0 ? FX_RATES.RUB_PER_KZT : 0.19;
+  const usdPerKzt = Number.isFinite(FX_RATES.USD_PER_KZT) && FX_RATES.USD_PER_KZT > 0 ? FX_RATES.USD_PER_KZT : 0.002;
+  const englishMoneyContext =
+    /budget|under|around|about|up to|can spend|ready to spend|quote|estimate|ballpark|roughly|approx|bucks?|dollars?|\$|website|site|landing|one\s+pager|bot|app|shop|store|ecom|dev|developer/.test(normalized) ||
+    /\b(?:can|could|would)\s+you\s+(?:do|build|make)\s+(?:it\s+)?for\b/.test(normalized) ||
+    /\b(?:run|cost|set\s+me\s+back)\b/.test(normalized);
+  const currencyRegex = 'тенге|тг|₸|kzt|руб(?:\\.|лей|ля|ль)?|₽|usd|доллар(?:а|ов)?|dollar(?:s)?|buck(?:s)?|\\$';
+  const scaleRegex = 'тыс|к|k|млн|миллион|миллиона|grand|g';
+
   const patterns = [
     {
       hasBudgetContext: true,
-      regex:
-        /(?:бюджет|за|до|есть|имею|готов\w*|выделил\w*|заплачу|потрачу|на руках)\s*(?:заплатить|потратить|примерно|около|порядка|до)?\s*(\d[\d\s]*(?:[.,]\d+)?)\s*(тыс|к|k|млн|миллион|миллиона|тенге|тг|₸)?/,
+      regex: new RegExp(
+        `(?:бюджет|за|до|есть|имею|готов\\w*|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
+      ),
     },
     {
       hasBudgetContext: false,
-      regex: /(\d[\d\s]*(?:[.,]\d+)?)\s*(тыс|к|k|млн|миллион|миллиона)\s*(?:тенге|тг|₸)?/,
+      regex: new RegExp(`(?<currency1>${currencyRegex})\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?`),
     },
     {
       hasBudgetContext: false,
-      regex: /(\d[\d\s]{3,})\s*(?:тенге|тг|₸)/,
+      regex: new RegExp(`(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})`),
+    },
+    {
+      hasBudgetContext: false,
+      regex: new RegExp(`(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})`),
+    },
+    {
+      hasBudgetContext: false,
+      regex: new RegExp(`(?<amount>\\d[\\d\\s]{3,})\\s*(?<currency2>${currencyRegex})`),
     },
   ];
 
   for (const pattern of patterns) {
     const match = normalized.match(pattern.regex);
-    if (!match) {
+    if (!match?.groups) {
       continue;
     }
 
-    const rawNumber = match[1].replace(/\s/g, '').replace(',', '.');
-    const value = Number(rawNumber);
-    const suffix = match[2] || '';
+    const rawNumber = match.groups.amount.replace(/\s/g, '').replace(',', '.');
+    let value = Number(rawNumber);
+    const scale = match.groups.scale || '';
+    const currencyToken = `${match.groups.currency1 || ''} ${match.groups.currency2 || ''}`.trim();
+    const matchedText = match[0] || '';
 
     if (!Number.isFinite(value) || value <= 0) {
       continue;
     }
 
-    if (/млн|миллион/.test(suffix)) {
-      return Math.round(value * 1000000);
+    if (!currencyToken && !scale && /\b(for\s+)?\d{1,3}\s*(pages?|screens?|sections?|blocks?)\b/.test(matchedText)) {
+      continue;
     }
 
-    if (/тыс|к|k/.test(suffix)) {
-      return Math.round(value * 1000);
+    if (/млн|миллион/.test(scale)) {
+      value *= 1000000;
+    } else if (/тыс|к|k|grand|g/.test(scale)) {
+      value *= 1000;
+    } else if (pattern.hasBudgetContext && value < 1000 && !currencyToken) {
+      value *= 1000;
     }
 
-    if (pattern.hasBudgetContext && value < 1000) {
-      return Math.round(value * 1000);
+    if (/руб|₽/.test(currencyToken)) {
+      return Math.round(value / rubPerKzt);
+    }
+
+    if (/usd|доллар|dollar|buck|\$/.test(currencyToken) || /grand|g/.test(scale) || (englishMoneyContext && /k/.test(scale))) {
+      return Math.round(value / usdPerKzt);
     }
 
     return Math.round(value);
@@ -839,9 +1371,32 @@ function getQuestionSet(service) {
   if (!service) return QUESTION_SETS.generic;
   if (service.id === 'ecommerce') return QUESTION_SETS.ecommerce;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS.backend;
+  if (service.id === 'telegram-bot') return QUESTION_SETS.telegramBot || QUESTION_SETS.aiAssistant;
   if (service.id === 'ai-assistant') return QUESTION_SETS.aiAssistant;
   if (service.id === 'developer-retainer') return QUESTION_SETS.hiring;
   return QUESTION_SETS.simpleSite;
+}
+
+function getQuestionSetForLanguage(service, language) {
+  if (language !== 'en') {
+    return getQuestionSet(service);
+  }
+
+  if (!service) return QUESTION_SETS_EN.generic;
+  if (service.id === 'ecommerce') return QUESTION_SETS_EN.ecommerce;
+  if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS_EN.backend;
+  if (service.id === 'telegram-bot') return QUESTION_SETS_EN.telegramBot;
+  if (service.id === 'ai-assistant') return QUESTION_SETS_EN.aiAssistant;
+  if (service.id === 'developer-retainer') return QUESTION_SETS_EN.hiring;
+  return QUESTION_SETS_EN.simpleSite;
+}
+
+function getServiceLabel(service, language) {
+  if (!service) {
+    return null;
+  }
+
+  return language === 'en' ? EN_SERVICE_LABELS[service.id] || service.label : service.label;
 }
 
 function getMissingQuestions(text, service) {
@@ -853,12 +1408,12 @@ function getMissingQuestions(text, service) {
   }
 
   const pageCount = parsePageCount(normalized);
-  const hasDesign = /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля/.test(normalized);
-  const hasContent = /контент|тексты|фото|материал|копирайт|логотип|готово|есть/.test(normalized);
-  const hasFeatures = /форма|заявк|оплат|мультияз|язык|админ|каталог|корзин|личный кабинет|авторизац|интеграц|crm|telegram|whatsapp|seo|аналитик|бот|ai|api/.test(normalized);
-  const hasHosting = /домен|хостинг|сервер|vps|vercel|beget|nginx|docker|deploy|деплой|ssl|уже размещен/.test(normalized);
-  const hasDataScope = /пользовател|заявк|товар|заказ|файл|платеж|таблиц|сущност|данн|база/.test(normalized);
-  const hasProvider = /gemini|openai|gpt|llm|локальн|ключ|токен|модель/.test(normalized);
+  const hasDesign = /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля|design ready|have design|no design|custom design|from scratch|brand book/.test(normalized);
+  const hasContent = /контент|тексты|фото|материал|копирайт|логотип|готово|есть|content|copy|text|photos|materials|logo|ready/.test(normalized);
+  const hasFeatures = /форма|заявк|оплат|мультияз|язык|админ|каталог|корзин|личный кабинет|авторизац|интеграц|crm|telegram|whatsapp|seo|аналитик|бот|ai|api|form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|analytics|bot/.test(normalized);
+  const hasHosting = /домен|хостинг|сервер|vps|vercel|beget|nginx|docker|deploy|деплой|ssl|уже размещен|domain|hosting|server|deployment|deployed|already hosted/.test(normalized);
+  const hasDataScope = /пользовател|заявк|товар|заказ|файл|платеж|таблиц|сущност|данн|база|users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
+  const hasProvider = /gemini|openai|gpt|llm|локальн|ключ|токен|модель|api key|token|local model/.test(normalized);
 
   if (service.id === 'ecommerce') {
     return questions.filter((question) => {
@@ -890,6 +1445,16 @@ function getMissingQuestions(text, service) {
     });
   }
 
+  if (service.id === 'telegram-bot') {
+    return questions.filter((question) => {
+      if (question.includes('Что должен делать')) return !hasFeatures;
+      if (question.includes('Куда отправлять')) return !/telegram|админ|google|sheets|crm|баз/.test(normalized);
+      if (question.includes('база данных')) return !hasDataScope && !hasFeatures;
+      if (question.includes('сценарий')) return !/сценари|кнопк|текст|готов/.test(normalized);
+      return true;
+    });
+  }
+
   if (service.id === 'developer-retainer') {
     return questions.filter((question) => {
       if (question.includes('формат')) return !/part[-\s]?time|full[-\s]?time|полная|частичная|постоянн|месяц|retainer/.test(normalized);
@@ -909,18 +1474,329 @@ function getMissingQuestions(text, service) {
   });
 }
 
+function getMissingQuestionsEn(text, service) {
+  const normalized = normalizeText(text);
+  const questions = getQuestionSetForLanguage(service, 'en');
+
+  if (!service) {
+    return questions;
+  }
+
+  const pageCount = parsePageCount(normalized);
+  const hasDesign = /figma|template|design ready|have design|got design|already have design|figma ready|no design|custom design|from scratch|brand book|need ui/.test(normalized);
+  const hasContent = /content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have texts?|have photos|got the copy|got photos|content is ready|copy is ready/.test(normalized);
+  const hasFeatures = /form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|crm|telegram|whatsapp|seo|analytics|bot|ai|api/.test(normalized);
+  const hasHosting = /domain|hosting|server|vps|vercel|render|docker|deploy|deployment|deployed|already hosted|ssl/.test(normalized);
+  const hasDataScope = /users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
+  const hasProvider = /gemini|openai|gpt|llm|api key|token|local model/.test(normalized);
+
+  if (service.id === 'ecommerce') {
+    return questions.filter((question) => {
+      if (question.includes('products')) return !/product|catalog|\d{1,5}\s*(products?|items?|sku)/.test(normalized);
+      if (question.includes('cart')) return !hasFeatures;
+      if (question.includes('WordPress')) return !hasAny(normalized, ['wordpress', 'woocommerce', 'cms', 'custom', 'shopify']);
+      if (question.includes('integrations')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') {
+    return questions.filter((question) => {
+      if (question.includes('backend/API only')) return !/frontend|admin|backend only|api only|website/.test(normalized);
+      if (question.includes('data entities')) return !hasDataScope;
+      if (question.includes('authentication')) return !hasFeatures;
+      if (question.includes('deployed')) return !hasHosting;
+      return true;
+    });
+  }
+
+  if (service.id === 'ai-assistant') {
+    return questions.filter((question) => {
+      if (question.includes('only consult')) return !hasFeatures;
+      if (question.includes('knowledge')) return !/price list|document|database|website|admin|knowledge/.test(normalized);
+      if (question.includes('provider')) return !hasProvider;
+      if (question.includes('history')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (service.id === 'telegram-bot') {
+    return questions.filter((question) => {
+      if (question.includes('What should')) return !hasFeatures;
+      if (question.includes('leads go')) return !/telegram|admin|google|sheets|crm|database/.test(normalized);
+      if (question.includes('database')) return !hasDataScope && !hasFeatures;
+      if (question.includes('button flow')) return !/flow|buttons?|texts?|ready/.test(normalized);
+      return true;
+    });
+  }
+
+  if (service.id === 'developer-retainer') {
+    return questions.filter((question) => {
+      if (question.includes('format')) return !/part[-\s]?time|full[-\s]?time|monthly|retainer|contract/.test(normalized);
+      if (question.includes('stack')) return !/frontend|backend|wordpress|node|postgres|react|python|django|integration/.test(normalized);
+      if (question.includes('hours')) return !/\d{1,3}\s*(hours?|hrs?)|full[-\s]?time|monthly|every day/.test(normalized);
+      if (question.includes('one developer')) return !/one|team|design|manager/.test(normalized);
+      return true;
+    });
+  }
+
+  return questions.filter((question) => {
+    if (question.includes('design')) return !hasDesign;
+    if (question.includes('blocks')) return !pageCount && !/hero|about|projects|services|reviews|contacts|form|portfolio|blocks?/.test(normalized);
+    if (question.includes('texts')) return !hasContent;
+    if (question.includes('SEO')) return !hasFeatures && !hasHosting;
+    return true;
+  });
+}
+
 function isGreetingOnly(text) {
   return /^(привет|салам|здравствуйте|hello|hi|hey|добрый день)[\s!.?]*$/i.test(text.trim());
+}
+
+function isOldMaintenanceRequest(text) {
+  const normalized = normalizeText(text);
+  const hasMaintenance = /доработ|исправ|баг|ошибк|чинить|фикс|правк|поддержк|рефактор|додел|fix|bug|bugfix|patch|repair|maintain|maintenance|update|tweak|refactor|broken|site\s+is\s+down|not\s+working|doesn'?t\s+work|crashed/.test(normalized);
+  const hasOldProject = /стар|существующ|чуж|готов(ый|ого)|текущ|уже есть|мой сайт|наш сайт|old|existing|current|legacy|someone else|third[-\s]?party|my site|our site|already have|built by/.test(normalized);
+
+  return hasMaintenance && hasOldProject;
+}
+
+function isNegotiationRequest(text) {
+  const normalized = normalizeText(text);
+  const patterns = [
+    /дорог(о|овато|ая|ие|ой)/,
+    /expensive|pricey|costly|overpriced/,
+    /too\s+(much|expensive|pricey|steep|high)/,
+    /price\s+(is\s+)?(high|too high|steep|doesn'?t work|not okay)/,
+    /that'?s\s+(a lot|too much|expensive|steep)/,
+    /цена\s+(высок|больш|кусает|не\s+подходит)/,
+    /слишком\s+(дорог|много|высок)/,
+    /это\s+(много|дорого|выше\s+бюджета)/,
+    /дешевле|подешевле|сдела(ешь|ете)?\s+дешев/,
+    /cheaper|lower|less expensive|can you do lower|can you go lower|drop the price/,
+    /скидк|уступ|торг/,
+    /discount|deal|negotiate|negotiable|price match|match price/,
+    /можно\s+(меньше|подешевле|скинуть|уступить)/,
+    /снизить\s+(цен|стоимост)/,
+    /уменьшить\s+(цен|стоимост|бюджет)/,
+    /почему\s+(так|столько|такая\s+цена|дорого)/,
+    /не\s+(потяну|потянем|хватает|укладываюсь|укладываемся)/,
+    /can'?t\s+afford|cannot\s+afford|out\s+of\s+budget|not\s+in\s+budget|don'?t\s+have\s+that\s+budget/,
+    /нет\s+(такого\s+)?бюджет/,
+    /бюджет\s+(меньше|ограничен|маленький|небольшой|только|всего)|budget\s+(is\s+)?(tight|limited|small|lower|only|just)/,
+    /у\s+меня\s+(меньше|только|всего)|i\s+(only|just)\s+have|i'?ve\s+got\s+only/,
+    /друг(ой|ие)\s+(дела(ет|ют)|предлага(ет|ют))\s+дешев/,
+    /someone\s+else\s+(does|offered|quoted)\s+.*cheaper|another\s+(dev|developer|guy|team)\s+.*cheaper/,
+    /у\s+конкурент(а|ов)\s+дешев/,
+    /(competitor|fiverr|upwork|kwork)\s+.*cheaper/,
+    /наш[её]\s*л\s+дешевле/,
+    /можно\s+за\s+\d/,
+    /can\s+you\s+do\s+(it\s+)?for\s+\d/,
+    /сдела(ешь|ете)?\s+за\s+\d|would\s+you\s+do\s+(it\s+)?for\s+\d/,
+    /улож(имся|иться)\s+в\s+\d|fit\s+it\s+into\s+\d|fit\s+within\s+\d/,
+    /влез(ем|ть)\s+в\s+бюджет|fit\s+(my\s+)?budget/,
+    /оплат(а|ить)\s+после\s+(результат|готовност|запуск)/,
+    /без\s+предоплат/,
+    /рассрочк|поэтапн(о|ая)\s+оплат/,
+    /barter|бартер/,
+  ];
+
+  return patterns.some((pattern) => pattern.test(normalized));
+}
+
+function hasExplicitCurrency(text) {
+  return /тенге|тг|₸|kzt|руб|₽|usd|доллар|dollar|bucks?|\$|grand|\b\d+(?:[.,]\d+)?\s*[kg]\b/i.test(text);
+}
+
+function hasAmbiguousBudget(text) {
+  const normalized = normalizeText(text);
+  const hasBudgetWords = /бюджет|за|до|есть|готов\w*|выделил\w*|улож|влез|потрачу|заплачу|budget|under|around|about|up to|can spend|ready to spend|for/.test(normalized);
+  const hasAmount = /\d[\d\s]*(?:[.,]\d+)?\s*(тыс|к|k|млн|миллион|миллиона|grand|g)?/.test(normalized);
+
+  if (/\bfor\s+\d{1,3}\s*(pages?|screens?|sections?|blocks?)\b/.test(normalized)) {
+    return false;
+  }
+
+  return hasBudgetWords && hasAmount && !hasExplicitCurrency(normalized);
+}
+
+function isPaymentTermsRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /оплат(а|ить)\s+после|после\s+(результат|готовност|запуск)|без\s+предоплат|предоплат[ау]\s+не|50\s*\/\s*50|рассрочк|поэтапн(о|ая)\s+оплат|частями|постоплат|barter|бартер|pay\s+after|payment\s+after|after\s+(delivery|result|launch)|pay\s+on\s+delivery|cash\s+after\s+launch|no\s+upfront|no\s+prepayment|without\s+prepayment|split\s+payment|installments?|milestone\s+payment|pay\s+in\s+parts/.test(
+    normalized
+  );
+}
+
+function isUrgentRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /срочн|горит|надо\s+(сегодня|завтра|до\s+вечера|за\s+день|за\s+ночь|к\s+утру)|дедлайн|очень\s+быстро|asap|urgent|rush|need\s+it\s+(today|tomorrow|tonight|by\s+morning|by\s+eod)|same\s+day|next\s+day|deadline|end\s+of\s+day|eod|by\s+monday|by\s+friday/.test(
+    normalized
+  );
+}
+
+function isBigCloneRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /как\s+(kaspi|каспи|amazon|амазон|flipkart|instagram|инстаграм|airbnb|uber|netflix|youtube|tiktok|тик\s*ток|wildberries|ozon|olx|avito|авито|booking|spotify|whatsapp|telegram|яндекс|yandex)|аналог\s+(kaspi|каспи|amazon|амазон|instagram|инстаграм|airbnb|uber|netflix|youtube|tiktok|wildberries|ozon|olx|avito|авито|booking)|маркетплейс\s+как|like\s+(amazon|instagram|airbnb|uber|netflix|youtube|tiktok|wildberries|ozon|olx|avito|booking|spotify|whatsapp|telegram|etsy|ebay|shopify)|marketplace\s+like|clone\s+of\s+(amazon|instagram|airbnb|uber|netflix|youtube|tiktok|etsy|ebay)|similar\s+to\s+(amazon|instagram|airbnb|uber|netflix|youtube|tiktok|etsy|ebay)/.test(
+    normalized
+  );
+}
+
+function isMixedProjectRequest(text) {
+  const normalized = normalizeText(text);
+  const signals = [
+    /сайт|лендинг|wordpress|вордпресс|tilda|тильда|website|site|landing|web page/.test(normalized),
+    /бот|telegram|телеграм|ai|ии|ассистент|bot|chatbot|assistant/.test(normalized),
+    /backend|api|node|postgres|база|админ|личный кабинет/.test(normalized),
+    /магазин|каталог|корзин|оплат|woocommerce|shop|store|catalog|cart|checkout|payment/.test(normalized),
+    /crm|интеграц|автоматизац|парсер|integration|automation|parser|scraper/.test(normalized),
+  ];
+
+  return signals.filter(Boolean).length >= 2 && /(\+|и еще|также|плюс|вместе|сразу|и\s+бот|и\s+сайт|и\s+backend|и\s+оплат|и\s+crm|and\s+(a\s+)?bot|and\s+(a\s+)?telegram\s+bot|and\s+(a\s+)?site|plus|also|together|all\s+at\s+once|with\s+(payment|crm|backend|bot|telegram\s+bot))/.test(normalized);
+}
+
+function isCasualOrContactRequest(text) {
+  const normalized = normalizeText(text).trim();
+
+  return /^(ты\s+кто|кто\s+ты|ты\s+человек|что\s+умеешь|как\s+дела|контакты|как\s+связаться|telegram|телеграм|портфолио|покажи\s+портфолио|где\s+портфолио|who\s+are\s+you|are\s+you\s+human|what\s+can\s+you\s+do|contact|contacts|how\s+to\s+contact|show\s+(me\s+)?portfolio|portfolio|where\s+is\s+portfolio)[\s?.!]*$/.test(
+    normalized
+  );
 }
 
 function isProjectRequest(text) {
   const normalized = normalizeText(text);
 
-  return /сколько|цена|стоим|оцен|сайт|лендинг|магазин|бот|cms|wordpress|вордпресс|tilda|node|postgres|backend|api|портфолио/.test(
+  return /сколько|цена|стоим|оцен|сайт|лендинг|магазин|бот|cms|wordpress|вордпресс|tilda|node|postgres|backend|api|портфолио|how much|quote|quote me|rough quote|ballpark|estimate|cost|price|how much would|what would it cost|what would it run|run me|set me back|website|site|landing|one pager|store|shop|webshop|ecom|bot|web app|portal|dashboard|portfolio|build me|make me/.test(
     normalized
-  ) || /нанять|программист|разработчик|аутстаф|full[-\s]?time|part[-\s]?time|retainer|поддержка/.test(
+  ) || /нанять|программист|разработчик|аутстаф|full[-\s]?time|part[-\s]?time|retainer|поддержка|hire|developer|dev|engineer|contractor|freelancer|programmer|monthly|ongoing|support/.test(
     normalized
   );
+}
+
+function buildOldMaintenanceReply(language) {
+  if (language === 'en') {
+    return [
+      'I do not usually take direct bug fixing or maintenance of old third-party code because the scope is hard to control.',
+      'A better format is to make a clean new version of the page, rebuild the broken module, or move the feature to a predictable platform.',
+      'Send me the link, what is broken, your budget and deadline in Telegram: https://t.me/Berliyn_h. I will suggest two options: a minimal clean rebuild and a normal version.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Я обычно не беру прямой багфикс и поддержку старого чужого кода, потому что там сложно честно зафиксировать объем и срок.',
+    'Лучший вариант - сделать новую чистую версию страницы, отдельный новый модуль или перенос на понятную платформу.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте ссылку, что сломано, бюджет и срок - я предложу 2 варианта: минимальный и нормальный.',
+  ].join('\n\n');
+}
+
+function buildNegotiationReply(language) {
+  if (language === 'en') {
+    return [
+      'We can reduce the price only by reducing the scope, not by quietly promising the same work for less.',
+      'The usual two options are: a minimal version now with the main function only, or a normal version later with design, integrations and polish. I can also split the work into paid stages, but I do not work on full delivery with payment only after the result.',
+      'Send the task, budget and deadline in Telegram: https://t.me/Berliyn_h. I will suggest a budget option and a normal option.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Снизить цену можно, но только через уменьшение объема: меньше страниц, без админки, без сложного дизайна или без интеграций.',
+    'Я бы предложил 2 варианта: минимальный сейчас с главной функцией и нормальный вариант следующим этапом. Можно разбить оплату по этапам, но полный проект без предоплаты или только после результата я не беру.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте задачу, бюджет и срок - я распишу бюджетный и нормальный вариант.',
+  ].join('\n\n');
+}
+
+function buildPaymentTermsReply(language) {
+  if (language === 'en') {
+    return [
+      'I can split the work into stages: small prepayment, demo of the result, then the next payment or final payment.',
+      'Full delivery with payment only after the result is not a good format because the scope can change during the work.',
+      'Send the task, budget and deadline in Telegram: https://t.me/Berliyn_h. I will suggest a staged payment plan and two scope options.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Можно работать по этапам: небольшая предоплата, демонстрация результата, затем следующий платеж или финальная оплата.',
+    'Полный проект без предоплаты или только после результата я не беру, потому что объем может меняться в процессе.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте задачу, бюджет и срок - предложу оплату по этапам и 2 варианта объема.',
+  ].join('\n\n');
+}
+
+function buildUrgentReply(language) {
+  if (language === 'en') {
+    return [
+      'For an urgent deadline, I would not promise the full project. The realistic format is a minimal version: one key page, one bot scenario, or one critical module.',
+      'Urgency affects the price or the scope: either we simplify the task, or we split it into a quick launch and a normal second phase.',
+      'Send the deadline, must-have features and budget in Telegram: https://t.me/Berliyn_h. I will say what can realistically be done first.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Если нужно срочно, я бы не обещал весь проект целиком. Реалистичный формат - минимальная версия: одна ключевая страница, один сценарий бота или один важный модуль.',
+    'Срочность влияет на цену или объем: либо упрощаем задачу, либо делим на быстрый запуск и нормальный второй этап.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте срок, обязательные функции и бюджет - скажу, что реально успеть первым этапом.',
+  ].join('\n\n');
+}
+
+function buildBigCloneReply(language) {
+  if (language === 'en') {
+    return [
+      'A full clone of a large service is not a simple website. It usually means product logic, backend, database, accounts, payments, admin panel and integrations.',
+      'The realistic way is to start with an MVP: one core flow, limited roles and a simple admin/requests flow. The full platform should go into later phases.',
+      'Send the reference, must-have features and budget in Telegram: https://t.me/Berliyn_h. I will split it into a minimal version and a normal roadmap.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Полный аналог крупного сервиса - это не обычный сайт. Там обычно нужны бизнес-логика, backend, база данных, кабинеты, оплата, админка и интеграции.',
+    'Правильнее начать с MVP: один главный сценарий, ограниченные роли и простая админка/заявки. Полную платформу лучше вынести в этапы.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте пример, обязательные функции и бюджет - разобью на минимальную версию и нормальную дорожную карту.',
+  ].join('\n\n');
+}
+
+function buildMixedProjectReply(language) {
+  if (language === 'en') {
+    return [
+      'This is a combined project, so I would not estimate it as one simple website. We need to choose the first launch stage.',
+      'The usual split is: 1. website/landing first, 2. bot or integration second, 3. backend/admin/payment as a separate stage if needed.',
+      'Send the must-have part, budget and deadline in Telegram: https://t.me/Berliyn_h. I will suggest a minimal launch and a normal version.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Это уже комбинированная задача, поэтому я бы не считал ее как один простой сайт. Нужно выбрать первый этап запуска.',
+    'Обычно делим так: 1. сайт/лендинг, 2. бот или интеграция, 3. backend/админка/оплата отдельным этапом, если они нужны.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте, что обязательно на первом запуске, бюджет и срок - предложу минимальный и нормальный вариант.',
+  ].join('\n\n');
+}
+
+function buildAmbiguousBudgetReply(language) {
+  if (language === 'en') {
+    return [
+      'I see the budget, but the currency is unclear. Please specify whether it is RUB, USD or KZT.',
+      'After that I can compare it with the price list and suggest what fits now and what should go into the second phase.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Бюджет вижу, но валюта неясна. Уточните, пожалуйста: это рубли, доллары или тенге?',
+    'После этого сравню сумму с прайсом и скажу, что реально сделать сейчас, а что лучше вынести во второй этап.',
+  ].join('\n\n');
+}
+
+function buildCasualOrContactReply(language) {
+  if (language === 'en') {
+    return [
+      'I am Dias’s project assistant. I can estimate websites, WordPress/Tilda, Telegram bots, AI assistants, backend/API, MVPs and automation.',
+      'For a quick estimate, send: what you need, example link, budget, deadline and must-have features. Telegram: https://t.me/Berliyn_h.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Я ассистент Диаса по проектам. Могу оценить сайты, WordPress/Tilda, Telegram-ботов, AI-ассистентов, backend/API, MVP и автоматизацию.',
+    'Для быстрой оценки скиньте: что нужно, пример/ссылку, бюджет, срок и обязательные функции. Telegram: https://t.me/Berliyn_h.',
+  ].join('\n\n');
 }
 
 function isAddonIncluded(service, addon) {
@@ -994,6 +1870,25 @@ function getServiceBudgetScope(service) {
     };
   }
 
+  if (service.id === 'telegram-bot') {
+    return {
+      bestFit: 'Telegram-бот для заявок с кнопками и уведомлением админу',
+      canOffer: [
+        'собрать сценарий кнопок и сообщений',
+        'принимать заявки и отправлять их админу в Telegram',
+        'подключить Google Sheets или простую базу при необходимости',
+        'оставить оплату, Mini App и сложную админку на второй этап',
+      ],
+      notIncluded: [
+        'полноценная админ-панель',
+        'онлайн-оплата и сложные роли',
+        'Mini App с frontend/backend',
+        'массовые рассылки и сложная аналитика',
+      ],
+      recommendation: 'сначала запустить простой бот для заявок, а базу, оплату и админку добавить отдельными этапами',
+    };
+  }
+
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') {
     return {
       bestFit: 'архитектура, ТЗ или маленький технический прототип',
@@ -1041,7 +1936,10 @@ function buildBudgetPlan({ budget, service, min, max }) {
   }
 
   const tier = getBudgetTier(budget);
-  const serviceScope = budget < min ? getServiceBudgetScope(service) : null;
+  const serviceScope =
+    service && (budget < min || ['telegram-bot', 'ai-assistant', 'node-postgres-backend', 'custom-cms'].includes(service.id))
+      ? getServiceBudgetScope(service)
+      : null;
   const fit = !service ? 'needs_project_type' : budget < min ? 'below_estimate' : budget <= max ? 'within_estimate' : 'above_estimate';
   const gap = service && budget < min ? min - budget : 0;
 
@@ -1064,23 +1962,42 @@ function estimateFromMessages(messages) {
   const pageCount = parsePageCount(normalized);
   const velorMatches = shouldUseVelorPricing(normalized) ? findVelorMatches(normalized) : [];
   const velorSummary = summarizeVelorMatches(velorMatches);
+  const itsngMatches = shouldUseItsngPricing(normalized) ? findItsngMatches(normalized) : [];
+  const itsngSummary = velorSummary || !isItsngSummaryReliable(normalized, itsngMatches) ? null : summarizeItsngMatches(itsngMatches);
   const serviceMatches = filterServiceMatches(findMatches(normalized, SERVICES), normalized, pageCount);
-  const service = velorSummary ? MODULE_SERVICE : serviceMatches[0] || null;
+  const primaryService = serviceMatches[0] || null;
+  const moduleSummaryCandidate = velorSummary || itsngSummary;
+  const useModuleSummary = Boolean(moduleSummaryCandidate && (hasModuleIntent(normalized) || !primaryService));
+  const activeVelorSummary = useModuleSummary ? velorSummary : null;
+  const activeItsngSummary = useModuleSummary ? itsngSummary : null;
+  const service = useModuleSummary ? MODULE_SERVICE : primaryService;
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
   const budget = parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
+  const missingQuestionsEn = getMissingQuestionsEn(normalized, service);
   const projectRequest = isProjectRequest(normalized);
   const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
-  const min = velorSummary ? velorSummary.minKzt : service ? service.min + addonMin : null;
-  const max = velorSummary ? velorSummary.maxKzt : service ? service.max + addonMax : null;
+  const baseMin = moduleSummaryCandidate?.minKzt || 0;
+  const baseMax = moduleSummaryCandidate?.maxKzt || 0;
+  const min = useModuleSummary ? baseMin : service ? service.min + addonMin : null;
+  const max = useModuleSummary ? baseMax : service ? service.max + addonMax : null;
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
-  const ready = Boolean(service && (velorSummary || isHiring || budget || (!shouldAskFirst && missingQuestions.length <= 2)));
-  const phase = isHiring ? 'hiring_guidance' : budget ? 'budget_guidance' : velorSummary ? 'module_pricing' : ready ? 'estimate_allowed' : 'questions_only';
+  const moduleSummary = activeVelorSummary || activeItsngSummary;
+  const ready = Boolean(service && (moduleSummary || isHiring || budget || (!shouldAskFirst && missingQuestions.length <= 2)));
+  const phase = isHiring
+    ? 'hiring_guidance'
+    : budget
+      ? 'budget_guidance'
+      : moduleSummary
+        ? 'module_pricing'
+        : ready
+          ? 'estimate_allowed'
+          : 'questions_only';
 
   return {
     service,
@@ -1090,26 +2007,36 @@ function estimateFromMessages(messages) {
     budget,
     budgetPlan,
     velorMatches,
-    velorSummary,
+    itsngSummary: activeItsngSummary,
+    itsngMatches,
+    velorSummary: activeVelorSummary,
     min,
     max,
     ready,
     phase,
     complexity,
     missingQuestions,
+    missingQuestionsEn,
     summary: service
-      ? `${service.label}: ${min ? formatPrice(min) : ''} - ${max ? formatPrice(max) : ''}, срок ${service.timeline}.`
+      ? `${service.label}: ${min || 0} - ${max || 0} KZT, срок ${service.timeline}.`
       : 'Недостаточно данных для честной оценки. Нужно понять тип проекта, объем, дизайн, функции и стек.',
   };
 }
 
 function buildQuestionsReply(estimate, language) {
   const isRu = language !== 'en';
-  const questions = (estimate.missingQuestions.length ? estimate.missingQuestions : getQuestionSet(estimate.service)).slice(0, 4);
+  const questions = (isRu
+    ? estimate.missingQuestions.length
+      ? estimate.missingQuestions
+      : getQuestionSet(estimate.service)
+    : estimate.missingQuestionsEn?.length
+      ? estimate.missingQuestionsEn
+      : getQuestionSetForLanguage(estimate.service, language)
+  ).slice(0, 4);
 
   if (!isRu) {
     const intro = estimate.service
-      ? `I understand, this looks like ${estimate.service.label}. I need a few details before pricing it properly:`
+      ? `I understand, this looks like ${getServiceLabel(estimate.service, language)}. I need a few details before pricing it properly:`
       : 'I need a few details before giving a realistic estimate:';
 
     return `${intro}\n${questions.map((question, index) => `${index + 1}. ${question}`).join('\n')}\nAfter that I will calculate a range, timeline and what is included.`;
@@ -1124,18 +2051,35 @@ function buildQuestionsReply(estimate, language) {
 
 function buildEstimateReply(estimate, language) {
   const isRu = language !== 'en';
+  const moduleSummary = getModuleSummary(estimate);
 
-  if (estimate.velorSummary) {
-    const items = estimate.velorSummary.items
+  if (moduleSummary) {
+    const isItsng = Boolean(estimate.itsngSummary);
+    const catalogLabel = isRu
+      ? isItsng
+        ? 'каталогу услуг IT-SNG'
+        : 'модульному прайсу'
+      : isItsng
+        ? 'IT-SNG catalog'
+        : 'modular price list';
+    const items = moduleSummary.items
       .slice(0, 5)
-      .map((item) => `- ${item.task}: ${formatPrice(item.priceKzt)}, ${item.timeline}. ${item.explanation}`)
+      .map((item) =>
+        isRu
+          ? isItsng
+            ? `- ${item.title} (${item.stack || 'Технологический стек не указан'}): ${formatPriceRange(item.minKzt, item.maxKzt, language)}.`
+            : `- ${item.task}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}. ${item.explanation}`
+          : isItsng
+            ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(item.minKzt, item.maxKzt, language)}.`
+            : `- ${englishModuleText(item)}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}.`
+      )
       .join('\n');
-    const total = `${formatPrice(estimate.velorSummary.minKzt)} - ${formatPrice(estimate.velorSummary.maxKzt)}`;
-    const blocks = estimate.velorSummary.blocks.join(', ');
+    const total = formatPriceRange(moduleSummary.minKzt, moduleSummary.maxKzt, language);
+    const blocks = isRu ? moduleSummary.blocks.join(', ') : unique(moduleSummary.items.map((item) => englishModuleText(item))).slice(0, 3).join(', ');
 
     if (!isRu) {
       return [
-        `I found this in the modular price list. The closest area is: ${blocks}.`,
+        `I found this in the ${catalogLabel}. The closest area is: ${blocks}.`,
         `Relevant modules:\n${items}`,
         `Rough range for these selected modules: ${total}.`,
         `I would prioritize it this way: first the items that affect speed, SEO and purchase flow, then design/CRM, and mobile app work as a separate phase.`,
@@ -1143,7 +2087,7 @@ function buildEstimateReply(estimate, language) {
     }
 
     return [
-      `По модульному прайсу это ближе всего к блоку: ${blocks}.`,
+      `По ${catalogLabel} это ближе всего к блоку: ${blocks}.`,
       `Что я бы заложил в оценку:\n${items}`,
       `Ориентир по этим пунктам: ${total}.`,
       `По порядку работ я бы шел так: сначала то, что влияет на скорость, SEO и путь к покупке; затем поиск, дизайн и CRM; мобильное приложение - отдельным этапом.`,
@@ -1151,15 +2095,16 @@ function buildEstimateReply(estimate, language) {
   }
 
   const addons = estimate.addons.length ? estimate.addons.map((item) => item.label).join(', ') : null;
-  const tech = estimate.technologies.length ? estimate.technologies.join(', ') : estimate.service.label;
+  const serviceLabel = getServiceLabel(estimate.service, language);
+  const tech = estimate.technologies.length ? estimate.technologies.join(', ') : serviceLabel;
   const included = estimate.service.includes.slice(0, 4).join(', ');
   const assumptions = estimate.missingQuestions.slice(0, 2);
 
   if (!isRu) {
     return [
-      `Based on your answers, this is a ${estimate.complexity.level} task: ${estimate.service.label}.`,
+      `Based on your answers, this is a ${estimate.complexity.level} task: ${serviceLabel}.`,
       `Characteristics: stack/platform - ${tech}; scope - ${estimate.pageCount || 'to be finalized'} page(s)/main screens; extras - ${addons || 'no major extras detected'}.`,
-      `Rough range: ${formatPrice(estimate.min)} - ${formatPrice(estimate.max)}, timeline ${estimate.service.timeline}. Includes: ${included}.`,
+      `Rough range: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}. Includes: ${included}.`,
       assumptions.length ? `I am assuming the remaining details are standard: ${assumptions.join('; ')}.` : 'A final quote still depends on the exact brief and materials.',
     ].join(' ');
   }
@@ -1167,7 +2112,7 @@ function buildEstimateReply(estimate, language) {
   return [
     `По ответам это ${estimate.complexity.level} задача: ${estimate.service.label}.`,
     `Характеристики: стек/платформа - ${tech}; объем - ${estimate.pageCount || 'уточняется'} страниц/основных экранов; доп. модули - ${addons || 'без явных сложных модулей'}.`,
-    `Ориентир: ${formatPrice(estimate.min)} - ${formatPrice(estimate.max)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
+    `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
     assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
   ].join(' ');
 }
@@ -1179,65 +2124,91 @@ function formatList(items) {
 function buildBudgetReply(estimate, language) {
   const isRu = language !== 'en';
   const plan = estimate.budgetPlan;
-  const budget = formatPrice(plan.budget);
-  const serviceLabel = estimate.service?.label || (isRu ? 'проект' : 'project');
+  const planCopy = isRu ? plan : EN_BUDGET_TIER_COPY[plan.tier?.id] || plan;
+  const budget = formatPrice(plan.budget, language);
+  const moduleSummary = getModuleSummary(estimate);
+  const serviceLabel = getServiceLabel(estimate.service, language) || (isRu ? 'проект' : 'project');
   const expectedRange = estimate.service
-    ? `${formatPrice(estimate.min)} - ${formatPrice(estimate.max)}`
+    ? formatPriceRange(estimate.min, estimate.max, language)
     : isRu
       ? 'зависит от типа проекта'
       : 'depends on the project type';
-  const canOffer = formatList(plan.canOffer.slice(0, 4));
-  const notIncluded = formatList(plan.notIncluded.slice(0, 4));
+  const canOffer = formatList(planCopy.canOffer.slice(0, 4));
+  const notIncluded = formatList(planCopy.notIncluded.slice(0, 4));
 
-  if (estimate.velorSummary) {
+  if (moduleSummary) {
+    const isItsng = Boolean(estimate.itsngSummary);
+    const sourceLabel = isItsng ? (isRu ? 'каталогу услуг IT-SNG' : 'the IT-SNG catalog') : (isRu ? 'модульному прайсу' : 'the modular price list');
     const affordableItems = [];
     let runningTotal = 0;
 
-    estimate.velorSummary.items.forEach((item) => {
-      if (runningTotal + item.priceKzt <= plan.budget) {
+    moduleSummary.items.forEach((item) => {
+      const itemPrice = isItsng ? item.minKzt : item.priceKzt;
+      if (itemPrice && runningTotal + itemPrice <= plan.budget) {
         affordableItems.push(item);
-        runningTotal += item.priceKzt;
+        runningTotal += itemPrice;
       }
     });
 
     const selected = affordableItems.length
-      ? affordableItems.map((item) => `- ${item.task}: ${formatPrice(item.priceKzt)}, ${item.timeline}`).join('\n')
-      : '- короткий аудит и приоритизация задач перед разработкой';
-    const totalText = affordableItems.length ? formatPrice(runningTotal) : null;
+      ? affordableItems
+          .map((item) =>
+            isRu
+              ? isItsng
+                ? `- ${item.title} (${item.stack || 'Тех. стек не указан'}): ${formatPriceRange(item.minKzt, item.maxKzt, language)}`
+                : `- ${item.task}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}`
+              : isItsng
+                ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(item.minKzt, item.maxKzt, language)}`
+                : `- ${englishModuleText(item)}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}`
+          )
+          .join('\n')
+      : isRu
+        ? '- короткий аудит и приоритизация задач перед разработкой'
+        : '- short audit and task prioritization before development';
+    const totalText = affordableItems.length ? formatPrice(runningTotal, language) : null;
 
     if (!isRu) {
       return [
-        `Budget ${budget} is clear. From the modular price list, the full selected set is around ${expectedRange}.`,
+        `Budget ${budget} is clear. From ${sourceLabel}, the full selected set is around ${expectedRange}.`,
         `Inside the current budget I would start with:\n${selected}`,
         totalText ? `This first step is about ${totalText}.` : 'This should be treated as a preparation step, not a full implementation.',
+        `I focused on items from ${sourceLabel}.`,
         'The rest should go into the next phase so quality does not collapse.',
       ].join('\n\n');
     }
 
     return [
-      `Бюджет ${budget} понял. По модульному прайсу полный выбранный набор тянет примерно на ${expectedRange}.`,
+      `Бюджет ${budget} понял. По ${sourceLabel} полный выбранный набор тянет примерно на ${expectedRange}.`,
       `Внутри текущего бюджета я бы начал с этого:\n${selected}`,
       totalText ? `Такой первый этап выходит примерно на ${totalText}.` : 'Это лучше подать как подготовительный этап, а не как полноценную разработку.',
-      'Остальные пункты лучше вынести во второй этап, чтобы не просесть по качеству.',
+      isItsng ? 'Сейчас я опирался на этот каталог услуг.' : 'Остальные пункты лучше вынести во второй этап, чтобы не просесть по качеству.',
     ].join('\n\n');
   }
 
   if (!isRu) {
     if (plan.fit === 'within_estimate' || plan.fit === 'above_estimate') {
+      const bestOption =
+        plan.fit === 'above_estimate'
+          ? `build the requested ${serviceLabel} properly and use the extra room for SEO, analytics, polish or small integrations`
+          : planCopy.bestFit;
+      const includedText =
+        plan.fit === 'above_estimate'
+          ? formatList(['clean implementation of the requested scope', 'responsive layout', 'forms and basic SEO/analytics', 'launch support and small polish tasks'])
+          : canOffer;
       return [
         `Budget ${budget} is workable for ${serviceLabel}. The realistic range is ${expectedRange}, so I would keep the scope focused and avoid adding hidden backend or integrations.`,
-      `Best option for this budget: ${plan.bestFit}.`,
-        `Can include:\n${canOffer}`,
+        `Best option for this budget: ${bestOption}.`,
+        `Can include:\n${includedText}`,
         `I would clarify final details next: platform, exact pages, form/SEO/hosting and who provides content.`,
       ].join('\n\n');
     }
 
     return [
       `Budget ${budget} is clear. For ${serviceLabel}, a full build is usually around ${expectedRange}, so I would not promise the whole project inside this amount.`,
-      `Best option inside the budget: ${plan.bestFit}.`,
+      `Best option inside the budget: ${planCopy.bestFit}.`,
       `Can offer now:\n${canOffer}`,
       `Not included at this stage:\n${notIncluded}`,
-      `Optimal proposal: ${plan.recommendation}.`,
+      `Optimal proposal: ${planCopy.recommendation}.`,
     ].join('\n\n');
   }
 
@@ -1261,9 +2232,9 @@ function buildBudgetReply(estimate, language) {
 
 function buildHiringReply(estimate, language) {
   const isRu = language !== 'en';
-  const budget = estimate.budget ? formatPrice(estimate.budget) : null;
+  const budget = estimate.budget ? formatPrice(estimate.budget, language) : null;
   const options = HIRING_OPTIONS.map(
-    (option) => `${option.label}: ${formatPrice(option.min)} - ${formatPrice(option.max)}, ${option.timeline}`
+    (option) => `${language === 'en' ? option.label.replace('частичная занятость', 'part-time support').replace('усиленная частичная занятость', 'extended part-time support').replace('full-time разработчик', 'full-time developer') : option.label}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
   ).join('\n');
 
   if (!isRu) {
@@ -1289,11 +2260,48 @@ function buildFallbackReply(messages, language) {
   const lastText = messages[messages.length - 1]?.content || '';
   const estimate = estimateFromMessages(messages);
   const isRu = language !== 'en';
+  const userMessageCount = messages.filter((message) => message.role === 'user').length;
 
   if (isGreetingOnly(lastText)) {
     return isRu
       ? 'Привет. Опишите задачу: тип сайта, платформа, объем, дизайн, функции и нужен ли сервер/backend. Я сначала задам уточняющие вопросы, потом посчитаю вилку.'
       : 'Hi. Describe the task: website type, platform, scope, design, features and whether backend/server work is needed. I will ask clarifying questions first, then calculate a range.';
+  }
+
+  if (isCasualOrContactRequest(lastText)) {
+    return buildCasualOrContactReply(language);
+  }
+
+  if (isOldMaintenanceRequest(lastText)) {
+    return buildOldMaintenanceReply(language);
+  }
+
+  if (isPaymentTermsRequest(lastText) && userMessageCount <= 1) {
+    return buildPaymentTermsReply(language);
+  }
+
+  if (isBigCloneRequest(lastText) && userMessageCount <= 1) {
+    return buildBigCloneReply(language);
+  }
+
+  if (isMixedProjectRequest(lastText) && userMessageCount <= 1 && !estimate.budgetPlan) {
+    return buildMixedProjectReply(language);
+  }
+
+  if (isUrgentRequest(lastText) && userMessageCount <= 1 && !estimate.budgetPlan) {
+    return buildUrgentReply(language);
+  }
+
+  if (hasAmbiguousBudget(lastText) && !hasExplicitCurrency(lastText) && userMessageCount <= 1) {
+    return buildAmbiguousBudgetReply(language);
+  }
+
+  if (estimate.budgetPlan && estimate.service) {
+    return buildBudgetReply(estimate, language);
+  }
+
+  if (isNegotiationRequest(lastText) && userMessageCount <= 1) {
+    return buildNegotiationReply(language);
   }
 
   if (estimate.service?.id === 'developer-retainer') {
@@ -1312,6 +2320,8 @@ function buildFallbackReply(messages, language) {
 }
 
 function buildPromptEstimate(estimate) {
+  const moduleSummary = getModuleSummary(estimate);
+
   return {
     service: estimate.service?.label || null,
     minKzt: estimate.min,
@@ -1328,20 +2338,42 @@ function buildPromptEstimate(estimate) {
       minKzt: addon.min,
       maxKzt: addon.max,
     })),
-    modularPricing: estimate.velorSummary
+    modularPricing: moduleSummary
       ? {
-          blocks: estimate.velorSummary.blocks,
-          totalKzt: estimate.velorSummary.totalKzt,
-          rangeKzt: [estimate.velorSummary.minKzt, estimate.velorSummary.maxKzt],
-          roadmap: estimate.velorSummary.roadmap,
-          matchedItems: estimate.velorSummary.items,
+          source: estimate.velorSummary ? 'velor' : 'itSng',
+          blocks: moduleSummary.blocks,
+          totalKzt: moduleSummary.totalKzt || moduleSummary.minKzt,
+          rangeKzt: [moduleSummary.minKzt, moduleSummary.maxKzt],
+          roadmap: estimate.velorSummary ? estimate.velorSummary.roadmap : null,
+          matchedItems: moduleSummary.items,
         }
       : null,
   };
 }
 
+function buildEstimateSummary(estimate, language) {
+  const isRu = language !== 'en';
+
+  if (!estimate.service) {
+    return isRu
+      ? 'Недостаточно данных для честной оценки. Нужно понять тип проекта, объем, дизайн, функции и стек.'
+      : 'Not enough details for a fair estimate. I need project type, scope, design, features and stack.';
+  }
+
+  if (estimate.min && estimate.max) {
+    return isRu
+      ? `${estimate.service.label}: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${formatTimeline(estimate.service.timeline, language)}.`
+      : `${getServiceLabel(estimate.service, language)}: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}.`;
+  }
+
+  return isRu
+    ? `${estimate.service.label}: срок ${formatTimeline(estimate.service.timeline, language)}.`
+    : `${getServiceLabel(estimate.service, language)}: timeline ${formatTimeline(estimate.service.timeline, language)}.`;
+}
+
 function buildInstructions(estimate, language) {
   const isRu = language !== 'en';
+  const outputCurrency = getOutputCurrency(language);
 
   return `
 You are Dias's website assistant for potential clients. Speak ${isRu ? 'Russian' : 'English'} unless the user clearly switches language.
@@ -1349,27 +2381,36 @@ You are Dias's website assistant for potential clients. Speak ${isRu ? 'Russian'
 Core behavior:
 - Write like a calm human consultant, not a scripted FAQ.
 - Be concise and practical.
+- In English, understand casual client slang and local variants such as "one pager", "small biz site", "ecom", "quote me", "ballpark", "how much would it run me", "set me back", "bucks", "grand", "2k", "ASAP", "no upfront", "dev/contractor". Answer in clear natural English; do not overuse slang back.
 - Output plain text only. Do not use Markdown formatting, no **bold**, no * bullet points, no headings, no tables, no code blocks.
 - For lists use either "1. ..." numbered lines or "- ..." lines only.
 - Help estimate websites, WordPress/Tilda, ecommerce, Node.js, PostgreSQL, backend, CMS, integrations, AI-bot work and monthly developer hiring.
 - Never say a price is final. Use "ориентир", "примерно", "вилка" / "rough range".
 - If the client seems ready, suggest continuing in Telegram: https://t.me/Berliyn_h.
+- All source prices are stored in KZT, but final user-facing prices must be in ${outputCurrency.code} (${outputCurrency.symbol}).
+- Never output KZT/tenge in the final reply.
+- Use the sales playbook below as the source of sales style, objections handling, discount rules and CTA behavior.
+- If the client asks for bug fixes or old-site maintenance, do not accept that directly. Offer a new version, new module, clean rebuild or migration instead.
+- When budget is small or the client negotiates, give two options: minimal now and normal/expanded later.
 
 Pricing gate:
 - Current phase is "${estimate.phase}".
-- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, KZT/tenge amount, or final estimate. Ask 3-5 concrete questions from suggestedQuestions and say that the estimate comes after answers.
+- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, or final estimate. Ask 3-5 concrete questions from suggestedQuestions and say that the estimate comes after answers.
 - If phase is "estimate_allowed", give a realistic range using only the provided pricing data, then explain the task characteristics: platform/stack, complexity, modules, timeline and what is included.
 - If phase is "budget_guidance", the user already gave a budget. Do not ignore it. Compare the budget with the price list, explain what can fit into that amount, what cannot fit, and suggest the optimal reduced scope or phased plan.
 - If phase is "hiring_guidance", explain monthly hiring/retainer options from hiringOptions and ask only the missing details needed to choose a format.
-- If phase is "module_pricing", use matched modular pricing items. Mention the module names, client-facing value, KZT price and timeline. Do not mention source RUB prices.
+- If phase is "module_pricing", use matched modular pricing items. Mention the module names, client-facing value, ${outputCurrency.code} price and timeline.
 - If Node.js, PostgreSQL, backend, auth, server setup, payment or integrations are mentioned, treat the task as more complex than a simple site.
 - For a one-page WordPress portfolio, do not use the broad generic WordPress range if it is simple; use the specific WordPress portfolio service and add modules only when the user mentions them.
-- For low budgets like 30,000 KZT, never promise a full 3-4 page site. Offer a micro-start: brief, structure, one simple page/draft, setup or phased launch.
+- For low budgets equivalent to around 30,000 KZT, never promise a full 3-4 page site. Offer a micro-start: brief, structure, one simple page/draft, setup or phased launch.
 
 Dias offer:
 - Full-stack development with React, Django, Node.js, Python, PostgreSQL.
 - WordPress, Tilda and custom CMS builds.
 - Product-minded UI, backend, integrations, admin panels and AI assistants.
+
+Sales playbook:
+${SALES_PLAYBOOK.text}
 
 Full price list and current estimate, KZT:
 ${JSON.stringify(
@@ -1402,7 +2443,6 @@ function extractGeminiText(data) {
 function cleanAssistantReply(text) {
   return String(text || '')
     .replace(/\r\n/g, '\n')
-    .replace(/\bKZT\b/g, '₸')
     .replace(/\*\*([^*\n]+)\*\*/g, '$1')
     .replace(/__([^_\n]+)__/g, '$1')
     .replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,!?;:]|$)/g, '$1$2')
@@ -1418,7 +2458,7 @@ function cleanAssistantReply(text) {
 
 function containsPrice(text) {
   const normalized = normalizeText(text);
-  return /(\d[\d\s.,]{2,})\s*(₸|тг|тенге|kzt)|от\s+\d|до\s+\d|\d+\s*-\s*\d+\s*(тыс|млн|k|₸)/.test(normalized);
+  return /(\d[\d\s.,]{2,})\s*(₸|тг|тенге|kzt|₽|руб|usd|доллар|\$)|от\s+\d|до\s+\d|\d+\s*-\s*\d+\s*(тыс|млн|k|₸|₽|\$)/.test(normalized);
 }
 
 function isBudgetGuidanceUseful(text, estimate) {
@@ -1457,7 +2497,7 @@ function isModulePricingUseful(text, estimate) {
   return /модул|прайс|ориентир|срок|задач|работ|этап/.test(normalized) && containsPrice(text);
 }
 
-function isReplySafe(text, estimate) {
+function isReplySafe(text, estimate, language) {
   const cleaned = cleanAssistantReply(text);
 
   if (!cleaned || cleaned.length > 2600) {
@@ -1472,7 +2512,15 @@ function isReplySafe(text, estimate) {
     return false;
   }
 
-  if (/₽|руб|rub/i.test(cleaned)) {
+  if (/тенге|тг|₸|kzt/i.test(cleaned)) {
+    return false;
+  }
+
+  if (language === 'ru' && /usd|dollar|\$/i.test(cleaned)) {
+    return false;
+  }
+
+  if (language === 'en' && /руб|₽/i.test(cleaned)) {
     return false;
   }
 
@@ -1487,24 +2535,39 @@ async function callGemini(messages, estimate, language) {
   }
 
   const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-goog-api-key': apiKey,
-    },
-    body: JSON.stringify({
-      system_instruction: {
-        parts: [{ text: buildInstructions(estimate, language) }],
+  const timeoutMs = Number(process.env.GEMINI_TIMEOUT_MS || 8500);
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+
+  let response;
+  try {
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-goog-api-key': apiKey,
       },
-      contents: toGeminiContents(messages),
-      generationConfig: {
-        temperature: 0.68,
-        topP: 0.9,
-        maxOutputTokens: 1100,
-      },
-    }),
-  });
+      body: JSON.stringify({
+        system_instruction: {
+          parts: [{ text: buildInstructions(estimate, language) }],
+        },
+        contents: toGeminiContents(messages),
+        generationConfig: {
+          temperature: 0.68,
+          topP: 0.9,
+          maxOutputTokens: 1100,
+        },
+      }),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error?.name === 'AbortError') {
+      throw new Error(`Gemini request timed out after ${timeoutMs}ms`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
+  }
 
   const data = await response.json().catch(() => ({}));
 
@@ -1522,7 +2585,7 @@ async function callGemini(messages, estimate, language) {
     return null;
   }
 
-  if (!isReplySafe(outputText, estimate)) {
+  if (!isReplySafe(outputText, estimate, language)) {
     return null;
   }
 
@@ -1561,13 +2624,15 @@ module.exports = async function handler(req, res) {
         budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
-        modules: estimate.velorSummary?.items?.map((item) => ({
+        modules: getModuleSummary(estimate)?.items?.map((item) => ({
           id: item.id,
-          task: item.task,
-          priceKzt: item.priceKzt,
-          timeline: item.timeline,
+          task: item.task || item.title,
+          timeline: item.timeline || null,
+          priceKzt: item.priceKzt || item.minKzt || 0,
+          stack: item.stack || null,
+          section: item.blockTitle || item.section || null,
         })) || [],
-        summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
+        summary: estimate.ready ? buildEstimateSummary(estimate, language) : 'Сначала нужно уточнить вводные.',
       },
       mode: aiReply ? 'gemini' : 'local-estimator',
     });
@@ -1590,13 +2655,15 @@ module.exports = async function handler(req, res) {
         budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
-        modules: estimate.velorSummary?.items?.map((item) => ({
+        modules: getModuleSummary(estimate)?.items?.map((item) => ({
           id: item.id,
-          task: item.task,
-          priceKzt: item.priceKzt,
-          timeline: item.timeline,
+          task: item.task || item.title,
+          timeline: item.timeline || null,
+          priceKzt: item.priceKzt || item.minKzt || 0,
+          stack: item.stack || null,
+          section: item.blockTitle || item.section || null,
         })) || [],
-        summary: estimate.ready ? estimate.summary : 'Сначала нужно уточнить вводные.',
+        summary: estimate.ready ? buildEstimateSummary(estimate, language) : 'Сначала нужно уточнить вводные.',
       },
       error: 'AI service is temporarily unavailable',
       mode: 'local-estimator',
