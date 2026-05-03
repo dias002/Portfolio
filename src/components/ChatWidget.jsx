@@ -46,6 +46,7 @@ function ChatWidget() {
   const [reminderHiding, setReminderHiding] = useState(false);
   const hideReminderTimer = useRef(null);
   const removeReminderTimer = useRef(null);
+  const reminderStartedRef = useRef(false);
   const [messages, setMessages] = useState(() => [
     {
       role: 'assistant',
@@ -74,11 +75,11 @@ function ChatWidget() {
   }, [isOpen]);
 
   useEffect(() => {
-    if (isOpen) {
-      setShowReminder(false);
+    if (isOpen || reminderStartedRef.current) {
       return;
     }
 
+    reminderStartedRef.current = true;
     setShowReminder(true);
     setReminderHiding(false);
 
@@ -94,7 +95,7 @@ function ChatWidget() {
       window.clearTimeout(hideReminderTimer.current);
       window.clearTimeout(removeReminderTimer.current);
     };
-  }, []);
+  }, [isOpen]);
 
   const handleReminderEnter = () => {
     if (isOpen) {
