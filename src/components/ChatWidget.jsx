@@ -7,6 +7,7 @@ const copy = {
     title: 'AI-консультант',
     subtitle: 'Оценит задачу и подскажет следующий шаг',
     opener: 'Привет. Опишите задачу в одном сообщении: какой сайт нужен, есть ли дизайн, админка, оплата или AI-бот. Я дам ориентир по цене.',
+    reminder: 'Решите свой вопрос с ИИ-менеджером за 1 минуту.',
     input: 'Напишите задачу...',
     send: 'Отправить',
     open: 'Открыть чат',
@@ -20,6 +21,7 @@ const copy = {
     title: 'AI consultant',
     subtitle: 'Estimates the task and suggests the next step',
     opener: 'Hi. Describe what you need in one message: website type, design, CMS, payment or AI assistant. I will give you a realistic price range.',
+    reminder: 'Solve your question with the AI manager in 1 minute.',
     input: 'Describe your project...',
     send: 'Send',
     open: 'Open chat',
@@ -40,6 +42,10 @@ function ChatWidget() {
   const [isOpen, setIsOpen] = useState(() => new URLSearchParams(window.location.search).get('chat') === 'open');
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [showReminder, setShowReminder] = useState(true);
+  const [reminderHiding, setReminderHiding] = useState(false);
+  const hideReminderTimer = useRef(null);
+  const removeReminderTimer = useRef(null);
   const [messages, setMessages] = useState(() => [
     {
       role: 'assistant',
@@ -66,6 +72,53 @@ function ChatWidget() {
       window.setTimeout(() => inputRef.current?.focus(), 160);
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setShowReminder(false);
+      return;
+    }
+
+    setShowReminder(true);
+    setReminderHiding(false);
+
+    hideReminderTimer.current = window.setTimeout(() => {
+      setReminderHiding(true);
+    }, 3200);
+
+    removeReminderTimer.current = window.setTimeout(() => {
+      setShowReminder(false);
+    }, 4000);
+
+    return () => {
+      window.clearTimeout(hideReminderTimer.current);
+      window.clearTimeout(removeReminderTimer.current);
+    };
+  }, []);
+
+  const handleReminderEnter = () => {
+    if (isOpen) {
+      return;
+    }
+
+    window.clearTimeout(hideReminderTimer.current);
+    window.clearTimeout(removeReminderTimer.current);
+    setReminderHiding(false);
+  };
+
+  const handleReminderLeave = () => {
+    if (isOpen || !showReminder) {
+      return;
+    }
+
+    hideReminderTimer.current = window.setTimeout(() => {
+      setReminderHiding(true);
+    }, 400);
+
+    removeReminderTimer.current = window.setTimeout(() => {
+      setShowReminder(false);
+    }, 1300);
+  };
 
   const sendMessage = async (content) => {
     const message = content.trim();
@@ -174,8 +227,17 @@ function ChatWidget() {
         </section>
       )}
 
+      {showReminder && !isOpen && (
+        <div
+          className={`chatReminder${reminderHiding ? ' chatReminder--hiding' : ''}`}
+          onMouseEnter={handleReminderEnter}
+          onMouseLeave={handleReminderLeave}
+        >
+          {text.reminder}
+        </div>
+      )}
       <button className="chatLauncher" type="button" onClick={() => setIsOpen((value) => !value)} aria-label={text.open}>
-        <span>AI</span>
+        <span>AI chat</span>
       </button>
     </div>
   );

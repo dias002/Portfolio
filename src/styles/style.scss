@@ -890,6 +890,38 @@ button {
   pointer-events: none;
 }
 
+.chatReminder {
+  max-width: 260px;
+  padding: 13px 16px;
+  border-radius: 12px;
+  background: rgba(8, 12, 18, 0.96);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.45;
+  letter-spacing: 0;
+  word-spacing: normal;
+  text-align: left;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.36);
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease,
+    box-shadow 0.35s ease;
+}
+
+.chatReminder--hiding {
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+}
+
+.chatReminder:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 20px 35px rgba(99, 230, 255, 0.16);
+}
+
 .chatPanel,
 .chatLauncher {
   pointer-events: auto;
@@ -1092,6 +1124,9 @@ button {
 .chatLauncher {
   width: 64px;
   height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 22px;
   background: linear-gradient(135deg, rgba(99, 230, 255, 0.98), rgba(140, 245, 188, 0.94));
   color: #071018;
@@ -1108,8 +1143,10 @@ button {
 }
 
 .chatLauncher span {
+  white-space: nowrap;
+  text-align: center;
   font-family: var(--mono);
-  font-size: 18px;
+  font-size: 14px;
   letter-spacing: 0.02em;
 }
 
@@ -1320,5 +1357,11 @@ button {
     width: 58px;
     height: 58px;
     border-radius: 20px;
+  }
+
+  .chatReminder {
+    font-size: 12px;
+    max-width: 200px;
+    padding: 11px 13px;
   }
 }
