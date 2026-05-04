@@ -2078,9 +2078,57 @@ function isMixedProjectRequest(text) {
 function isCasualOrContactRequest(text) {
   const normalized = normalizeText(text).trim();
 
-  return /^(ты\s+кто|кто\s+ты|ты\s+человек|что\s+умеешь|как\s+дела|контакты|как\s+связаться|telegram|телеграм|портфолио|покажи\s+портфолио|где\s+портфолио|who\s+are\s+you|are\s+you\s+human|what\s+can\s+you\s+do|contact|contacts|how\s+to\s+contact|show\s+(me\s+)?portfolio|portfolio|where\s+is\s+portfolio)[\s?.!]*$/.test(
+  return /^(ты\s+кто|кто\s+ты|ты\s+человек|что\s+умеешь|как\s+дела|контакты|как\s+связаться|telegram|телеграм|портфолио|покажи\s+портфолио|где\s+портфолио|напиши\s+(мне\s+)?в\s+(telegram|телеграм)|давай(те)?\s+в\s+(telegram|телеграм)|кинь\s+(telegram|телеграм)|скинь\s+(telegram|телеграм)|who\s+are\s+you|are\s+you\s+human|what\s+can\s+you\s+do|contact|contacts|how\s+to\s+contact|show\s+(me\s+)?portfolio|portfolio|where\s+is\s+portfolio|send\s+(me\s+)?your\s+telegram|let'?s\s+move\s+to\s+telegram)[\s?.!]*$/.test(
     normalized
   );
+}
+
+function isShortPriceProbe(text) {
+  const normalized = normalizeText(text).trim();
+  const words = normalized.split(/\s+/).filter(Boolean);
+  const hasPriceIntent = /сколько|цена|стоим|почем|how much|price|cost|quote/.test(normalized);
+  const hasShortScope = /сайт|лендинг|tilda|тильд|wordpress|вордпресс|wp|магазин|бот|ai|ии|приложен|верстк|website|site|landing|store|shop|bot|app|layout/.test(normalized);
+
+  return hasPriceIntent && hasShortScope && words.length <= 7;
+}
+
+function buildShortPriceReply(text, language) {
+  const normalized = normalizeText(text);
+  const isRu = language !== 'en';
+  const line = (min, normalMin, normalMax, questionRu, questionEn) =>
+    isRu
+      ? `Минимально от ${formatPrice(min, language)}, нормальный вариант ${formatPriceRange(normalMin, normalMax, language)}. ${questionRu}`
+      : `Starts around ${formatPrice(min, language)}, a normal range is ${formatPriceRange(normalMin, normalMax, language)}. ${questionEn}`;
+
+  if (/tilda|тильд/.test(normalized)) {
+    return line(35000, 60000, 90000, 'Вам нужна 1 страница или несколько?', 'Do you need one page or several pages?');
+  }
+
+  if (/wordpress|вордпресс|wp/.test(normalized)) {
+    return line(50000, 80000, 180000, 'Сколько страниц и есть ли готовые тексты/дизайн?', 'How many pages, and are design/content ready?');
+  }
+
+  if (/магазин|store|shop|ecom|woocommerce/.test(normalized)) {
+    return line(290000, 390000, 550000, 'Сколько товаров и нужна ли онлайн-оплата?', 'How many products, and do you need online payment?');
+  }
+
+  if (/ai|ии|gpt|бот.*ai|ai.*bot/.test(normalized)) {
+    return line(190000, 290000, 500000, 'Бот нужен на сайте или в Telegram, и будет ли база знаний?', 'Should it work on the website or Telegram, and do you need a knowledge base?');
+  }
+
+  if (/бот|bot/.test(normalized)) {
+    return line(25000, 50000, 180000, 'Что должен делать бот: меню, заявки, CRM, оплата или AI?', 'What should the bot do: menu, leads, CRM, payment or AI?');
+  }
+
+  if (/приложен|mobile|app/.test(normalized)) {
+    return line(240000, 490000, 890000, 'Что должно быть в первой версии?', 'What should be in the first version?');
+  }
+
+  if (/верстк|layout|figma/.test(normalized)) {
+    return line(30000, 50000, 90000, 'Есть Figma и мобильная версия?', 'Do you have Figma and a mobile version?');
+  }
+
+  return line(50000, 80000, 180000, 'Сколько страниц нужно и есть ли пример?', 'How many pages do you need, and do you have an example?');
 }
 
 function isProjectRequest(text) {
@@ -2932,6 +2980,10 @@ function buildFallbackReply(messages, language) {
 
   if (isCasualOrContactRequest(lastText)) {
     return buildCasualOrContactReply(language);
+  }
+
+  if (isShortPriceProbe(lastText) && userMessageCount <= 1) {
+    return buildShortPriceReply(lastText, language);
   }
 
   if (isOldAuditRequest(lastText)) {
