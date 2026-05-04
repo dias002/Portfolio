@@ -2383,11 +2383,30 @@ function getServiceLabel(service, language) {
   return language === 'en' ? EN_SERVICE_LABELS[service.id] || service.label : service.label;
 }
 
+function isSimpleSiteService(service) {
+  return ['landing', 'wordpress-site', 'tilda-site', 'simple-multipage', 'wordpress-onepage-portfolio'].includes(service?.id);
+}
+
 function getProjectFacts(text) {
   const normalized = normalizeText(text);
   const readyDesign = /дизайн(?:\s+и\s+(?:тексты|контент|материалы|фото))?\s+готов[аы]?|дизайн\s+(готов|есть)|готовый\s+дизайн|figma\s+(есть|готов)|макет\s+(есть|готов)|design ready|have design|got design|already have design|figma ready/.test(normalized);
-  const readyContent = /(?:тексты|контент|материалы|фото)(?:\s+и\s+дизайн)?\s+готов[ы]?|тексты\s+есть|контент\s+есть|content ready|copy ready|text ready|photos ready|have content|have copy/.test(normalized);
-  const needsDesign = /дизайн\s+с\s+нуля|нет\s+дизайн|без\s+дизайн|нужен\s+(дизайн|макет)|no design|need design|custom design|from scratch|need ui/.test(normalized);
+  const clientProvidesMaterials =
+    /(?:данн[а-яa-z0-9_-]*|материал[а-яa-z0-9_-]*|текст[а-яa-z0-9_-]*|фото|контент[а-яa-z0-9_-]*)\s+(?:я|мы)?\s*(?:сам|сами|самостоятельно)\s+(?:предостав[а-яa-z0-9_-]*|дам|дадим|скину|пришлю)|(?:я|мы)?\s*(?:сам|сами|самостоятельно)\s+(?:предостав[а-яa-z0-9_-]*|дам|дадим|скину|пришлю)\s+(?:данн[а-яa-z0-9_-]*|материал[а-яa-z0-9_-]*|текст[а-яa-z0-9_-]*|фото|контент[а-яa-z0-9_-]*)|client\s+will\s+provide|i\s+will\s+provide|we\s+will\s+provide/.test(
+      normalized
+    );
+  const noMaterials =
+    /нет\s+(?:никаких\s+)?(?:данн|материал|текст|фото|контент|дизайн|макет)|ничего\s+нет|пока\s+нет\s+(?:данн|материал|текст|фото|контент|дизайн|макет)|no\s+(design|content|copy|texts?|photos?|materials)|nothing\s+ready/.test(
+      normalized
+    );
+  const turnkey = /под\s+ключ|полностью\s+под\s+ключ|полностью\s+все|turnkey|full\s+build|end[-\s]?to[-\s]?end/.test(normalized);
+  const readyContent =
+    clientProvidesMaterials ||
+    /(?:тексты|контент|материалы|фото|данные)(?:\s+и\s+дизайн)?\s+готов[ы]?|тексты\s+есть|контент\s+есть|материалы\s+есть|данные\s+есть|content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have materials/.test(
+      normalized
+    );
+  const needsDesign =
+    noMaterials ||
+    /дизайн\s+с\s+нуля|нет\s+дизайн|без\s+дизайн|нужен\s+(дизайн|макет)|no design|need design|custom design|from scratch|need ui/.test(normalized);
   const noBackend = /backend\s+(нет|не\s+готов)|бэкенд\s+(нет|не\s+готов)|серверн\w*\s+част[ьи]\s+(нет|не\s+готов)|нет\s+(еще\s+)?backend|нет\s+(еще\s+)?бэкенд|нет\s+еще|no backend|backend is not ready|need backend/.test(normalized);
   const readyBackend = /backend\s+(готов|есть)|бэкенд\s+(готов|есть)|серверн\w*\s+част[ьи]\s+(готов|есть)|api\s+(готов|есть)|backend ready|have backend|api ready/.test(normalized);
   const existingSite = /существующ[а-я]*\s+сайт|есть\s+сайт|уже\s+есть\s+сайт|сайт\s+уже\s+работает|текущ[а-я]*\s+сайт|готов(ый|ого)?\s+сайт|мой\s+сайт|наш\s+сайт|стар[а-я]*\s+сайт|existing\s+(site|website)|current\s+(site|website)|already\s+have\s+(a\s+)?(site|website)/.test(normalized);
@@ -2403,6 +2422,9 @@ function getProjectFacts(text) {
     readyDesign,
     readyContent,
     needsDesign,
+    clientProvidesMaterials,
+    noMaterials,
+    turnkey,
     noBackend,
     readyBackend,
     existingSite,
@@ -2425,7 +2447,15 @@ function getProvidedByClient(facts, language) {
   }
 
   if (facts.readyContent) {
-    provided.push(isRu ? 'готовые тексты/материалы' : 'ready content/materials');
+    provided.push(
+      facts.clientProvidesMaterials
+        ? isRu
+          ? 'материалы предоставляет клиент'
+          : 'client provides materials'
+        : isRu
+          ? 'готовые тексты/материалы'
+          : 'ready content/materials'
+    );
   }
 
   if (facts.readyBackend) {
@@ -2448,7 +2478,7 @@ function getExcludedFromEstimate(facts, language) {
   }
 
   if (facts.readyContent) {
-    excluded.push(isRu ? 'копирайтинг и подготовка контента с нуля' : 'copywriting and content preparation from scratch');
+    excluded.push(isRu ? 'копирайтинг и подготовка материалов с нуля' : 'copywriting and content preparation from scratch');
   }
 
   if (facts.readyBackend && !facts.noBackend) {
@@ -2472,8 +2502,8 @@ function getMissingQuestions(text, service) {
   }
 
   const pageCount = parsePageCount(normalized);
-  const hasDesign = facts.readyDesign || facts.needsDesign || /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля|design ready|have design|no design|custom design|from scratch|brand book/.test(normalized);
-  const hasContent = facts.readyContent || /контент|тексты|фото|материал|копирайт|логотип|content|copy|text|photos|materials|logo/.test(normalized);
+  const hasDesign = facts.readyDesign || facts.needsDesign || facts.turnkey || /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля|design ready|have design|no design|custom design|from scratch|brand book/.test(normalized);
+  const hasContent = facts.readyContent || facts.noMaterials || /контент|тексты|фото|материал|данн|копирайт|логотип|content|copy|text|photos|materials|logo/.test(normalized);
   const hasFeatures = /форма|заявк|оплат|мультияз|язык|админ|каталог|корзин|личный кабинет|авторизац|интеграц|crm|telegram|whatsapp|seo|аналитик|бот|ai|api|form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|analytics|bot/.test(normalized);
   const hasHosting = /домен|хостинг|сервер|vps|vercel|beget|nginx|docker|deploy|деплой|ssl|уже размещен|domain|hosting|server|deployment|deployed|already hosted/.test(normalized);
   const hasDataScope = /пользовател|заявк|товар|заказ|файл|платеж|таблиц|сущност|данн|база|users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
@@ -2485,6 +2515,16 @@ function getMissingQuestions(text, service) {
       if (question.includes('корзина')) return !hasFeatures;
       if (question.includes('На чем')) return !hasAny(normalized, ['wordpress', 'woocommerce', 'cms', 'кастом', 'shopify']);
       if (question.includes('интеграции')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (['landing', 'wordpress-site', 'tilda-site', 'simple-multipage', 'wordpress-onepage-portfolio'].includes(service.id)) {
+    return questions.filter((question) => {
+      if (question.includes('Дизайн')) return !hasDesign;
+      if (question.includes('блоки')) return !(pageCount || facts.turnkey || /визитк|одежд|магазин|контакт|форма|о\s+нас|услуг|hero|about|contacts|lead/.test(normalized));
+      if (question.includes('Тексты')) return !hasContent;
+      if (question.includes('мультиязычность')) return !(hasFeatures || facts.turnkey || /без\s+оплат|без\s+каталог|без\s+продаж|визитк|одежд|магазин|контакт|форма|telegram|whatsapp|seo|домен|хостинг/.test(normalized));
       return true;
     });
   }
@@ -2633,8 +2673,8 @@ function getMissingQuestionsEn(text, service) {
   }
 
   const pageCount = parsePageCount(normalized);
-  const hasDesign = facts.readyDesign || facts.needsDesign || /figma|template|design ready|have design|got design|already have design|figma ready|no design|custom design|from scratch|brand book|need ui/.test(normalized);
-  const hasContent = facts.readyContent || /content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have texts?|have photos|got the copy|got photos|content is ready|copy is ready/.test(normalized);
+  const hasDesign = facts.readyDesign || facts.needsDesign || facts.turnkey || /figma|template|design ready|have design|got design|already have design|figma ready|no design|custom design|from scratch|brand book|need ui/.test(normalized);
+  const hasContent = facts.readyContent || facts.noMaterials || /content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have texts?|have photos|got the copy|got photos|content is ready|copy is ready|data|materials/.test(normalized);
   const hasFeatures = /form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|crm|telegram|whatsapp|seo|analytics|bot|ai|api/.test(normalized);
   const hasHosting = /domain|hosting|server|vps|vercel|render|docker|deploy|deployment|deployed|already hosted|ssl/.test(normalized);
   const hasDataScope = /users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
@@ -2646,6 +2686,16 @@ function getMissingQuestionsEn(text, service) {
       if (question.includes('cart')) return !hasFeatures;
       if (question.includes('WordPress')) return !hasAny(normalized, ['wordpress', 'woocommerce', 'cms', 'custom', 'shopify']);
       if (question.includes('integrations')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (['landing', 'wordpress-site', 'tilda-site', 'simple-multipage', 'wordpress-onepage-portfolio'].includes(service.id)) {
+    return questions.filter((question) => {
+      if (question.includes('design')) return !hasDesign;
+      if (question.includes('blocks')) return !(pageCount || facts.turnkey || /brochure|clothing|shop|store|contacts?|form|about|hero|lead/.test(normalized));
+      if (question.includes('texts') || question.includes('photos')) return !hasContent;
+      if (question.includes('SEO')) return !(hasFeatures || hasHosting || facts.turnkey || /brochure|clothing|shop|store|contacts?|form|no\s+(cart|payment|catalog|products?)/.test(normalized));
       return true;
     });
   }
@@ -3669,7 +3719,15 @@ function estimateFromMessages(messages) {
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
   const hasReadyExistingWork = hasExistingSeoReadyInputs || hasExistingPerformanceReadyInputs || hasExistingUpdateReadyInputs || hasSupportReadyInputs;
-  const ready = Boolean(service && (moduleSummary || isHiring || budget || hasReadyExistingWork || (!shouldAskFirst && missingQuestions.length <= 2)));
+  const hasSimpleSiteBaselineInputs =
+    isSimpleSiteService(service) &&
+    (facts.noMaterials ||
+      facts.turnkey ||
+      facts.clientProvidesMaterials ||
+      (hasBrochureSiteIntent(normalized) && /магазин|одежд|посуд|бизнес|store|shop|business|clothing|fashion/.test(normalized)));
+  const ready = Boolean(
+    service && (moduleSummary || isHiring || budget || hasReadyExistingWork || hasSimpleSiteBaselineInputs || (!shouldAskFirst && missingQuestions.length <= 2))
+  );
   const phase = isHiring
     ? 'hiring_guidance'
     : budget
@@ -4132,6 +4190,79 @@ function buildMixedBudgetReply(estimate, language) {
   ].join('\n\n');
 }
 
+function formatKzt(value) {
+  const amount = Number(value);
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return '0 ₸';
+  }
+
+  return `${new Intl.NumberFormat('ru-RU').format(Math.round(amount))} ₸`;
+}
+
+function formatKztRange(min, max) {
+  return `${formatKzt(min)}–${formatKzt(max)}`;
+}
+
+function getSimpleSiteSubject(text, language) {
+  const normalized = normalizeText(text);
+
+  if (language === 'en') {
+    if (/clothing|fashion|apparel/.test(normalized)) return 'clothing store';
+    if (/dish|cookware|kitchenware|tableware/.test(normalized)) return 'kitchenware store';
+    if (/store|shop/.test(normalized)) return 'store';
+    return 'business';
+  }
+
+  if (/одежд|бутик|fashion/.test(normalized)) return 'магазина одежды';
+  if (/посуд|кухонн|посуда/.test(normalized)) return 'магазина кухонной посуды';
+  if (/магазин/.test(normalized)) return 'магазина';
+  return 'бизнеса';
+}
+
+function shouldUseSimpleSiteBaselineReply(messages, estimate) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const normalized = normalizeText(userMessages.map((message) => message.content).join(' '));
+
+  return (
+    isSimpleSiteService(estimate.service) &&
+    (estimate.facts?.noMaterials ||
+      estimate.facts?.turnkey ||
+      estimate.facts?.clientProvidesMaterials ||
+      (hasBrochureSiteIntent(normalized) && /магазин|одежд|посуд|бизнес|store|shop|business|clothing|fashion/.test(normalized)))
+  );
+}
+
+function buildSimpleSiteBaselineReply(messages, estimate, language) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const text = userMessages.map((message) => message.content).join(' ');
+  const subject = getSimpleSiteSubject(text, language);
+  const facts = estimate.facts || {};
+
+  if (language === 'en') {
+    return [
+      `Okay, I will count this as a basic turnkey brochure site for a ${subject}.`,
+      `Minimal option starts from ${formatPrice(50000, 'en')}: one page, responsive layout, store/about blocks, photos or collections, contacts, WhatsApp/Instagram links and a lead form.`,
+      `A normal version is ${formatPriceRange(80000, 120000, 'en')}: cleaner design, structure adapted to the business, collection/advantages/delivery or pickup blocks and basic launch preparation.`,
+      facts.clientProvidesMaterials
+        ? 'If you provide photos, texts and business details yourself, the project can stay closer to the minimal option.'
+        : 'Since the exact materials are not ready yet, I will take the base option and estimate roughly. Copywriting, product photos and branding can be estimated separately.',
+      'Not included: online store, cart, online payment, large product catalog, photo shoot and full branding.',
+      'To price it exactly, I only need one thing: should it be just a brochure site, or also a small product/catalog section without online payment?',
+    ].join('\n\n');
+  }
+
+  return [
+    `Понял. Тогда считаем как сайт-визитку под ключ для ${subject}.`,
+    `Минимально можно сделать от ${formatKzt(50000)}: одна страница, адаптив, блоки про магазин, фото/коллекции, контакты, WhatsApp/Instagram и форма заявки.`,
+    `Нормальный вариант: ${formatKztRange(80000, 120000)}. В него закладываю аккуратный дизайн, структуру под нишу, блоки с коллекциями, преимуществами, доставкой/самовывозом и базовую подготовку к запуску.`,
+    facts.clientProvidesMaterials
+      ? 'Если фото, тексты и данные вы предоставляете сами, можно держаться ближе к минимальному варианту.'
+      : 'Так как точных данных пока нет, беру базовый вариант и считаю примерно. Подготовку текстов, фотосъемку и брендинг лучше считать отдельно.',
+    'Не входит: интернет-магазин, корзина, онлайн-оплата, большой каталог товаров, фотосъемка и полноценный брендинг.',
+    'Чтобы посчитать точно, уточню только одно: вам нужна просто визитка или еще небольшой каталог товаров без онлайн-оплаты?',
+  ].join('\n\n');
+}
+
 function buildFallbackReply(messages, language) {
   const lastText = messages[messages.length - 1]?.content || '';
   const estimate = estimateFromMessages(messages);
@@ -4222,6 +4353,10 @@ function buildFallbackReply(messages, language) {
 
   if (estimate.budgetPlan) {
     return buildBudgetReply(estimate, language);
+  }
+
+  if (shouldUseSimpleSiteBaselineReply(messages, estimate)) {
+    return buildSimpleSiteBaselineReply(messages, estimate, language);
   }
 
   if (!estimate.ready) {
@@ -4513,6 +4648,7 @@ function shouldForceLocalReply(messages, estimate) {
 
   return (
     shouldUseLocalReply(messages) ||
+    shouldUseSimpleSiteBaselineReply(messages, estimate) ||
     estimate.service?.id === 'developer-retainer' ||
     isSupportService(estimate.service) ||
     isUnsafeFixRequest(lastText) ||
