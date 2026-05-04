@@ -15,9 +15,9 @@ const SERVICES = [
   {
     id: 'wordpress-onepage-portfolio',
     label: 'одностраничное портфолио на WordPress',
-    min: 80000,
-    max: 180000,
-    timeline: '3-7 рабочих дней',
+    min: 50000,
+    max: 120000,
+    timeline: '2-4 рабочих дня',
     priority: 8,
     keywords: [
       'wordpress',
@@ -47,9 +47,9 @@ const SERVICES = [
   {
     id: 'landing',
     label: 'лендинг или сайт услуг',
-    min: 150000,
-    max: 340000,
-    timeline: '5-10 рабочих дней',
+    min: 50000,
+    max: 120000,
+    timeline: '2-5 рабочих дней',
     priority: 4,
     keywords: [
       'лендинг',
@@ -78,9 +78,9 @@ const SERVICES = [
   {
     id: 'simple-multipage',
     label: 'простой сайт 3-4 страницы по готовому дизайну',
-    min: 160000,
-    max: 350000,
-    timeline: '6-12 рабочих дней',
+    min: 90000,
+    max: 180000,
+    timeline: '4-7 рабочих дней',
     priority: 7,
     keywords: [
       'простой сайт',
@@ -107,9 +107,9 @@ const SERVICES = [
   {
     id: 'wordpress-site',
     label: 'сайт на WordPress',
-    min: 140000,
-    max: 480000,
-    timeline: '5-16 рабочих дней',
+    min: 70000,
+    max: 180000,
+    timeline: '2-7 рабочих дней',
     priority: 5,
     keywords: ['wordpress', 'вордпресс', 'elementor', 'woocommerce', 'wp', 'cms', 'блог', 'blog', 'wp site', 'wordpress site', 'wp website', 'wp build'],
     includes: ['настройка CMS', 'сборка страниц', 'адаптив', 'формы', 'базовая SEO-подготовка'],
@@ -117,9 +117,9 @@ const SERVICES = [
   {
     id: 'tilda-site',
     label: 'сайт на Tilda',
-    min: 110000,
-    max: 360000,
-    timeline: '4-12 рабочих дней',
+    min: 35000,
+    max: 150000,
+    timeline: '1-6 рабочих дней',
     priority: 5,
     keywords: ['tilda', 'тильда', 'zero block', 'зеро блок', 'tilda site'],
     includes: ['сборка на Tilda', 'адаптив', 'формы', 'базовая SEO-подготовка'],
@@ -137,10 +137,10 @@ const SERVICES = [
   {
     id: 'ecommerce',
     label: 'интернет-магазин',
-    min: 550000,
-    max: 1600000,
-    timeline: '3-8 недель',
-    priority: 6,
+    min: 150000,
+    max: 550000,
+    timeline: '5-20 рабочих дней',
+    priority: 10,
     keywords: [
       'магазин',
       'e-commerce',
@@ -172,9 +172,9 @@ const SERVICES = [
   {
     id: 'node-postgres-backend',
     label: 'backend/API на Node.js с PostgreSQL',
-    min: 450000,
-    max: 1400000,
-    timeline: '2-6 недель',
+    min: 90000,
+    max: 240000,
+    timeline: '3-10 рабочих дней',
     priority: 7,
     keywords: [
       'node.js',
@@ -213,9 +213,9 @@ const SERVICES = [
   {
     id: 'mobile-delivery-app',
     label: 'мобильное приложение доставки еды',
-    min: 10500000,
-    max: 31500000,
-    timeline: '3-6 месяцев',
+    min: 4000000,
+    max: 10000000,
+    timeline: '4-10 месяцев',
     priority: 14,
     keywords: [
       'мобильное приложение',
@@ -289,9 +289,9 @@ const SERVICES = [
   {
     id: 'ai-assistant',
     label: 'AI-бот для сайта',
-    min: 250000,
-    max: 850000,
-    timeline: '1-4 недели',
+    min: 190000,
+    max: 500000,
+    timeline: '4-10 рабочих дней',
     priority: 11,
     keywords: [
       'бот',
@@ -308,8 +308,6 @@ const SERVICES = [
       'gpt',
       'llm',
       'цены',
-      'pricing',
-      'quote',
       'quote bot',
       'sales bot',
       'support bot',
@@ -318,18 +316,15 @@ const SERVICES = [
       'knowledge base',
       'расчет цен',
       'расчетом цен',
-      'лиды',
-      'leads',
-      'telegram',
     ],
     includes: ['чат-виджет', 'серверный API', 'правила консультации', 'передача заявки'],
   },
   {
     id: 'developer-retainer',
     label: 'постоянная работа с разработчиком',
-    min: 300000,
-    max: 1800000,
-    timeline: 'помесячно',
+    min: 20000,
+    max: 1600000,
+    timeline: 'почасово или помесячно',
     priority: 9,
     keywords: [
       'нанять',
@@ -551,24 +546,24 @@ const BUDGET_TIERS = [
 
 const HIRING_OPTIONS = [
   {
+    label: 'почасовая работа',
+    min: 20000,
+    max: 20000,
+    timeline: 'минимум 2 часа',
+    includes: ['новые функции', 'верстка', 'WordPress/Tilda', 'API', 'автоматизация'],
+  },
+  {
     label: 'частичная занятость',
-    min: 300000,
-    max: 650000,
+    min: 400000,
+    max: 800000,
     timeline: '40-80 часов в месяц',
     includes: ['поддержка сайта', 'небольшие фичи', 'правки', 'интеграции'],
   },
   {
-    label: 'проектный retainer',
-    min: 650000,
-    max: 1200000,
-    timeline: '80-120 часов в месяц',
-    includes: ['планирование спринтов', 'frontend/backend задачи', 'регулярные релизы'],
-  },
-  {
     label: 'выделенный full-time разработчик',
-    min: 1200000,
-    max: 1800000,
-    timeline: 'полная занятость в месяц',
+    min: 1600000,
+    max: 1600000,
+    timeline: '160 часов в месяц',
     includes: ['полное вовлечение', 'разработка продукта', 'техническая поддержка команды'],
   },
 ];
@@ -1278,6 +1273,10 @@ function scoreItem(text, item) {
     return 0;
   }
 
+  if (item.id === 'ai-assistant' && !/(^|[^a-zа-я0-9])(ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|чат|assistant|ассистент|ai-бот|ии-бот|бот\s+с\s+ai|бот\s+с\s+ии)($|[^a-zа-я0-9])/.test(text)) {
+    return 0;
+  }
+
   const score = item.keywords.reduce((sum, keyword) => {
     const normalizedKeyword = normalizeText(keyword);
     return includesKeyword(text, normalizedKeyword) ? sum + Math.max(1, normalizedKeyword.split(/\s+/).length) : sum;
@@ -1300,8 +1299,14 @@ function filterServiceMatches(matches, text, pageCount) {
   const normalized = normalizeText(text);
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
+  const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
 
-  return matches.filter((service) => {
+  return matches
+    .filter((service) => {
+      if (service.id === 'ai-assistant' && isEcommerceIntent && !/ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|ai-бот|ии-бот/.test(normalized)) {
+        return false;
+      }
+
     if (service.id !== 'wordpress-onepage-portfolio') {
       return true;
     }
@@ -1311,7 +1316,12 @@ function filterServiceMatches(matches, text, pageCount) {
     }
 
     return isExplicitOnePage || isPortfolio;
-  });
+    })
+    .sort((a, b) => {
+      if (isEcommerceIntent && a.id === 'ecommerce') return -1;
+      if (isEcommerceIntent && b.id === 'ecommerce') return 1;
+      return 0;
+    });
 }
 
 function parsePageCount(text) {
@@ -1387,7 +1397,11 @@ function parseBudget(text) {
       continue;
     }
 
-    if (!currencyToken && !scale && /\b(for\s+)?\d{1,3}\s*(pages?|screens?|sections?|blocks?)\b/.test(matchedText)) {
+    if (!currencyToken && !scale && /\b(for\s+)?\d{1,4}\s*(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)\b/.test(matchedText)) {
+      continue;
+    }
+
+    if (!currencyToken && !scale && new RegExp(`${escapeRegExp(matchedText.trim())}\\s*(товар|позици|экран|страниц)`).test(normalized)) {
       continue;
     }
 
@@ -1478,7 +1492,8 @@ function getServiceLabel(service, language) {
 
 function getProjectFacts(text) {
   const normalized = normalizeText(text);
-  const readyDesign = /дизайн\s+(готов|есть)|готовый\s+дизайн|figma\s+(есть|готов)|макет\s+(есть|готов)|design ready|have design|got design|already have design|figma ready/.test(normalized);
+  const readyDesign = /дизайн(?:\s+и\s+(?:тексты|контент|материалы|фото))?\s+готов[аы]?|дизайн\s+(готов|есть)|готовый\s+дизайн|figma\s+(есть|готов)|макет\s+(есть|готов)|design ready|have design|got design|already have design|figma ready/.test(normalized);
+  const readyContent = /(?:тексты|контент|материалы|фото)(?:\s+и\s+дизайн)?\s+готов[ы]?|тексты\s+есть|контент\s+есть|content ready|copy ready|text ready|photos ready|have content|have copy/.test(normalized);
   const needsDesign = /дизайн\s+с\s+нуля|нет\s+дизайн|без\s+дизайн|нужен\s+(дизайн|макет)|no design|need design|custom design|from scratch|need ui/.test(normalized);
   const noBackend = /backend\s+(нет|не\s+готов)|бэкенд\s+(нет|не\s+готов)|серверн\w*\s+част[ьи]\s+(нет|не\s+готов)|нет\s+(еще\s+)?backend|нет\s+(еще\s+)?бэкенд|нет\s+еще|no backend|backend is not ready|need backend/.test(normalized);
   const readyBackend = /backend\s+(готов|есть)|бэкенд\s+(готов|есть)|серверн\w*\s+част[ьи]\s+(готов|есть)|api\s+(готов|есть)|backend ready|have backend|api ready/.test(normalized);
@@ -1491,6 +1506,7 @@ function getProjectFacts(text) {
 
   return {
     readyDesign,
+    readyContent,
     needsDesign,
     noBackend,
     readyBackend,
@@ -1511,6 +1527,10 @@ function getProvidedByClient(facts, language) {
     provided.push(isRu ? 'готовый дизайн' : 'ready design');
   }
 
+  if (facts.readyContent) {
+    provided.push(isRu ? 'готовые тексты/материалы' : 'ready content/materials');
+  }
+
   if (facts.readyBackend) {
     provided.push(isRu ? 'готовый backend/API' : 'ready backend/API');
   }
@@ -1526,6 +1546,10 @@ function getExcludedFromEstimate(facts, language) {
     excluded.push(isRu ? 'UI/UX-дизайн с нуля' : 'UI/UX design from scratch');
   }
 
+  if (facts.readyContent) {
+    excluded.push(isRu ? 'копирайтинг и подготовка контента с нуля' : 'copywriting and content preparation from scratch');
+  }
+
   if (facts.readyBackend && !facts.noBackend) {
     excluded.push(isRu ? 'разработка backend с нуля' : 'backend development from scratch');
   }
@@ -1536,14 +1560,15 @@ function getExcludedFromEstimate(facts, language) {
 function getMissingQuestions(text, service) {
   const normalized = normalizeText(text);
   const questions = getQuestionSet(service);
+  const facts = getProjectFacts(normalized);
 
   if (!service) {
     return questions;
   }
 
   const pageCount = parsePageCount(normalized);
-  const hasDesign = /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля|design ready|have design|no design|custom design|from scratch|brand book/.test(normalized);
-  const hasContent = /контент|тексты|фото|материал|копирайт|логотип|готово|есть|content|copy|text|photos|materials|logo|ready/.test(normalized);
+  const hasDesign = facts.readyDesign || facts.needsDesign || /figma|макет|дизайн готов|готовый дизайн|есть дизайн|дизайн с нуля|без дизайна|шаблон|template|брендбук|с нуля|design ready|have design|no design|custom design|from scratch|brand book/.test(normalized);
+  const hasContent = facts.readyContent || /контент|тексты|фото|материал|копирайт|логотип|content|copy|text|photos|materials|logo/.test(normalized);
   const hasFeatures = /форма|заявк|оплат|мультияз|язык|админ|каталог|корзин|личный кабинет|авторизац|интеграц|crm|telegram|whatsapp|seo|аналитик|бот|ai|api|form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|analytics|bot/.test(normalized);
   const hasHosting = /домен|хостинг|сервер|vps|vercel|beget|nginx|docker|deploy|деплой|ssl|уже размещен|domain|hosting|server|deployment|deployed|already hosted/.test(normalized);
   const hasDataScope = /пользовател|заявк|товар|заказ|файл|платеж|таблиц|сущност|данн|база|users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
@@ -1622,14 +1647,15 @@ function getMissingQuestions(text, service) {
 function getMissingQuestionsEn(text, service) {
   const normalized = normalizeText(text);
   const questions = getQuestionSetForLanguage(service, 'en');
+  const facts = getProjectFacts(normalized);
 
   if (!service) {
     return questions;
   }
 
   const pageCount = parsePageCount(normalized);
-  const hasDesign = /figma|template|design ready|have design|got design|already have design|figma ready|no design|custom design|from scratch|brand book|need ui/.test(normalized);
-  const hasContent = /content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have texts?|have photos|got the copy|got photos|content is ready|copy is ready/.test(normalized);
+  const hasDesign = facts.readyDesign || facts.needsDesign || /figma|template|design ready|have design|got design|already have design|figma ready|no design|custom design|from scratch|brand book|need ui/.test(normalized);
+  const hasContent = facts.readyContent || /content ready|copy ready|text ready|photos ready|materials ready|have content|have copy|have texts?|have photos|got the copy|got photos|content is ready|copy is ready/.test(normalized);
   const hasFeatures = /form|lead|payment|checkout|multilingual|language|admin|catalog|cart|account|login|auth|integration|crm|telegram|whatsapp|seo|analytics|bot|ai|api/.test(normalized);
   const hasHosting = /domain|hosting|server|vps|vercel|render|docker|deploy|deployment|deployed|already hosted|ssl/.test(normalized);
   const hasDataScope = /users|leads|products|orders|files|payments|tables|entities|data|database|db/.test(normalized);
@@ -1766,10 +1792,10 @@ function hasExplicitCurrency(text) {
 
 function hasAmbiguousBudget(text) {
   const normalized = normalizeText(text);
-  const hasBudgetWords = /бюджет|за|до|есть|готов\w*|выделил\w*|улож|влез|потрачу|заплачу|budget|under|around|about|up to|can spend|ready to spend|for/.test(normalized);
+  const hasBudgetWords = /бюджет|выделил\w*|улож|влез|потрачу|заплачу|budget|under|around|about|up to|can spend|ready to spend/.test(normalized);
   const hasAmount = /\d[\d\s]*(?:[.,]\d+)?\s*(тыс|к|k|млн|миллион|миллиона|grand|g)?/.test(normalized);
 
-  if (/\bfor\s+\d{1,3}\s*(pages?|screens?|sections?|blocks?)\b/.test(normalized)) {
+  if (/\b(for\s+)?\d{1,4}\s*(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)\b/.test(normalized)) {
     return false;
   }
 
@@ -2111,6 +2137,40 @@ function buildBudgetPlan({ budget, service, min, max }) {
   };
 }
 
+function applyReadyMaterialsDiscount({ min, max, service, facts }) {
+  if (!service || !Number.isFinite(min) || !Number.isFinite(max)) {
+    return { min, max, discountRate: 0 };
+  }
+
+  let discountRate = 0;
+
+  if (facts.readyDesign && !facts.needsDesign) {
+    discountRate += service.id === 'mobile-delivery-app' ? 0.1 : 0.15;
+  }
+
+  if (facts.readyContent) {
+    discountRate += 0.05;
+  }
+
+  if (facts.readyBackend && ['mobile-delivery-app', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
+    discountRate += 0.3;
+  }
+
+  discountRate = Math.min(discountRate, 0.4);
+
+  if (!discountRate) {
+    return { min, max, discountRate: 0 };
+  }
+
+  const floor = service.id === 'developer-retainer' ? min : 20000;
+
+  return {
+    min: Math.max(floor, Math.round(min * (1 - discountRate))),
+    max: Math.max(floor, Math.round(max * (1 - discountRate))),
+    discountRate,
+  };
+}
+
 function estimateFromMessages(messages) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const text = userMessages.map((message) => message.content).join(' ');
@@ -2135,13 +2195,16 @@ function estimateFromMessages(messages) {
   const missingQuestions = getMissingQuestions(normalized, service);
   const missingQuestionsEn = getMissingQuestionsEn(normalized, service);
   const projectRequest = isProjectRequest(normalized);
-  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring;
+  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring && missingQuestions.length > 0;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
   const baseMin = moduleSummaryCandidate?.minKzt || 0;
   const baseMax = moduleSummaryCandidate?.maxKzt || 0;
-  const min = useModuleSummary ? baseMin : service ? service.min + addonMin : null;
-  const max = useModuleSummary ? baseMax : service ? service.max + addonMax : null;
+  const rawMin = useModuleSummary ? baseMin : service ? service.min + addonMin : null;
+  const rawMax = useModuleSummary ? baseMax : service ? service.max + addonMax : null;
+  const adjusted = applyReadyMaterialsDiscount({ min: rawMin, max: rawMax, service, facts });
+  const min = adjusted.min;
+  const max = adjusted.max;
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
@@ -2173,6 +2236,7 @@ function estimateFromMessages(messages) {
     phase,
     complexity,
     facts,
+    discountRate: adjusted.discountRate,
     missingQuestions,
     missingQuestionsEn,
     summary: service
@@ -2290,6 +2354,11 @@ function buildEstimateReply(estimate, language) {
   const provided = getProvidedByClient(estimate.facts || {}, language);
   const excluded = getExcludedFromEstimate(estimate.facts || {}, language);
   const assumptions = estimate.missingQuestions.slice(0, 2);
+  const discountNote = estimate.discountRate
+    ? isRu
+      ? `Уже применил снижение за готовые материалы: примерно ${Math.round(estimate.discountRate * 100)}%.`
+      : `I already applied a ready-materials reduction of about ${Math.round(estimate.discountRate * 100)}%.`
+    : null;
   const scopeLabel = estimate.service?.id === 'mobile-delivery-app'
     ? isRu
       ? `${estimate.pageCount || 'уточняется'} основных экранов`
@@ -2304,6 +2373,7 @@ function buildEstimateReply(estimate, language) {
       `Characteristics: stack/platform - ${tech}; scope - ${scopeLabel}; extras - ${addons || 'no major extras detected'}.`,
       provided.length ? `Provided by client: ${provided.join(', ')}.` : null,
       excluded.length ? `Not included in this estimate: ${excluded.join(', ')}.` : null,
+      discountNote,
       `Rough range: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}. Includes: ${included}.`,
       assumptions.length ? `I am assuming the remaining details are standard: ${assumptions.join('; ')}.` : 'A final quote still depends on the exact brief and materials.',
     ].filter(Boolean).join(' ');
@@ -2314,6 +2384,7 @@ function buildEstimateReply(estimate, language) {
     `Характеристики: стек/платформа - ${tech}; объем - ${scopeLabel}; доп. модули - ${addons || 'без явных сложных модулей'}.`,
     provided.length ? `Со стороны клиента уже есть: ${provided.join(', ')}.` : null,
     excluded.length ? `Это не закладываю в стоимость: ${excluded.join(', ')}.` : null,
+    discountNote,
     `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
     assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
   ].filter(Boolean).join(' ');
@@ -2435,15 +2506,17 @@ function buildBudgetReply(estimate, language) {
 function buildHiringReply(estimate, language) {
   const isRu = language !== 'en';
   const budget = estimate.budget ? formatPrice(estimate.budget, language) : null;
+  const hourly = formatPrice(20000, language);
   const options = HIRING_OPTIONS.map(
-    (option) => `${language === 'en' ? option.label.replace('частичная занятость', 'part-time support').replace('усиленная частичная занятость', 'extended part-time support').replace('full-time разработчик', 'full-time developer') : option.label}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
+    (option) =>
+      `${language === 'en' ? option.label.replace('почасовая работа', 'hourly work').replace('частичная занятость', 'part-time support').replace('выделенный full-time разработчик', 'full-time developer') : option.label}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
   ).join('\n');
 
   if (!isRu) {
     return [
       budget
-        ? `With a monthly budget of ${budget}, the closest format is part-time support unless the scope is very small.`
-        : 'Yes, a developer can be hired on a monthly format.',
+        ? `With a monthly budget of ${budget}, I would calculate this as developer time. The base rate is about ${hourly}/hour, minimum 2 hours.`
+        : `Yes, a developer can be hired hourly. The base rate is about ${hourly}/hour, minimum 2 hours.`,
       `Reference ranges:\n${options}`,
       'To choose the right format, I would ask: stack, expected hours per month, task list and whether project management/design is needed.',
     ].join('\n\n');
@@ -2451,10 +2524,31 @@ function buildHiringReply(estimate, language) {
 
   return [
     budget
-      ? `Бюджет ${budget} на постоянную работу понял. Ближайший реалистичный формат — частичная занятость или фиксированный пакет часов, если задач немного.`
-      : 'Да, можно работать в формате постоянного разработчика или помесячного сопровождения.',
+      ? `Бюджет ${budget} на постоянную работу понял. Считал бы это как часы разработчика: базовая ставка примерно ${hourly}/час, минимум 2 часа.`
+      : `Да, можно работать почасово или помесячно. Базовая ставка примерно ${hourly}/час, минимум 2 часа.`,
     `Ориентиры по прайсу:\n${options}`,
     'Чтобы подобрать формат, нужно уточнить стек, количество часов в месяц, список задач и нужен ли менеджмент/дизайн вместе с разработкой.',
+  ].join('\n\n');
+}
+
+function buildMixedBudgetReply(estimate, language) {
+  const isRu = language !== 'en';
+  const budget = estimate.budgetPlan ? formatPrice(estimate.budgetPlan.budget, language) : null;
+
+  if (!isRu) {
+    return [
+      `Budget ${budget} is clear, but this is a combined project, not one simple task.`,
+      'For this budget I would choose one first stage: either a landing/site with lead form, or a Telegram bot for leads. CRM integration should be a separate second stage.',
+      'I would not promise site + bot + CRM all together inside this amount because quality and testing would collapse.',
+      'Send the must-have first step and deadline in Telegram: https://t.me/Berliyn_h. I will split it into budget and normal options.',
+    ].join('\n\n');
+  }
+
+  return [
+    `Бюджет ${budget} понял, но это комбинированный проект, а не одна простая задача.`,
+    'В рамках этой суммы я бы выбрал один первый этап: либо сайт/лендинг с формой заявки, либо Telegram-бот для заявок. CRM-интеграцию лучше вынести вторым этапом.',
+    'Я бы не обещал сайт + бот + CRM вместе в этот бюджет, потому что пострадают качество и тестирование.',
+    'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте, что обязательно запустить первым, и я распишу бюджетный и нормальный вариант.',
   ].join('\n\n');
 }
 
@@ -2482,7 +2576,7 @@ function buildFallbackReply(messages, language) {
     return buildPaymentTermsReply(language);
   }
 
-  if (isBigCloneRequest(lastText) && userMessageCount <= 1) {
+  if (isBigCloneRequest(lastText) && userMessageCount <= 1 && !estimate.budgetPlan) {
     return buildBigCloneReply(language);
   }
 
@@ -2498,16 +2592,20 @@ function buildFallbackReply(messages, language) {
     return buildAmbiguousBudgetReply(language);
   }
 
+  if (estimate.service?.id === 'developer-retainer') {
+    return buildHiringReply(estimate, language);
+  }
+
+  if (isMixedProjectRequest(lastText) && estimate.budgetPlan) {
+    return buildMixedBudgetReply(estimate, language);
+  }
+
   if (estimate.budgetPlan && estimate.service) {
     return buildBudgetReply(estimate, language);
   }
 
   if (isNegotiationRequest(lastText) && userMessageCount <= 1) {
     return buildNegotiationReply(language);
-  }
-
-  if (estimate.service?.id === 'developer-retainer') {
-    return buildHiringReply(estimate, language);
   }
 
   if (estimate.budgetPlan) {
@@ -2538,6 +2636,7 @@ function buildPromptEstimate(estimate) {
     providedByClient: getProvidedByClient(estimate.facts || {}, 'ru'),
     excludedFromEstimate: getExcludedFromEstimate(estimate.facts || {}, 'ru'),
     detectedFacts: estimate.facts || {},
+    readyMaterialsDiscountRate: estimate.discountRate || 0,
     addons: estimate.addons.map((addon) => ({
       label: addon.label,
       minKzt: addon.min,
