@@ -2706,6 +2706,22 @@ function isModulePricingUseful(text, estimate) {
   return /модул|прайс|ориентир|срок|задач|работ|этап/.test(normalized) && containsPrice(text);
 }
 
+function onlyDigits(value) {
+  return String(value || '').replace(/\D/g, '');
+}
+
+function isEstimateRangeUseful(text, estimate, language) {
+  if (estimate.phase !== 'estimate_allowed' || !estimate.min || !estimate.max) {
+    return true;
+  }
+
+  const textDigits = onlyDigits(text);
+  const minDigits = onlyDigits(formatPrice(estimate.min, language));
+  const maxDigits = onlyDigits(formatPrice(estimate.max, language));
+
+  return textDigits.includes(minDigits) && textDigits.includes(maxDigits);
+}
+
 function isProvidedScopeRespected(text, estimate) {
   const normalized = normalizeText(text);
   const facts = estimate.facts || {};
@@ -2762,6 +2778,7 @@ function isReplySafe(text, estimate, language) {
     isBudgetGuidanceUseful(cleaned, estimate) &&
     isHiringGuidanceUseful(cleaned, estimate) &&
     isModulePricingUseful(cleaned, estimate) &&
+    isEstimateRangeUseful(cleaned, estimate, language) &&
     isProvidedScopeRespected(cleaned, estimate)
   );
 }
