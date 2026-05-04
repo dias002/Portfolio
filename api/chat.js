@@ -694,7 +694,20 @@ const ADDONS = [
     min: 120000,
     max: 350000,
     keywords: ['оплат', 'оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay', 'payment', 'checkout', 'card payments', 'online payment', 'take cards', 'paid orders'],
-    skipIf: ['без оплаты', 'оплата не нужна', 'без онлайн-оплаты', 'не нужна оплата', 'no payment', 'no checkout', 'payment not needed', 'no online payment'],
+    skipIf: [
+      'без оплаты',
+      'без онлайн оплаты',
+      'без онлайн-оплаты',
+      'нет оплаты',
+      'нет онлайн оплаты',
+      'оплата не нужна',
+      'онлайн оплата не нужна',
+      'не нужна оплата',
+      'no payment',
+      'no checkout',
+      'payment not needed',
+      'no online payment',
+    ],
     includedIn: ['mobile-delivery-app'],
   },
   {
@@ -1114,6 +1127,7 @@ const QUESTION_SETS = {
     'Нужны ли формы, анимации, отправка заявок в Telegram/email или только статичная верстка?',
   ],
   simpleSite: [
+    'Сколько страниц нужно: одна, две или 3-4?',
     'Дизайн будет по готовому шаблону, по существующему Figma-макету или его нужно сделать с нуля?',
     'Какие блоки нужны на странице: hero, обо мне, проекты, услуги, отзывы, контакты, форма заявки?',
     'Тексты, фото и материалы уже готовы или их нужно подготовить?',
@@ -1221,6 +1235,7 @@ const QUESTION_SETS_EN = {
     'Do you need forms, animations, Telegram/email leads, or only static layout?',
   ],
   simpleSite: [
+    'How many pages are needed: one, two, or 3-4?',
     'Will the design be based on a template, an existing Figma file, or should it be created from scratch?',
     'Which blocks are needed: hero, about, projects, services, reviews, contacts, lead form?',
     'Are texts, photos and materials ready?',
@@ -1899,8 +1914,12 @@ function findMatches(text, items) {
 function hasEcommerceNegation(text) {
   const normalized = normalizeText(text);
 
-  return /не\s+(интернет[-\s]?магазин|магазин|online\s+store|ecommerce|e-?com)|нет\s+(корзин|оплат|checkout|каталог|товар)|без\s+(корзин|оплат|checkout|каталог|товар|продаж|online\s+sales)|товар\w*\s+не\s+(буду|нужно|нужны|показывать|выкладывать)|не\s+буду\s+(показывать|продавать|выкладывать)\s+товар|не\s+продавать\s+(онлайн|через\s+сайт)|просто\s+(рекламировать|презентовать|показать)\s+магазин|сайт[-\s]?визитк|просто\s+сайт\s+визитк|просто\s+визитк|brochure\s+site|info\s+site/.test(
-    normalized
+  return (
+    /не\s+(интернет[-\s]?магазин|магазин|online\s+store|ecommerce|e-?com)|нет\s+(корзин|оплат|checkout|каталог|товар)|без\s+(корзин|оплат|checkout|каталог|товар|продаж|online\s+sales)|товар\w*\s+не\s+(буду|нужно|нужны|показывать|выкладывать)|не\s+буду\s+(показывать|продавать|выкладывать)\s+товар|не\s+продавать\s+(онлайн|через\s+сайт)|просто\s+(рекламировать|презентовать|показать)\s+магазин|сайт[-\s]?визитк|просто\s+сайт\s+визитк|просто\s+визитк|brochure\s+site|info\s+site/.test(
+      normalized
+    ) ||
+    hasCatalogNegation(normalized) ||
+    (hasBrochureSiteIntent(normalized) && hasPaymentNegation(normalized))
   );
 }
 
@@ -1908,6 +1927,30 @@ function hasBrochureSiteIntent(text) {
   const normalized = normalizeText(text);
 
   return /сайт[-\s]?визитк|визитк|лендинг|landing|промо[-\s]?сайт|информационн\w*\s+сайт|ознакомительн\w*\s+сайт|просто\s+сайт|рекламировать\s+магазин|презентовать\s+магазин|показать\s+магазин|без\s+продаж|brochure\s+site|info\s+site|promo\s+site|business\s+site/.test(
+    normalized
+  );
+}
+
+function hasPaymentNegation(text) {
+  const normalized = normalizeText(text);
+
+  return /без\s+(?:онлайн[-\s]?)?оплат|нет\s+(?:онлайн[-\s]?)?оплат|оплат[а-яa-z0-9_-]*\s+не\s+нуж|не\s+нужн[аы]\s+(?:онлайн[-\s]?)?оплат|онлайн[-\s]?оплат[а-яa-z0-9_-]*\s+не\s+будет|no\s+(?:online\s+)?payment|no\s+checkout|without\s+(?:online\s+)?payment|payment\s+not\s+needed/.test(
+    normalized
+  );
+}
+
+function hasCatalogNegation(text) {
+  const normalized = normalizeText(text);
+
+  return /без\s+(?:больш[а-яa-z0-9_-]*\s+)?каталог|нет\s+каталог|каталог\s+(?:не\s+нуж|не\s+надо|нет)|не\s+нужен\s+каталог|товар[а-яa-z0-9_-]*\s+не\s+(?:буду|нужно|нужны|планир|показывать|выкладывать)|не\s+буду\s+(?:показывать|выкладывать)\s+товар|без\s+товар[а-яa-z0-9_-]*|no\s+catalog|no\s+products?|without\s+catalog|catalog\s+not\s+needed/.test(
+    normalized
+  );
+}
+
+function hasNonTechnicalClientSignal(text) {
+  const normalized = normalizeText(text);
+
+  return /не\s+разбира[а-яa-z0-9_-]*\s+(?:в\s+)?(?:дизайн|программ|сайт|техник|разработк)|не\s+понима[а-яa-z0-9_-]*\s+(?:в\s+)?(?:дизайн|программ|сайт|техник|разработк)|не\s+шарю|я\s+не\s+техническ|i'?m\s+not\s+technical|not\s+technical|don'?t\s+understand\s+(?:design|development|websites)/.test(
     normalized
   );
 }
@@ -2440,6 +2483,9 @@ function getProjectFacts(text) {
   const realtimeTracking = /карта|геолокац|отслеж|движени\w*\s+курьер|real[-\s]?time|live tracking|map|geolocation/.test(normalized);
   const push = /push|пуш|уведомлен|notification/.test(normalized);
   const urgent = /срочн|горит|сегодня|завтра|ночью|ночь|к\s+утру|до\s+вечера|за\s+день|asap|urgent|rush|today|tomorrow|tonight|by\s+morning|same\s+day|next\s+day/.test(normalized);
+  const noOnlinePayment = hasPaymentNegation(normalized);
+  const noCatalog = hasCatalogNegation(normalized);
+  const nonTechnicalClient = hasNonTechnicalClientSignal(normalized);
 
   return {
     readyDesign,
@@ -2455,9 +2501,12 @@ function getProjectFacts(text) {
     customerCourierRoles,
     adminPanel,
     payment,
+    noOnlinePayment,
+    noCatalog,
     realtimeTracking,
     push,
     urgent,
+    nonTechnicalClient,
   };
 }
 
@@ -2515,6 +2564,81 @@ function getExcludedFromEstimate(facts, language) {
   return excluded;
 }
 
+function getLeadNiche(text) {
+  const normalized = normalizeText(text);
+
+  if (/евро\s*мебел|euromebel|euro\s*furniture/.test(normalized)) return 'евро мебель';
+  if (/мебел|furniture/.test(normalized)) return 'мебель';
+  if (/сантехник|сануз|ванн|смесител|раковин|унитаз|душ|plumb|bathroom|sanitary/.test(normalized)) return 'сантехника';
+  if (/одежд|бутик|fashion|clothing|apparel/.test(normalized)) return 'магазин одежды';
+  if (/посуд|кухонн|cookware|kitchenware|tableware/.test(normalized)) return 'кухонная посуда';
+  if (/магазин|store|shop/.test(normalized)) return 'магазин';
+  return null;
+}
+
+function getLeadPlatform(text, service) {
+  const normalized = normalizeText(text);
+
+  if (/tilda|тильда/.test(normalized) || service?.id === 'tilda-site') return 'Tilda';
+  if (/wordpress|вордпресс|\bwp\b/.test(normalized) || service?.id === 'wordpress-site' || service?.id === 'wordpress-onepage-portfolio') return 'WordPress';
+  if (isSimpleSiteService(service)) return 'WordPress';
+  return null;
+}
+
+function buildLeadState(text, service, facts, pageCount) {
+  const normalized = normalizeText(text);
+  const simpleSite = isSimpleSiteService(service);
+  const brochureConfirmed = hasBrochureSiteIntent(normalized) || /просто\s+визитк|только\s+визитк|визитк[а-яa-z0-9_-]*\s+нуж|brochure/.test(normalized);
+  const noOnlinePayment = facts.noOnlinePayment || hasPaymentNegation(normalized);
+  const noCatalog = facts.noCatalog || hasCatalogNegation(normalized) || (brochureConfirmed && noOnlinePayment);
+  const noEcommerce = hasEcommerceNegation(normalized) || (brochureConfirmed && (noOnlinePayment || noCatalog));
+  const hasHostingAnswer = /домен|хостинг|hosting|domain|сервер|ssl/.test(normalized);
+  const hasMaterialsAnswer =
+    facts.readyContent ||
+    facts.noMaterials ||
+    facts.clientProvidesMaterials ||
+    /фото|текст|контент|материал|данн|логотип|photos?|texts?|content|materials?|logo/.test(normalized);
+  const hasStartDateAnswer = /старт|начать|запуск|срок|дедлайн|когда|сегодня|завтра|недел|месяц|start|launch|deadline|timeline/.test(normalized);
+  let nextQuestion = null;
+
+  if (simpleSite && brochureConfirmed && pageCount && (noOnlinePayment || noCatalog || noEcommerce)) {
+    if (!hasHostingAnswer) {
+      nextQuestion = 'домен и хостинг';
+    } else if (!hasMaterialsAnswer) {
+      nextQuestion = 'материалы';
+    } else if (!hasStartDateAnswer) {
+      nextQuestion = 'дата старта';
+    }
+  }
+
+  return {
+    niche: getLeadNiche(normalized),
+    type: brochureConfirmed ? 'сайт-визитка' : simpleSite ? 'простой сайт' : service?.label || null,
+    pageCount: pageCount || null,
+    format: facts.turnkey || facts.nonTechnicalClient ? 'под ключ' : null,
+    platform: getLeadPlatform(normalized, service),
+    noOnlinePayment,
+    noCatalog,
+    noEcommerce,
+    nonTechnicalClient: facts.nonTechnicalClient,
+    hasHostingAnswer,
+    hasMaterialsAnswer,
+    nextQuestion,
+  };
+}
+
+function hasConfirmedBrochureSiteState(leadState, service) {
+  return Boolean(
+    isSimpleSiteService(service) &&
+      leadState?.type === 'сайт-визитка' &&
+      leadState.pageCount &&
+      leadState.pageCount >= 2 &&
+      leadState.pageCount <= 3 &&
+      (leadState.noOnlinePayment || leadState.noCatalog || leadState.noEcommerce) &&
+      (leadState.format || leadState.nonTechnicalClient || leadState.niche)
+  );
+}
+
 function getMissingQuestions(text, service) {
   const normalized = normalizeText(text);
   const questions = getQuestionSet(service);
@@ -2544,6 +2668,7 @@ function getMissingQuestions(text, service) {
 
   if (['landing', 'wordpress-site', 'tilda-site', 'simple-multipage', 'wordpress-onepage-portfolio'].includes(service.id)) {
     return questions.filter((question) => {
+      if (question.includes('Сколько страниц')) return !pageCount;
       if (question.includes('Дизайн')) return !hasDesign;
       if (question.includes('блоки')) return !(pageCount || facts.turnkey || /визитк|одежд|магазин|контакт|форма|о\s+нас|услуг|hero|about|contacts|lead/.test(normalized));
       if (question.includes('Тексты')) return !hasContent;
@@ -2678,6 +2803,7 @@ function getMissingQuestions(text, service) {
   }
 
   return questions.filter((question) => {
+    if (question.includes('Сколько страниц')) return !pageCount;
     if (question.includes('Дизайн')) return !hasDesign;
     if (question.includes('блоки')) return !pageCount && !/hero|проекты|услуги|отзывы|контакты|форма|портфолио|блок/.test(normalized);
     if (question.includes('Тексты')) return !hasContent;
@@ -2715,6 +2841,7 @@ function getMissingQuestionsEn(text, service) {
 
   if (['landing', 'wordpress-site', 'tilda-site', 'simple-multipage', 'wordpress-onepage-portfolio'].includes(service.id)) {
     return questions.filter((question) => {
+      if (question.includes('How many pages')) return !pageCount;
       if (question.includes('design')) return !hasDesign;
       if (question.includes('blocks')) return !(pageCount || facts.turnkey || /brochure|clothing|shop|store|contacts?|form|about|hero|lead/.test(normalized));
       if (question.includes('texts') || question.includes('photos')) return !hasContent;
@@ -2869,6 +2996,7 @@ function getMissingQuestionsEn(text, service) {
   }
 
   return questions.filter((question) => {
+    if (question.includes('How many pages')) return !pageCount;
     if (question.includes('design')) return !hasDesign;
     if (question.includes('blocks')) return !pageCount && !/hero|about|projects|services|reviews|contacts|form|portfolio|blocks?/.test(normalized);
     if (question.includes('texts')) return !hasContent;
@@ -3697,6 +3825,7 @@ function estimateFromMessages(messages) {
   const activeVelorSummary = useModuleSummary ? velorSummary : null;
   const activeItsngSummary = useModuleSummary ? itsngSummary : null;
   const service = useModuleSummary ? MODULE_SERVICE : primaryService;
+  const leadState = buildLeadState(normalized, service, facts, pageCount);
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring || isSupportService(service) ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = normalizeTechnologiesForService(detectTechnologies(normalized), service, lastUserText);
@@ -3744,6 +3873,11 @@ function estimateFromMessages(messages) {
     min = Math.round(15000 / rubPerKzt);
     max = Math.round(30000 / rubPerKzt);
   }
+  const hasConfirmedBrochureInputs = hasConfirmedBrochureSiteState(leadState, service);
+  if (hasConfirmedBrochureInputs) {
+    min = 80000;
+    max = 120000;
+  }
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
@@ -3754,13 +3888,16 @@ function estimateFromMessages(messages) {
       facts.turnkey ||
       facts.clientProvidesMaterials ||
       (hasBrochureSiteIntent(normalized) && /магазин|одежд|посуд|бизнес|store|shop|business|clothing|fashion/.test(normalized)));
+  const hasLeadProgressQuestionInputs = isSimpleSiteService(service) && leadState.type === 'сайт-визитка' && !leadState.pageCount && !budget;
   const ready = Boolean(
     service &&
+      !hasLeadProgressQuestionInputs &&
       (moduleSummary ||
         isHiring ||
         budget ||
         hasReadyExistingWork ||
         hasWordPressIntroLandingInputs ||
+        hasConfirmedBrochureInputs ||
         hasSimpleSiteBaselineInputs ||
         (!shouldAskFirst && missingQuestions.length <= 2))
   );
@@ -3793,6 +3930,7 @@ function estimateFromMessages(messages) {
     phase,
     complexity,
     facts,
+    leadState,
     discountRate: adjusted.discountRate,
     missingQuestions,
     missingQuestionsEn,
@@ -3811,7 +3949,7 @@ function buildQuestionsReply(estimate, language) {
     : estimate.missingQuestionsEn?.length
       ? estimate.missingQuestionsEn
       : getQuestionSetForLanguage(estimate.service, language)
-  ).slice(0, 3);
+  ).slice(0, 1);
 
   if (!isRu) {
     const intro = estimate.service
@@ -4243,6 +4381,7 @@ function getSimpleSiteSubject(text, language) {
   const normalized = normalizeText(text);
 
   if (language === 'en') {
+    if (/euro\s*furniture|furniture/.test(normalized)) return 'furniture business';
     if (/clothing|fashion|apparel/.test(normalized)) return 'clothing store';
     if (/plumb|bathroom|sanitary/.test(normalized)) return 'plumbing/sanitary store';
     if (/dish|cookware|kitchenware|tableware/.test(normalized)) return 'kitchenware store';
@@ -4250,6 +4389,8 @@ function getSimpleSiteSubject(text, language) {
     return 'business';
   }
 
+  if (/евро\s*мебел/.test(normalized)) return 'евро мебели';
+  if (/мебел/.test(normalized)) return 'магазина мебели';
   if (/одежд|бутик|fashion/.test(normalized)) return 'магазина одежды';
   if (/сантехник|сануз|ванн|смесител|раковин|унитаз|душ/.test(normalized)) return 'магазина сантехники';
   if (/посуд|кухонн|посуда/.test(normalized)) return 'магазина кухонной посуды';
@@ -4297,6 +4438,73 @@ function buildWordPressIntroLandingReply(messages, language) {
     'В работу может входить: разработка структуры страницы, простой современный дизайн, блок с описанием магазина, категории товаров/услуг, преимущества, галерея фото, контакты, карта, кнопка звонка или WhatsApp, адаптация под телефон и базовая настройка WordPress.',
     'Не входит: интернет-магазин, корзина, онлайн-оплата, логика каталога товаров, сложные интеграции и написание всех текстов с нуля.',
     'Чтобы точно подтвердить цену, нужно уточнить только пару моментов: есть ли уже домен и хостинг, нужен ли логотип, и какие разделы вы хотите видеть на странице.',
+  ].join('\n\n');
+}
+
+function getRuPageLabel(count) {
+  const number = Number(count);
+
+  if (!Number.isFinite(number) || number <= 0) {
+    return 'несколько страниц';
+  }
+
+  if (number === 1) return '1 страницу';
+  if (number >= 2 && number <= 4) return `${number} страницы`;
+  return `${number} страниц`;
+}
+
+function shouldUseLeadProgressQuestionReply(messages, estimate) {
+  const state = estimate.leadState || {};
+
+  return Boolean(isSimpleSiteService(estimate.service) && state.type === 'сайт-визитка' && !state.pageCount && !estimate.budget);
+}
+
+function buildLeadProgressQuestionReply(estimate, language) {
+  const state = estimate.leadState || {};
+
+  if (language === 'en') {
+    const niche = state.niche ? ` for ${state.niche}` : '';
+    const exclusions = state.noCatalog || state.noOnlinePayment ? ', without catalog or online payment' : '';
+    return `Understood, I will treat it as a brochure site${niche}${exclusions}. To calculate it properly, I only need one detail: how many pages are needed - one, two, or 3-4?`;
+  }
+
+  const nicheLabel = state.niche === 'евро мебель' ? 'евро мебели' : state.niche;
+  const niche = nicheLabel ? ` для ${nicheLabel}` : '';
+  const exclusions = state.noCatalog || state.noOnlinePayment ? ', без каталога и онлайн-оплаты' : '';
+  return `Понял, фиксирую: это сайт-визитка${niche}${exclusions}. Чтобы нормально посчитать, уточню только одно: сколько страниц нужно - одна, две или 3-4?`;
+}
+
+function shouldUseConfirmedBrochureSiteReply(messages, estimate) {
+  return hasConfirmedBrochureSiteState(estimate.leadState, estimate.service);
+}
+
+function buildConfirmedBrochureSiteReply(messages, estimate, language) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const text = userMessages.map((message) => message.content).join(' ');
+  const subject = getSimpleSiteSubject(text, language);
+  const state = estimate.leadState || {};
+  const pageCount = state.pageCount || estimate.pageCount || 2;
+  const platform = state.platform || 'WordPress';
+  const nextQuestion = state.nextQuestion === 'дата старта'
+    ? 'Когда хотите начать работу: на этой неделе или позже?'
+    : state.nextQuestion === 'материалы'
+      ? 'Фото, тексты и логотип уже готовы или их нужно помочь подготовить?'
+      : 'У вас уже есть домен и хостинг или их тоже нужно помочь оформить?';
+
+  if (language === 'en') {
+    return [
+      `Understood. Then I will count this as a simple ${pageCount}-page brochure site for a ${subject}, turnkey, without a catalog and without online payment.`,
+      `Rough range: ${formatPriceRange(80000, 120000, 'en')}, timeline about 5-7 business days.`,
+      `Included: site structure, simple design, ${platform}, mobile adaptation, ${pageCount} pages, company/about blocks, advantages, furniture photos, contacts, WhatsApp/Instagram, lead form and basic launch preparation.`,
+      `Next I only need one thing: ${state.hasHostingAnswer ? 'when would you like to start?' : 'do you already have a domain and hosting, or should I help with that too?'}`,
+    ].join('\n\n');
+  }
+
+  return [
+    `Понял, тогда это простой сайт-визитка на ${getRuPageLabel(pageCount)} под ключ для ${subject}, без каталога и онлайн-оплаты.`,
+    `Ориентир по стоимости: ${formatKztRange(80000, 120000)}, срок примерно 5-7 рабочих дней.`,
+    `В работу входит: структура сайта, дизайн, ${platform}, адаптация под телефон, ${getRuPageLabel(pageCount)}, блоки о компании, преимущества, фото мебели, контакты, WhatsApp/Instagram, форма заявки и базовая подготовка к запуску.`,
+    `Следующим шагом нужно понять: ${nextQuestion}`,
   ].join('\n\n');
 }
 
@@ -4440,6 +4648,14 @@ function buildFallbackReply(messages, language) {
     return buildWordPressIntroLandingReply(messages, language);
   }
 
+  if (shouldUseLeadProgressQuestionReply(messages, estimate)) {
+    return buildLeadProgressQuestionReply(estimate, language);
+  }
+
+  if (shouldUseConfirmedBrochureSiteReply(messages, estimate)) {
+    return buildConfirmedBrochureSiteReply(messages, estimate, language);
+  }
+
   if (shouldUseSimpleSiteBaselineReply(messages, estimate)) {
     return buildSimpleSiteBaselineReply(messages, estimate, language);
   }
@@ -4470,6 +4686,7 @@ function buildPromptEstimate(estimate) {
     providedByClient: getProvidedByClient(estimate.facts || {}, 'ru'),
     excludedFromEstimate: getExcludedFromEstimate(estimate.facts || {}, 'ru'),
     detectedFacts: estimate.facts || {},
+    currentLeadState: estimate.leadState || {},
     readyMaterialsDiscountRate: estimate.discountRate || 0,
     addons: estimate.addons.map((addon) => ({
       label: addon.label,
@@ -4519,6 +4736,11 @@ You are Dias's website assistant for potential clients. Speak ${isRu ? 'Russian'
 Core behavior:
 - Write like a calm human consultant, not a scripted FAQ.
 - Be concise and practical.
+- Manage the dialogue like a web-studio sales manager: remember every client answer inside the current conversation, update currentLeadState, and move to the next logical step instead of restarting the same question.
+- Never repeat the same question if the client already answered it. If the client says "без онлайн-оплаты", "просто визитка", "каталог не нужен", "без продаж", treat it as not ecommerce, not a catalog and not an online store; do not ask about catalog or online payment again.
+- Ask only one clarifying question at a time. Progression: if site type is unclear, clarify type; if type is clear, clarify page count; if pages are clear, clarify features; if features are clear, give price and timeline; if price is already given, ask about domain/hosting, materials or start date.
+- Do not repeat a previous answer verbatim. Every new client message must change the answer or advance the deal.
+- If the client says they do not understand design/programming, explain in simple words and offer a turnkey option.
 - In English, understand casual client slang and local variants such as "one pager", "small biz site", "ecom", "quote me", "ballpark", "how much would it run me", "set me back", "bucks", "grand", "2k", "ASAP", "no upfront", "dev/contractor". Answer in clear natural English; do not overuse slang back.
 - Output plain text only. Do not use Markdown formatting, no **bold**, no * bullet points, no headings, no tables, no code blocks.
 - For lists use either "1. ..." numbered lines or "- ..." lines only.
@@ -4537,7 +4759,7 @@ Core behavior:
 
 Pricing gate:
 - Current phase is "${estimate.phase}".
-- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, or final estimate. Ask 1-3 concrete questions from suggestedQuestions and say that the estimate comes after answers.
+- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, or final estimate. Ask only one concrete question from suggestedQuestions and say that the estimate comes after that answer.
 - If phase is "estimate_allowed", give a realistic range using only the provided pricing data, then explain the task characteristics: platform/stack, complexity, modules, timeline and what is included.
 - If phase is "budget_guidance", the user already gave a budget. Do not ignore it. Compare the budget with the price list, explain what can fit into that amount, what cannot fit, and suggest the optimal reduced scope or phased plan.
 - If phase is "hiring_guidance", explain monthly hiring/retainer options from hiringOptions and ask only the missing details needed to choose a format.
@@ -4734,6 +4956,8 @@ function shouldForceLocalReply(messages, estimate) {
   return (
     shouldUseLocalReply(messages) ||
     shouldUseWordPressIntroLandingReply(messages, estimate) ||
+    shouldUseLeadProgressQuestionReply(messages, estimate) ||
+    shouldUseConfirmedBrochureSiteReply(messages, estimate) ||
     shouldUseSimpleSiteBaselineReply(messages, estimate) ||
     estimate.service?.id === 'developer-retainer' ||
     isSupportService(estimate.service) ||
