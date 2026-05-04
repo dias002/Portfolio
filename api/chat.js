@@ -13,6 +13,36 @@ const MODULE_SERVICE = {
 
 const SERVICES = [
   {
+    id: 'existing-site-seo',
+    label: 'SEO-доработка существующего сайта',
+    min: 50000,
+    max: 180000,
+    timeline: '2-7 рабочих дней',
+    priority: 19,
+    keywords: [
+      'улучшить seo',
+      'улучшить сео',
+      'поднять seo',
+      'поднять сео',
+      'seo существующего сайта',
+      'сео существующего сайта',
+      'существующий сайт seo',
+      'существующий сайт сео',
+      'техническое seo',
+      'техническое сео',
+      'seo audit',
+      'seo improvement',
+      'existing site seo',
+      'technical seo',
+      'sitemap',
+      'robots',
+      'мета теги',
+      'title description',
+      'search console',
+    ],
+    includes: ['SEO-аудит', 'title/description', 'sitemap/robots', 'ЧПУ/редиректы', 'базовые технические правки'],
+  },
+  {
     id: 'frontend-slicing',
     label: 'верстка по готовому дизайну',
     min: 30000,
@@ -523,6 +553,7 @@ const ADDONS = [
     max: 180000,
     keywords: ['seo', 'сео', 'analytics', 'метрика', 'google analytics', 'search console', 'tracking', 'ga4'],
     skipIf: ['без tracking', 'без отслеживания', 'no tracking', 'without tracking', 'без live tracking', 'no live tracking'],
+    includedIn: ['existing-site-seo'],
   },
 ];
 
@@ -758,6 +789,7 @@ const CONVERSATION_EXAMPLES = [
 ];
 
 const EN_SERVICE_LABELS = {
+  'existing-site-seo': 'SEO improvements for an existing website',
   'wordpress-onepage-portfolio': 'one-page WordPress portfolio site',
   'frontend-slicing': 'frontend layout from ready design',
   landing: 'landing page or service website',
@@ -783,6 +815,11 @@ const QUESTION_SETS = {
     'Сколько страниц, товаров, ролей пользователей или основных экранов планируется на старте?',
     'Дизайн и контент уже готовы или их нужно делать с нуля?',
     'Нужны ли формы, оплата, мультиязычность, интеграции, личный кабинет или настройка сервера?',
+  ],
+  existingSiteSeo: [
+    'Сайт на WordPress, Tilda или кастомной CMS?',
+    'Что именно нужно улучшить: title/description, sitemap/robots, скорость, индексацию, редиректы или структуру страниц?',
+    'Есть ли доступ к админке, Search Console/Метрике и текущий список проблем?',
   ],
   frontendSlicing: [
     'Сколько макетов нужно сверстать: один блок, одна страница, лендинг или 3-5 страниц?',
@@ -851,6 +888,11 @@ const QUESTION_SETS_EN = {
     'How many pages, products, user roles or main screens are planned for the first version?',
     'Are design and content ready, or should they be prepared from scratch?',
     'Do you need forms, payments, multilingual support, integrations, user accounts or server setup?',
+  ],
+  existingSiteSeo: [
+    'Is the site built on WordPress, Tilda, or a custom CMS?',
+    'What should be improved: title/description, sitemap/robots, speed, indexing, redirects or page structure?',
+    'Do you have admin access, Search Console/analytics access and a current issue list?',
   ],
   frontendSlicing: [
     'How many layouts should be built: one block, one page, landing page, or 3-5 pages?',
@@ -1287,6 +1329,35 @@ function hasModuleIntent(text) {
   );
 }
 
+function shouldPreferModulePricing(text, primaryService) {
+  const normalized = normalizeText(text);
+
+  if (!hasModuleIntent(normalized)) {
+    return false;
+  }
+
+  if (!primaryService) {
+    return true;
+  }
+
+  if (primaryService.id === 'existing-site-seo') {
+    return false;
+  }
+
+  const explicitModuleIntent = /модул|доработ|улучш|improve|improvement|tweak|patch|fix|аудит|audit|техническ|technical|оптимизац|optimi[sz]e|производитель|performance|speed|slow|скорост|фильтр|filter|поиск|search|каталог|catalog/.test(
+    normalized
+  );
+  const newBuildIntent = /нов(ый|ого|ую)|с\s+нуля|нужен|сделай|создать|разработать|лендинг|landing|build|make|create|new\s+site|new\s+website/.test(
+    normalized
+  );
+
+  if (newBuildIntent && !explicitModuleIntent) {
+    return false;
+  }
+
+  return explicitModuleIntent;
+}
+
 function isItsngSummaryReliable(text, matches) {
   if (!matches.length) {
     return false;
@@ -1424,12 +1495,19 @@ function filterServiceMatches(matches, text, pageCount) {
   const isPortfolio = /портфолио|portfolio/.test(normalized);
   const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
   const isMobileMvpIntent = /mvp|первая\s+версия|только\s+mvp|без\s+live\s+tracking|без\s+отслежив/.test(normalized) && /приложен|mobile|app|ios|android/.test(normalized);
+  const isExistingSeoIntent =
+    /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу/.test(normalized) &&
+    /существующ|уже\s+есть|текущ|готов(ый|ого)?\s+сайт|мой\s+сайт|наш\s+сайт|стар|existing|current|already\s+have|improve|улучш/.test(normalized);
 
   return matches
     .filter((service) => {
       if (service.id === 'ai-assistant' && isEcommerceIntent && !/ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|ai-бот|ии-бот/.test(normalized)) {
         return false;
       }
+
+    if (service.id === 'existing-site-seo') {
+      return isExistingSeoIntent;
+    }
 
     if (service.id !== 'wordpress-onepage-portfolio') {
       return true;
@@ -1442,6 +1520,8 @@ function filterServiceMatches(matches, text, pageCount) {
     return isExplicitOnePage || isPortfolio;
     })
     .sort((a, b) => {
+      if (isExistingSeoIntent && a.id === 'existing-site-seo') return -1;
+      if (isExistingSeoIntent && b.id === 'existing-site-seo') return 1;
       if (isMobileMvpIntent && a.id === 'mobile-mvp') return -1;
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
@@ -1621,6 +1701,7 @@ function detectTechnologies(text) {
 
 function getQuestionSet(service) {
   if (!service) return QUESTION_SETS.generic;
+  if (service.id === 'existing-site-seo') return QUESTION_SETS.existingSiteSeo;
   if (service.id === 'frontend-slicing') return QUESTION_SETS.frontendSlicing;
   if (service.id === 'ecommerce') return QUESTION_SETS.ecommerce;
   if (service.id === 'marketplace') return QUESTION_SETS.marketplace;
@@ -1639,6 +1720,7 @@ function getQuestionSetForLanguage(service, language) {
   }
 
   if (!service) return QUESTION_SETS_EN.generic;
+  if (service.id === 'existing-site-seo') return QUESTION_SETS_EN.existingSiteSeo;
   if (service.id === 'frontend-slicing') return QUESTION_SETS_EN.frontendSlicing;
   if (service.id === 'ecommerce') return QUESTION_SETS_EN.ecommerce;
   if (service.id === 'marketplace') return QUESTION_SETS_EN.marketplace;
@@ -1666,6 +1748,7 @@ function getProjectFacts(text) {
   const needsDesign = /дизайн\s+с\s+нуля|нет\s+дизайн|без\s+дизайн|нужен\s+(дизайн|макет)|no design|need design|custom design|from scratch|need ui/.test(normalized);
   const noBackend = /backend\s+(нет|не\s+готов)|бэкенд\s+(нет|не\s+готов)|серверн\w*\s+част[ьи]\s+(нет|не\s+готов)|нет\s+(еще\s+)?backend|нет\s+(еще\s+)?бэкенд|нет\s+еще|no backend|backend is not ready|need backend/.test(normalized);
   const readyBackend = /backend\s+(готов|есть)|бэкенд\s+(готов|есть)|серверн\w*\s+част[ьи]\s+(готов|есть)|api\s+(готов|есть)|backend ready|have backend|api ready/.test(normalized);
+  const existingSite = /существующ[а-я]*\s+сайт|уже\s+есть\s+сайт|текущ[а-я]*\s+сайт|готов(ый|ого)?\s+сайт|мой\s+сайт|наш\s+сайт|стар[а-я]*\s+сайт|existing\s+(site|website)|current\s+(site|website)|already\s+have\s+(a\s+)?(site|website)/.test(normalized);
   const bothPlatforms = /ios.*android|android.*ios|на\s+обоих|обе\s+платформ|both platforms|ios and android|android and ios/.test(normalized);
   const customerCourierRoles = /клиент|курьер|courier|customer/.test(normalized);
   const adminPanel = /админ|admin panel|dashboard|панель/.test(normalized);
@@ -1680,6 +1763,7 @@ function getProjectFacts(text) {
     needsDesign,
     noBackend,
     readyBackend,
+    existingSite,
     bothPlatforms,
     customerCourierRoles,
     adminPanel,
@@ -1706,6 +1790,10 @@ function getProvidedByClient(facts, language) {
     provided.push(isRu ? 'готовый backend/API' : 'ready backend/API');
   }
 
+  if (facts.existingSite) {
+    provided.push(isRu ? 'существующий сайт' : 'existing website');
+  }
+
   return provided;
 }
 
@@ -1723,6 +1811,10 @@ function getExcludedFromEstimate(facts, language) {
 
   if (facts.readyBackend && !facts.noBackend) {
     excluded.push(isRu ? 'разработка backend с нуля' : 'backend development from scratch');
+  }
+
+  if (facts.existingSite) {
+    excluded.push(isRu ? 'создание нового сайта/лендинга с нуля' : 'new website/landing build from scratch');
   }
 
   return excluded;
@@ -1761,6 +1853,15 @@ function getMissingQuestions(text, service) {
       if (question.includes('первом запуске')) return !/карточк|поиск|заявк|заказ|оплат|чат|рейтинг|listing|search|lead|order|payment|chat|rating/.test(normalized);
       if (question.includes('онлайн-оплата')) return !hasFeatures;
       if (question.includes('дизайн')) return !(facts.readyDesign || facts.needsDesign || hasContent);
+      return true;
+    });
+  }
+
+  if (service.id === 'existing-site-seo') {
+    return questions.filter((question) => {
+      if (question.includes('WordPress')) return !/wordpress|вордпресс|wp|tilda|тильда|cms|кастом/.test(normalized);
+      if (question.includes('Что именно')) return !/seo|сео|title|description|sitemap|robots|скорост|индексац|редирект|чпу|мета/.test(normalized);
+      if (question.includes('доступ')) return !/доступ|админ|search console|метрик|analytics|список проблем|audit|аудит/.test(normalized);
       return true;
     });
   }
@@ -1877,6 +1978,15 @@ function getMissingQuestionsEn(text, service) {
       if (question.includes('launch first')) return !/listings?|search|leads?|orders?|payment|chat|ratings?|карточк|поиск|заявк|заказ|оплат/.test(normalized);
       if (question.includes('online payment')) return !hasFeatures;
       if (question.includes('design')) return !(facts.readyDesign || facts.needsDesign || hasContent);
+      return true;
+    });
+  }
+
+  if (service.id === 'existing-site-seo') {
+    return questions.filter((question) => {
+      if (question.includes('WordPress')) return !/wordpress|wp|tilda|cms|custom/.test(normalized);
+      if (question.includes('improved')) return !/seo|title|description|sitemap|robots|speed|indexing|redirect|technical/.test(normalized);
+      if (question.includes('access')) return !/access|admin|search console|analytics|issue list|audit/.test(normalized);
       return true;
     });
   }
@@ -2301,6 +2411,10 @@ function getComplexity(service, addons, text) {
     return { level: 'модульная доработка', reasons: ['стоимость считается по отдельным пунктам прайса'] };
   }
 
+  if (service.id === 'existing-site-seo') {
+    return { level: 'средняя', reasons: ['работа идет с существующим сайтом, поэтому сначала важны аудит, доступы и список SEO-проблем'] };
+  }
+
   if (['ecommerce', 'marketplace', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
     reasons.push('есть backend, база данных или бизнес-логика');
   }
@@ -2574,7 +2688,7 @@ function estimateFromMessages(messages) {
   const serviceMatches = filterServiceMatches(findMatches(normalized, SERVICES), normalized, pageCount);
   const primaryService = serviceMatches[0] || null;
   const moduleSummaryCandidate = velorSummary || itsngSummary;
-  const useModuleSummary = Boolean(moduleSummaryCandidate && (hasModuleIntent(normalized) || !primaryService));
+  const useModuleSummary = Boolean(moduleSummaryCandidate && shouldPreferModulePricing(normalized, primaryService));
   const activeVelorSummary = useModuleSummary ? velorSummary : null;
   const activeItsngSummary = useModuleSummary ? itsngSummary : null;
   const service = useModuleSummary ? MODULE_SERVICE : primaryService;
@@ -2588,7 +2702,17 @@ function estimateFromMessages(messages) {
   const hasMvpReadyInputs = service?.id === 'mobile-mvp' && pageCount && (facts.readyDesign || facts.readyBackend);
   const hasFrontendReadyInputs =
     service?.id === 'frontend-slicing' && (pageCount || blockCount) && /figma|макет|верстк|адаптив|responsive|html|css/.test(normalized);
-  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring && !hasMvpReadyInputs && !hasFrontendReadyInputs && missingQuestions.length > 0;
+  const hasExistingSeoReadyInputs =
+    service?.id === 'existing-site-seo' && /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу|скорост/.test(normalized);
+  const shouldAskFirst =
+    projectRequest &&
+    userMessages.length <= 1 &&
+    !budget &&
+    !isHiring &&
+    !hasMvpReadyInputs &&
+    !hasFrontendReadyInputs &&
+    !hasExistingSeoReadyInputs &&
+    missingQuestions.length > 0;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
   const catalogExtra = service?.id === 'ecommerce' && productCount > 30 ? Math.min(300000, (productCount - 30) * 1500) : 0;
@@ -2695,6 +2819,14 @@ function getIncludedWork(estimate, language) {
     ];
   }
 
+  if (service.id === 'existing-site-seo') {
+    if (language === 'en') {
+      return ['SEO audit', 'title/description fixes', 'sitemap and robots.txt', 'redirects/URL checks', 'basic technical SEO fixes'];
+    }
+
+    return ['SEO-аудит', 'правки title/description', 'sitemap и robots.txt', 'проверка редиректов/URL', 'базовые технические SEO-правки'];
+  }
+
   return service.includes.slice(0, 5);
 }
 
@@ -2764,6 +2896,8 @@ function buildEstimateReply(estimate, language) {
     scopeLabel = isRu ? '1 страница верстки' : '1 page layout';
   } else if (estimate.service?.id === 'landing' && estimate.blockCount) {
     scopeLabel = isRu ? `${estimate.blockCount} блоков` : `${estimate.blockCount} sections`;
+  } else if (estimate.service?.id === 'existing-site-seo') {
+    scopeLabel = isRu ? 'существующий сайт, SEO-доработка' : 'existing website, SEO improvements';
   } else if (['ecommerce', 'marketplace'].includes(estimate.service?.id) && estimate.productCount) {
     scopeLabel = isRu ? `${estimate.productCount} товаров/позиций` : `${estimate.productCount} products/items`;
   } else {
