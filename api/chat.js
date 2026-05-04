@@ -3306,6 +3306,17 @@ function isReplySafe(text, estimate, language) {
   );
 }
 
+function shouldUseLocalReply(messages) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const lastText = userMessages[userMessages.length - 1]?.content || '';
+
+  if (userMessages.length > 1) {
+    return false;
+  }
+
+  return isShortPriceProbe(lastText) || isCasualOrContactRequest(lastText);
+}
+
 async function callGemini(messages, estimate, language) {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
@@ -3388,7 +3399,7 @@ module.exports = async function handler(req, res) {
     }
 
     const estimate = estimateFromMessages(messages);
-    const aiReply = await callGemini(messages, estimate, language);
+    const aiReply = shouldUseLocalReply(messages) ? null : await callGemini(messages, estimate, language);
     const reply = cleanAssistantReply(aiReply || buildFallbackReply(messages, language));
 
     return res.status(200).json({
