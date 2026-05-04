@@ -1831,19 +1831,19 @@ function findMatches(text, items) {
 
 function filterServiceMatches(matches, text, pageCount) {
   const normalized = normalizeText(text);
+  const existingSiteSignal = /существующ|уже\s+есть|текущ|готов\w*\s+сайт|сайт\s+уже\s+работает|мой\s+сайт|наш\s+сайт|стар|live\s+site|existing|current|already\s+have|ready\s+site/.test(normalized);
+  const buildFromScratchIntent = /с\s+нуля|нов(ый|ого)\s+сайт|создать\s+сайт|сделать\s+сайт|разработать\s+сайт|build\s+(a\s+)?(new\s+)?(site|website)|new\s+(site|website)|from\s+scratch/.test(normalized);
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
   const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
   const isMobileMvpIntent = /mvp|первая\s+версия|только\s+mvp|без\s+live\s+tracking|без\s+отслежив/.test(normalized) && /приложен|mobile|app|ios|android/.test(normalized);
   const isHiringIntent = /нанять|программист|разработчик|аутстаф|постоянн|сопровождени|поддержк\w*\s+сайт|техподдержк\w*\s+сайт|обслуживание\s+сайта|помесячн|full[-\s]?time|part[-\s]?time|retainer|hire|developer|dev|engineer|contractor|freelancer|programmer|monthly|ongoing|long[-\s]?term|website support|site support|website maintenance/.test(normalized);
-  const isExistingSeoIntent =
-    /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу/.test(normalized) &&
-    /существующ|уже\s+есть|текущ|готов(ый|ого)?\s+сайт|мой\s+сайт|наш\s+сайт|стар|existing|current|already\s+have|improve|улучш/.test(normalized);
+  const isExistingSeoIntent = /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу|meta/.test(normalized) && (existingSiteSignal || !buildFromScratchIntent);
   const isExistingPerformanceIntent =
     /скорост|ускор|медлен|тормозит|pagespeed|page speed|performance|core web vitals|slow|speed/.test(normalized) &&
-    /сайт|лендинг|wordpress|вордпресс|tilda|тильда|website|site|existing|current|already|уже\s+есть|существующ/.test(normalized);
+    /сайт|лендинг|wordpress|вордпресс|tilda|тильда|website|site|existing|current|already|уже\s+есть|существующ|ready\s+site/.test(normalized);
   const isExistingUpdateIntent =
-    /существующ|есть\s+сайт|уже\s+есть|готов(ый|ого)?\s+сайт|сайт\s+уже\s+работает|текущ|мой\s+сайт|наш\s+сайт|existing|current|already\s+have/.test(normalized) &&
+    /существующ|есть\s+сайт|уже\s+есть|готов\w*\s+сайт|сайт\s+уже\s+работает|текущ|мой\s+сайт|наш\s+сайт|existing|current|already\s+have|ready\s+site/.test(normalized) &&
     /добавить|поменять|заменить|изменить|подключить|форма|заявк|оплат|страниц|язык|английск|текст|фото|интеграц|add|change|update|connect|payment|lead form|new page|language|texts?|photos?|integration/.test(normalized);
   const supportPriority = {
     'security-fix': /взлом|вирус|заражен|редиректит|malware|hacked|security|redirect hack/.test(normalized),
@@ -1851,8 +1851,23 @@ function filterServiceMatches(matches, text, pageCount) {
     'form-fix': /форма\s+не|заявк\w*\s+не\s+приход|заявк\w*\s+не\s+отправ|не\s+отправ.*заявк|письм\w*\s+не\s+приход|telegram-заявк|телеграм\s+заявк|заявк.*telegram|tilda.*заявк|form not|leads? not|emails? not/.test(normalized),
     'site-diagnostics': /ошибка\s*(500|404)|500\s+ошибка|404\s+ошибка|белый экран|сайт\s+не\s+откры|сайт\s+упал|после\s+обнов|обновить\s+плагин|почин|сломал|слом|ssl\s+не|https\s+не|error\s*(500|404)|white screen|site is down|website down|after update|plugin conflict|ssl issue|domain issue|broken/.test(normalized),
   };
+  const prioritizedMatches = [...matches];
+  const ensureService = (serviceId, condition) => {
+    if (!condition || prioritizedMatches.some((service) => service.id === serviceId)) {
+      return;
+    }
 
-  return matches
+    const service = SERVICES.find((item) => item.id === serviceId);
+    if (service) {
+      prioritizedMatches.unshift(service);
+    }
+  };
+
+  ensureService('existing-site-seo', isExistingSeoIntent);
+  ensureService('existing-site-performance', isExistingPerformanceIntent);
+  ensureService('existing-site-update', isExistingUpdateIntent);
+
+  return prioritizedMatches
     .filter((service) => {
       if (service.id === 'ai-assistant' && isEcommerceIntent && !/ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|ai-бот|ии-бот/.test(normalized)) {
         return false;
