@@ -4271,6 +4271,7 @@ function shouldForceLocalReply(messages, estimate) {
 
   return (
     shouldUseLocalReply(messages) ||
+    estimate.service?.id === 'developer-retainer' ||
     isSupportService(estimate.service) ||
     isUnsafeFixRequest(lastText) ||
     isPromptInjectionRequest(lastText) ||
