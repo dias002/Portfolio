@@ -1896,13 +1896,32 @@ function findMatches(text, items) {
     .map((match) => match.item);
 }
 
+function hasEcommerceNegation(text) {
+  const normalized = normalizeText(text);
+
+  return /не\s+(интернет[-\s]?магазин|магазин|online\s+store|ecommerce|e-?com)|нет\s+(корзин|оплат|checkout|каталог|товар)|без\s+(корзин|оплат|checkout|каталог|товар|продаж|online\s+sales)|товар\w*\s+не\s+(буду|нужно|нужны|показывать|выкладывать)|не\s+буду\s+(показывать|продавать|выкладывать)\s+товар|не\s+продавать\s+(онлайн|через\s+сайт)|просто\s+(рекламировать|презентовать|показать)\s+магазин|сайт[-\s]?визитк|просто\s+сайт\s+визитк|просто\s+визитк|brochure\s+site|info\s+site/.test(
+    normalized
+  );
+}
+
+function hasBrochureSiteIntent(text) {
+  const normalized = normalizeText(text);
+
+  return /сайт[-\s]?визитк|визитк|лендинг|landing|промо[-\s]?сайт|информационн\w*\s+сайт|ознакомительн\w*\s+сайт|просто\s+сайт|рекламировать\s+магазин|презентовать\s+магазин|показать\s+магазин|без\s+продаж|brochure\s+site|info\s+site|promo\s+site|business\s+site/.test(
+    normalized
+  );
+}
+
 function filterServiceMatches(matches, text, pageCount) {
   const normalized = normalizeText(text);
   const existingSiteSignal = /существующ|уже\s+есть|текущ|готов\w*\s+сайт|сайт\s+уже\s+работает|мой\s+сайт|наш\s+сайт|стар|live\s+site|existing|current|already\s+have|ready\s+site/.test(normalized);
   const buildFromScratchIntent = /с\s+нуля|нов(ый|ого)\s+сайт|создать\s+сайт|сделать\s+сайт|разработать\s+сайт|build\s+(a\s+)?(new\s+)?(site|website)|new\s+(site|website)|from\s+scratch/.test(normalized);
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
-  const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
+  const ecommerceNegation = hasEcommerceNegation(normalized);
+  const brochureSiteIntent = hasBrochureSiteIntent(normalized);
+  const isEcommerceIntent =
+    !ecommerceNegation && /интернет[-\s]?магазин|woocommerce|каталог\s+товар|карточк\w*\s+товар|товар\w*\s+на\s+сайт|корзин|checkout|e-?com|ecomm|online store|webshop|products?/.test(normalized);
   const aiAssistantIntentSignal =
     /(^|[^a-zа-я0-9])(ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|chat|assistant|ассистент|ai-бот|ии-бот|бот\s+с\s+ai|бот\s+с\s+ии)($|[^a-zа-я0-9])/.test(normalized) ||
     /(бот|chatbot|assistant|ассистент|bot).*(должен|умеет|может|поним|отвеч|консульт|подсказ|recommend|understand|answer|assist|handle)/.test(normalized);
@@ -1939,6 +1958,10 @@ function filterServiceMatches(matches, text, pageCount) {
 
   return prioritizedMatches
     .filter((service) => {
+      if (service.id === 'ecommerce' && ecommerceNegation) {
+        return false;
+      }
+
       if (service.id === 'ai-assistant' && isEcommerceIntent && !aiAssistantIntentSignal) {
         return false;
       }
@@ -1990,6 +2013,8 @@ function filterServiceMatches(matches, text, pageCount) {
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (aiAssistantIntentSignal && a.id === 'ai-assistant') return -1;
       if (aiAssistantIntentSignal && b.id === 'ai-assistant') return 1;
+      if (brochureSiteIntent && ['landing', 'wordpress-onepage-portfolio', 'simple-multipage', 'wordpress-site'].includes(a.id)) return -1;
+      if (brochureSiteIntent && ['landing', 'wordpress-onepage-portfolio', 'simple-multipage', 'wordpress-site'].includes(b.id)) return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
       if (isEcommerceIntent && b.id === 'ecommerce') return 1;
       return 0;
@@ -2013,6 +2038,10 @@ function shouldPreservePreviousService(previousService, currentService, lastText
   }
 
   const normalized = normalizeText(lastText);
+  if (previousService.id === 'ecommerce' && hasEcommerceNegation(normalized)) {
+    return false;
+  }
+
   const aiContext = previousService.id === 'ai-assistant' && /бот|chatbot|assistant|ai|ии|gpt|openai|gemini|llm/.test(normalized);
   const existingSiteContext =
     ['existing-site-seo', 'existing-site-performance', 'existing-site-update'].includes(previousService.id) &&
