@@ -1696,6 +1696,19 @@ function hasModuleIntent(text) {
   );
 }
 
+function hasExplicitModulePricingIntent(text) {
+  const normalized = normalizeText(text);
+
+  if (/модул|module|по\s+прайс|price\s+list|чеклист|checklist|roadmap|поэтап|калькуляц|calculator/.test(normalized)) {
+    return true;
+  }
+
+  const actionVerb = /доработ|улучш|оптимизац|аудит|исправ|фикс|подкрут|improve|optimization|optimi[sz]e|audit|fix|patch|tweak/;
+  const moduleTarget = /seo|сео|каталог|catalog|поиск|search|фильтр|filter|speed|performance|core web vitals|sitemap|robots|schema|json-ld|редирект|redirect/;
+
+  return actionVerb.test(normalized) && moduleTarget.test(normalized);
+}
+
 function shouldPreferModulePricing(text, primaryService) {
   const normalized = normalizeText(text);
 
@@ -1703,8 +1716,29 @@ function shouldPreferModulePricing(text, primaryService) {
     return false;
   }
 
+  if (!hasExplicitModulePricingIntent(normalized)) {
+    return false;
+  }
+
   if (!primaryService) {
     return true;
+  }
+
+  if (
+    [
+      'ai-assistant',
+      'telegram-bot',
+      'mobile-delivery-app',
+      'mobile-mvp',
+      'developer-retainer',
+      'landing',
+      'simple-multipage',
+      'wordpress-site',
+      'wordpress-onepage-portfolio',
+      'tilda-site',
+    ].includes(primaryService.id)
+  ) {
+    return false;
   }
 
   if (primaryService.id === 'existing-site-seo') {
@@ -1715,9 +1749,7 @@ function shouldPreferModulePricing(text, primaryService) {
     return false;
   }
 
-  const explicitModuleIntent = /модул|доработ|улучш|improve|improvement|tweak|patch|fix|аудит|audit|техническ|technical|оптимизац|optimi[sz]e|производитель|performance|speed|slow|скорост|фильтр|filter|поиск|search|каталог|catalog/.test(
-    normalized
-  );
+  const explicitModuleIntent = hasExplicitModulePricingIntent(normalized);
   const newBuildIntent = /нов(ый|ого|ую)|с\s+нуля|нужен|сделай|создать|разработать|лендинг|landing|build|make|create|new\s+site|new\s+website/.test(
     normalized
   );
@@ -2169,8 +2201,6 @@ function parseBudget(text) {
         value *= 1000000;
       } else if (/тыс|к|k|grand|g/.test(scale)) {
         value *= 1000;
-      } else if (pattern.hasBudgetContext && value < 1000 && !hasCurrency) {
-        value *= 1000;
       }
 
       let valueKzt = Math.round(value);
@@ -2237,6 +2267,28 @@ function detectTechnologies(text) {
   if (hasAny(normalized, ['мобильное приложение', 'приложение', 'ios', 'android', 'mobile app'])) technologies.push('iOS/Android');
 
   return unique(technologies);
+}
+
+function normalizeTechnologiesForService(technologies, service, lastUserText) {
+  if (!service) {
+    return technologies;
+  }
+
+  const normalizedLast = normalizeText(lastUserText || '');
+  const hasAiInCurrentTurn = /(^|[^a-zа-я0-9])(ai|ии|gpt|openai|gemini|llm|chatbot|чатбот|assistant|ассистент)($|[^a-zа-я0-9])/.test(normalizedLast);
+  const hasMobileInCurrentTurn = /(^|[^a-zа-я0-9])(ios|android|mobile|app|приложен)($|[^a-zа-я0-9])/.test(normalizedLast);
+
+  let result = [...technologies];
+
+  if (service.id !== 'ai-assistant' && !hasAiInCurrentTurn) {
+    result = result.filter((tech) => tech !== 'AI/LLM');
+  }
+
+  if (!['mobile-delivery-app', 'mobile-mvp'].includes(service.id) && !hasMobileInCurrentTurn) {
+    result = result.filter((tech) => tech !== 'iOS/Android');
+  }
+
+  return unique(result);
 }
 
 function getQuestionSet(service) {
@@ -2720,10 +2772,14 @@ function isGreetingOnly(text) {
 
 function isOldMaintenanceRequest(text) {
   const normalized = normalizeText(text);
-  const hasMaintenance = /доработ|исправ|баг|ошибк|чинить|фикс|правк|поддержк|рефактор|додел|сломал|сломалась|сломался|сломано|не\s+работает|fix|bug|bugfix|patch|repair|maintain|maintenance|update|tweak|refactor|broken|site\s+is\s+down|not\s+working|doesn'?t\s+work|crashed/.test(normalized);
+  const hasMaintenance = /исправ|баг|ошибк|чинить|фикс|правк|поддержк|рефактор|додел|сломал|сломалась|сломался|сломано|не\s+работает|fix|bug|bugfix|patch|repair|maintain|maintenance|update|tweak|refactor|broken|site\s+is\s+down|not\s+working|doesn'?t\s+work|crashed/.test(
+    normalized
+  );
   const hasOldProject = /стар|существующ|чуж|готов(ый|ого)|текущ|уже есть|мой сайт|наш сайт|old|existing|current|legacy|someone else|third[-\s]?party|my site|our site|already have|built by/.test(normalized);
+  const hasSeoIntent = /seo|сео|title|description|meta|мета|sitemap|robots|search console|индексац|чпу|canonical|schema/.test(normalized);
+  const hasFeatureWork = /доработ|улучш|оптимизац|нов(ый|ая|ое)\s+раздел|добавить\s+страниц|add\s+page|new\s+page|expand|feature/.test(normalized);
 
-  return hasMaintenance && hasOldProject;
+  return hasMaintenance && hasOldProject && !hasSeoIntent && !hasFeatureWork;
 }
 
 function isOldAuditRequest(text) {
@@ -2825,8 +2881,13 @@ function isMixedProjectRequest(text) {
     /магазин|каталог|корзин|оплат|woocommerce|shop|store|catalog|cart|checkout|payment/.test(normalized),
     /crm|интеграц|автоматизац|парсер|integration|automation|parser|scraper/.test(normalized),
   ];
+  const aiSingleScope = /(?:бот|chatbot|assistant|ai|ии).*(должен|уме|может|should|can|needs to|handle)/.test(normalized);
   const connectorPattern =
-    /\+|и\s+еще|также|плюс|вместе|сразу|(?:^|[^a-zа-я0-9])и\s+(?:бот|сайт|backend|оплат\w*|crm)(?:$|[^a-zа-я0-9])|and\s+(?:a\s+)?(?:bot|telegram\s+bot|site)\b|plus|also|together|all\s+at\s+once|with\s+(?:payment|crm|backend|bot|telegram\s+bot)\b/;
+    /\+|и\s+еще|также|плюс|вместе|сразу|одновременно|all\s+at\s+once|plus|also|together|and\s+also|along\s+with|вместе\s+с|with\s+(?:payment|crm|backend|admin|telegram\s+bot)/;
+
+  if (aiSingleScope && !/\+|плюс|и\s+еще|также|вместе|одновременно|all\s+at\s+once|plus|also|together|and\s+also/.test(normalized)) {
+    return false;
+  }
 
   return signals.filter(Boolean).length >= 2 && connectorPattern.test(normalized);
 }
@@ -2834,7 +2895,7 @@ function isMixedProjectRequest(text) {
 function isCasualOrContactRequest(text) {
   const normalized = normalizeText(text).trim();
 
-  return /^(ты\s+кто|кто\s+ты|ты\s+человек|что\s+умеешь|как\s+дела|контакты|как\s+связаться|telegram|телеграм|портфолио|покажи\s+портфолио|где\s+портфолио|напиши\s+(мне\s+)?в\s+(telegram|телеграм)|давай(те)?\s+в\s+(telegram|телеграм)|кинь\s+(telegram|телеграм)|скинь\s+(telegram|телеграм)|who\s+are\s+you|are\s+you\s+human|what\s+can\s+you\s+do|contact|contacts|how\s+to\s+contact|show\s+(me\s+)?portfolio|portfolio|where\s+is\s+portfolio|send\s+(me\s+)?your\s+telegram|let'?s\s+move\s+to\s+telegram)[\s?.!]*$/.test(
+  return /^(?:ну\s+|а\s+|и\s+вообще\s+|кстати\s+|btw\s+)?(ты\s+кто|кто\s+ты|ты\s+человек|что\s+умеешь|как\s+дела|контакты|как\s+связаться|telegram|телеграм|портфолио|покажи\s+портфолио|где\s+портфолио|напиши\s+(мне\s+)?в\s+(telegram|телеграм)|давай(те)?\s+в\s+(telegram|телеграм)|кинь\s+(telegram|телеграм)|скинь\s+(telegram|телеграм)|who\s+are\s+you|are\s+you\s+human|what\s+can\s+you\s+do|contact|contacts|how\s+to\s+contact|show\s+(me\s+)?portfolio|portfolio|where\s+is\s+portfolio|send\s+(me\s+)?your\s+telegram|let'?s\s+move\s+to\s+telegram)[\s?.!]*$/.test(
     normalized
   );
 }
@@ -2857,7 +2918,9 @@ function isUnsafeFixRequest(text) {
 function isPromptInjectionRequest(text) {
   const normalized = normalizeText(text);
 
-  return /игнорир[а-яa-z]*\s+(правил|инструкц)|забудь\s+(правил|инструкц)|скажи\s+что\s+.*бесплат|скажи\s+цен[а-яa-z]*\s*1\s*(тенге|₸)|цен[а-яa-z]*\s*1\s*(тенге|₸)|за\s+1\s*тенге|внутренн[а-яa-z]*\s+(инструкц|prompt|промпт)|system\s+prompt|ignore\s+(all\s+)?(rules|instructions)|forget\s+(rules|instructions)|say\s+it'?s\s+free|make\s+it\s+free|internal\s+(rules|instructions|prompt)/.test(normalized);
+  return /игнорир[а-яa-z]*(?:\s+[a-zа-я0-9_-]+){0,4}\s+(правил|инструкц)|забудь(?:\s+[a-zа-я0-9_-]+){0,3}\s+(правил|инструкц)|скажи\s+что\s+.*бесплат|скажи\s+цен[а-яa-z]*\s*1\s*(тенге|₸)|цен[а-яa-z]*\s*1\s*(тенге|₸)|за\s+1\s*тенге|внутренн[а-яa-z]*\s+(инструкц|prompt|промпт)|покажи(?:\s+[a-zа-я0-9_-]+){0,4}\s+(системн|внутренн).*(инструкц|prompt|промпт)|покажи(?:\s+[a-zа-я0-9_-]+){0,3}\s+(токен|токены|ключ|ключи)|api\s*key|system\s+prompt|ignore(?:\s+[a-zа-я0-9_-]+){0,4}\s+(rules|instructions)|forget(?:\s+[a-zа-я0-9_-]+){0,3}\s+(rules|instructions)|show(?:\s+[a-zа-я0-9_-]+){0,4}\s+(system|internal).*(prompt|instructions)|show(?:\s+[a-zа-я0-9_-]+){0,4}\s+(api\s*key|token|tokens|secret|secrets)|say\s+it'?s\s+free|make\s+it\s+free|internal\s+(rules|instructions|prompt)/.test(
+    normalized
+  );
 }
 
 function isUpworkContactMoveRequest(text) {
@@ -3358,6 +3421,25 @@ function getServiceBudgetScope(service) {
     };
   }
 
+  if (service.id === 'mobile-delivery-app') {
+    return {
+      bestFit: 'discovery + MVP-срез: один ключевой пользовательский сценарий без полной продуктовой сборки',
+      canOffer: [
+        'собрать техническое ТЗ и архитектуру (клиент, курьер, заказы, статусы)',
+        'прототипировать 1-2 ключевых потока и карту релиза по этапам',
+        'сделать подготовительный backend-скелет или один критичный API-модуль',
+        'оценить отдельными этапами: мобильные клиенты, админка, оплата, real-time tracking, push',
+      ],
+      notIncluded: [
+        'полноценные iOS+Android приложения под ключ',
+        'production backend со всеми ролями и админкой',
+        'online-оплата + realtime tracking + push как полностью готовый продукт',
+        'публикация и поддержка полного релиза в этот бюджет',
+      ],
+      recommendation: 'не обещать full delivery app в один этап; запускать через discovery и узкий MVP, затем масштабировать по модулям',
+    };
+  }
+
   return null;
 }
 
@@ -3488,6 +3570,7 @@ function applyReadyMaterialsDiscount({ min, max, service, facts }) {
 function estimateFromMessages(messages) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const text = userMessages.map((message) => message.content).join(' ');
+  const lastUserText = userMessages[userMessages.length - 1]?.content || '';
   const normalized = normalizeText(text);
   const facts = getProjectFacts(normalized);
   const pageCount = parsePageCount(normalized);
@@ -3505,7 +3588,7 @@ function estimateFromMessages(messages) {
   const service = useModuleSummary ? MODULE_SERVICE : primaryService;
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring || isSupportService(service) ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
-  const technologies = detectTechnologies(normalized);
+  const technologies = normalizeTechnologiesForService(detectTechnologies(normalized), service, lastUserText);
   const budget = parseBudgetFromUserMessages(userMessages) ?? parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
   const missingQuestionsEn = getMissingQuestionsEn(normalized, service);
@@ -4055,7 +4138,11 @@ function buildFallbackReply(messages, language) {
     return buildOldAuditReply(language);
   }
 
-  if (isOldMaintenanceRequest(lastText) && !isSupportService(estimate.service)) {
+  if (
+    isOldMaintenanceRequest(lastText) &&
+    !isSupportService(estimate.service) &&
+    !['existing-site-seo', 'existing-site-performance', 'existing-site-update', 'ai-assistant'].includes(estimate.service?.id)
+  ) {
     return buildOldMaintenanceReply(language);
   }
 
