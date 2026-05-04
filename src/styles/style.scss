@@ -997,8 +997,13 @@ button {
   gap: 10px;
   padding: 18px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(99, 230, 255, 0.36) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chatPanel__messages::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .chatMessage {
@@ -1049,8 +1054,29 @@ button {
 .chatPanel__suggestions {
   display: flex;
   gap: 8px;
-  padding: 0 18px 14px;
+  padding: 0 18px 12px;
   overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 230, 255, 0.46) transparent;
+  mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+}
+
+.chatPanel__suggestions::-webkit-scrollbar {
+  height: 6px;
+}
+
+.chatPanel__suggestions::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.chatPanel__suggestions::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(99, 230, 255, 0.5), rgba(140, 245, 188, 0.5));
+}
+
+.chatPanel__suggestions::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, rgba(99, 230, 255, 0.72), rgba(140, 245, 188, 0.72));
 }
 
 .chatPanel__suggestions button {
