@@ -1870,7 +1870,11 @@ function scoreItem(text, item) {
     return 0;
   }
 
-  if (item.id === 'ai-assistant' && !/(^|[^a-zа-я0-9])(ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|чат|assistant|ассистент|ai-бот|ии-бот|бот\s+с\s+ai|бот\s+с\s+ии)($|[^a-zа-я0-9])/.test(text)) {
+  const aiAssistantIntentSignal =
+    /(^|[^a-zа-я0-9])(ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|chat|assistant|ассистент|ai-бот|ии-бот|бот\s+с\s+ai|бот\s+с\s+ии)($|[^a-zа-я0-9])/.test(text) ||
+    /(бот|chatbot|assistant|ассистент|bot).*(должен|умеет|может|поним|отвеч|консульт|подсказ|recommend|understand|answer|assist|handle)/.test(text);
+
+  if (item.id === 'ai-assistant' && !aiAssistantIntentSignal) {
     return 0;
   }
 
@@ -1899,6 +1903,9 @@ function filterServiceMatches(matches, text, pageCount) {
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
   const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
+  const aiAssistantIntentSignal =
+    /(^|[^a-zа-я0-9])(ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|chat|assistant|ассистент|ai-бот|ии-бот|бот\s+с\s+ai|бот\s+с\s+ии)($|[^a-zа-я0-9])/.test(normalized) ||
+    /(бот|chatbot|assistant|ассистент|bot).*(должен|умеет|может|поним|отвеч|консульт|подсказ|recommend|understand|answer|assist|handle)/.test(normalized);
   const isMobileMvpIntent = /mvp|первая\s+версия|только\s+mvp|без\s+live\s+tracking|без\s+отслежив/.test(normalized) && /приложен|mobile|app|ios|android/.test(normalized);
   const isHiringIntent = /нанять|программист|разработчик|аутстаф|постоянн|сопровождени|поддержк\w*\s+сайт|техподдержк\w*\s+сайт|обслуживание\s+сайта|помесячн|full[-\s]?time|part[-\s]?time|retainer|hire|developer|dev|engineer|contractor|freelancer|programmer|monthly|ongoing|long[-\s]?term|website support|site support|website maintenance/.test(normalized);
   const isExistingSeoIntent = /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу|meta/.test(normalized) && (existingSiteSignal || !buildFromScratchIntent);
@@ -1932,7 +1939,7 @@ function filterServiceMatches(matches, text, pageCount) {
 
   return prioritizedMatches
     .filter((service) => {
-      if (service.id === 'ai-assistant' && isEcommerceIntent && !/ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|ai-бот|ии-бот/.test(normalized)) {
+      if (service.id === 'ai-assistant' && isEcommerceIntent && !aiAssistantIntentSignal) {
         return false;
       }
 
@@ -1981,6 +1988,8 @@ function filterServiceMatches(matches, text, pageCount) {
       if (isHiringIntent && b.id === 'developer-retainer') return 1;
       if (isMobileMvpIntent && a.id === 'mobile-mvp') return -1;
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
+      if (aiAssistantIntentSignal && a.id === 'ai-assistant') return -1;
+      if (aiAssistantIntentSignal && b.id === 'ai-assistant') return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
       if (isEcommerceIntent && b.id === 'ecommerce') return 1;
       return 0;
