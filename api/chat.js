@@ -1955,6 +1955,77 @@ function filterServiceMatches(matches, text, pageCount) {
     });
 }
 
+function hasExplicitTopicSwitch(text) {
+  const normalized = normalizeText(text);
+  return /(?:^|[^a-zа-я0-9])(?:теперь|другая задача|другой проект|новая задача|новый проект|отдельно|переключ(?:им|имся|иться)|сменим тему|switch topic|switch to|another project|new project|different task|separate project)(?:$|[^a-zа-я0-9])/.test(
+    normalized
+  );
+}
+
+function shouldPreservePreviousService(previousService, currentService, lastText) {
+  if (!previousService || !currentService || previousService.id === currentService.id) {
+    return false;
+  }
+
+  if (hasExplicitTopicSwitch(lastText)) {
+    return false;
+  }
+
+  const normalized = normalizeText(lastText);
+  const aiContext = previousService.id === 'ai-assistant' && /бот|chatbot|assistant|ai|ии|gpt|openai|gemini|llm/.test(normalized);
+  const existingSiteContext =
+    ['existing-site-seo', 'existing-site-performance', 'existing-site-update'].includes(previousService.id) &&
+    /существующ|уже\s+есть|готов\w*\s+сайт|текущ|seo|сео|title|description|sitemap|robots|скорост|performance|доработ|обнов|fix|update/.test(normalized) &&
+    !/нов(ый|ого|ую)|с\s+нуля|new\s+site|new\s+website|from\s+scratch/.test(normalized);
+  const followUpSignal = /^(?:и|а|тогда|ок|хорошо|понял|ясно|нет|да)\b|например|сможет\s+ли|а\s+если|если|что\s+если|можно\s+ли|how\s+about|what\s+if|can\s+it|would\s+it/.test(
+    normalized
+  );
+
+  return aiContext || existingSiteContext || followUpSignal;
+}
+
+function selectPrimaryServiceFromConversation(userMessages, fullNormalized, fallbackPageCount) {
+  const fullMatches = filterServiceMatches(findMatches(fullNormalized, SERVICES), fullNormalized, fallbackPageCount);
+  const fullPrimary = fullMatches[0] || null;
+
+  const lastUserText = userMessages[userMessages.length - 1]?.content || '';
+  const lastNormalized = normalizeText(lastUserText);
+  const lastPageCount = parsePageCount(lastNormalized) || fallbackPageCount;
+  const lastMatches = filterServiceMatches(findMatches(lastNormalized, SERVICES), lastNormalized, lastPageCount);
+  const lastPrimary = lastMatches[0] || null;
+
+  if (userMessages.length <= 1) {
+    return {
+      serviceMatches: lastMatches.length ? lastMatches : fullMatches,
+      primaryService: lastPrimary || fullPrimary,
+    };
+  }
+
+  const previousText = userMessages
+    .slice(0, -1)
+    .map((message) => message.content)
+    .join(' ');
+  const previousNormalized = normalizeText(previousText);
+  const previousPageCount = parsePageCount(previousNormalized) || fallbackPageCount;
+  const previousMatches = filterServiceMatches(findMatches(previousNormalized, SERVICES), previousNormalized, previousPageCount);
+  const previousPrimary = previousMatches[0] || null;
+
+  let primaryService = lastPrimary || fullPrimary || previousPrimary || null;
+  let serviceMatches = lastMatches.length ? lastMatches : fullMatches;
+
+  if (!lastPrimary && previousPrimary) {
+    primaryService = previousPrimary;
+    serviceMatches = previousMatches;
+  }
+
+  if (previousPrimary && lastPrimary && shouldPreservePreviousService(previousPrimary, lastPrimary, lastUserText)) {
+    primaryService = previousPrimary;
+    serviceMatches = previousMatches;
+  }
+
+  return { serviceMatches, primaryService };
+}
+
 function parsePageCount(text) {
   const normalized = normalizeText(text);
 
@@ -2014,90 +2085,134 @@ function parseBudget(text) {
   const currencyRegex = 'тенге|тг|₸|kzt|руб(?:\\.|лей|ля|ль)?|₽|usd|доллар(?:а|ов)?|dollar(?:s)?|buck(?:s)?|\\$';
   const scaleRegex = 'тыс|к|k|млн|миллион|миллиона|grand|g';
 
+  const quantityRegex =
+    'товар(?:ов|а)?|позици(?:й|и|я)|products?|items?|sku|страниц(?:ы|а)?|pages?|screens?|screen|экран(?:ов|а)?|sections?|blocks?|блок(?:ов|а)?|заказ(?:ов|а)?|orders?|users?|пользовател(?:ей|я)|клиент(?:ов|а)|clients?|курьер(?:ов|а)?|couriers?|ресторан(?:ов|а)?|restaurants?|рол(?:ей|и)|roles?|час(?:ов|а)?|hours?|дн(?:ей|я)|days?|месяц(?:ев|а)?|months?';
+  const quantityStartPattern = new RegExp(`^(?:${quantityRegex})(?:$|[^a-zа-я0-9])`);
+  const quantityAroundPattern = new RegExp(`(?:^|[^a-zа-я0-9])(?:${quantityRegex})(?:$|[^a-zа-я0-9])`);
+  const budgetWordsPattern =
+    /бюджет|выделил\w*|заплачу|потрачу|на\s+руках|примерно|около|порядка|до|за\s+\d|budget|can spend|ready to spend|under|around|about|up to|pay|spend|quote|estimate|cost|price|for\s+\d|set me back|run me/i;
   const patterns = [
     {
       hasBudgetContext: true,
-      regex: new RegExp(
+      source:
         `(?:бюджет|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|for|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
-      ),
     },
     {
       hasBudgetContext: false,
-      regex: new RegExp(`(?<currency1>${currencyRegex})\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?`),
+      source: `(?<currency1>${currencyRegex})\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?`,
     },
     {
       hasBudgetContext: false,
-      regex: new RegExp(`(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})`),
+      source: `(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})`,
     },
     {
       hasBudgetContext: false,
-      regex: new RegExp(`(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})`),
+      source: `(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})`,
     },
     {
       hasBudgetContext: false,
-      regex: new RegExp(`(?<amount>\\d[\\d\\s]{3,})\\s*(?<currency2>${currencyRegex})`),
+      source: `(?<amount>\\d[\\d\\s]{3,})\\s*(?<currency2>${currencyRegex})`,
     },
   ];
+  const candidates = [];
 
   for (const pattern of patterns) {
-    const match = normalized.match(pattern.regex);
-    if (!match?.groups) {
-      continue;
+    const regex = new RegExp(pattern.source, 'gi');
+
+    for (const match of normalized.matchAll(regex)) {
+      if (!match?.groups?.amount) {
+        continue;
+      }
+
+      const rawNumber = match.groups.amount.replace(/\s/g, '').replace(',', '.');
+      let value = Number(rawNumber);
+      let scale = match.groups.scale || '';
+      const currencyToken = `${match.groups.currency1 || ''} ${match.groups.currency2 || ''}`.trim();
+      const matchedText = match[0] || '';
+      const start = match.index || 0;
+      const afterMatch = normalized.slice(start + matchedText.length).trim();
+      const beforeMatch = normalized.slice(Math.max(0, start - 26), start);
+      const aroundMatch = `${beforeMatch} ${matchedText} ${afterMatch.slice(0, 26)}`.trim();
+      const detachedScale = !scale && afterMatch.match(/^(k|g|grand)\b/);
+
+      if (detachedScale) {
+        scale = detachedScale[1];
+      }
+
+      if (!Number.isFinite(value) || value <= 0) {
+        continue;
+      }
+
+      const hasCurrency = Boolean(currencyToken);
+      const trimmedAfter = afterMatch.replace(/^[\s,.:;!?+\-–—()[\]{}]+/, '');
+      const quantityAfterMatch = quantityStartPattern.test(trimmedAfter);
+      const quantityAroundMatch = quantityAroundPattern.test(aroundMatch);
+      const hasBudgetWordsNear = budgetWordsPattern.test(aroundMatch);
+
+      if (!hasCurrency && (quantityAfterMatch || (quantityAroundMatch && !hasBudgetWordsNear))) {
+        continue;
+      }
+
+      if (!hasCurrency && scale && !pattern.hasBudgetContext && !hasBudgetWordsNear && !englishMoneyContext) {
+        continue;
+      }
+
+      if (!hasCurrency && !scale && value < 1000 && !pattern.hasBudgetContext && !hasBudgetWordsNear) {
+        continue;
+      }
+
+      if (!hasCurrency && /^[\d\s.,]+[кk](?:$|[^a-zа-я0-9])/i.test(matchedText.trim()) && value < 10 && !englishMoneyContext && !hasBudgetWordsNear) {
+        continue;
+      }
+
+      if (/млн|миллион/.test(scale)) {
+        value *= 1000000;
+      } else if (/тыс|к|k|grand|g/.test(scale)) {
+        value *= 1000;
+      } else if (pattern.hasBudgetContext && value < 1000 && !hasCurrency) {
+        value *= 1000;
+      }
+
+      let valueKzt = Math.round(value);
+
+      if (/руб|₽/.test(currencyToken)) {
+        valueKzt = Math.round(value / rubPerKzt);
+      } else if (/usd|доллар|dollar|buck|\$/.test(currencyToken) || /grand|g/.test(scale) || (englishMoneyContext && /\bk\b/.test(scale))) {
+        valueKzt = Math.round(value / usdPerKzt);
+      }
+
+      if (!Number.isFinite(valueKzt) || valueKzt <= 0) {
+        continue;
+      }
+
+      let confidence = 0;
+      if (hasCurrency) confidence += 6;
+      if (pattern.hasBudgetContext || hasBudgetWordsNear) confidence += 4;
+      if (scale) confidence += 2;
+      if (englishMoneyContext) confidence += 1;
+
+      candidates.push({
+        valueKzt,
+        confidence,
+        index: start,
+      });
     }
+  }
 
-    const rawNumber = match.groups.amount.replace(/\s/g, '').replace(',', '.');
-    let value = Number(rawNumber);
-    let scale = match.groups.scale || '';
-    const currencyToken = `${match.groups.currency1 || ''} ${match.groups.currency2 || ''}`.trim();
-    const matchedText = match[0] || '';
-    const afterMatch = normalized.slice((match.index || 0) + matchedText.length).trim();
-    const detachedScale = !scale && afterMatch.match(/^(k|g|grand)\b/);
+  if (!candidates.length) {
+    return null;
+  }
 
-    if (detachedScale) {
-      scale = detachedScale[1];
+  candidates.sort((a, b) => b.confidence - a.confidence || b.index - a.index);
+  return candidates[0].valueKzt;
+}
+
+function parseBudgetFromUserMessages(userMessages) {
+  for (let index = userMessages.length - 1; index >= 0; index -= 1) {
+    const value = parseBudget(userMessages[index]?.content || '');
+    if (Number.isFinite(value) && value > 0) {
+      return value;
     }
-
-    if (!Number.isFinite(value) || value <= 0) {
-      continue;
-    }
-
-    if (!currencyToken && !scale && /\b(for\s+)?\d{1,4}\s*(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)\b/.test(matchedText)) {
-      continue;
-    }
-
-    if (!currencyToken && !scale && /^(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)/.test(afterMatch)) {
-      continue;
-    }
-
-    if (!currencyToken && !scale && new RegExp(`${escapeRegExp(matchedText.trim())}\\s*(товар|позици|экран|страниц)`).test(normalized)) {
-      continue;
-    }
-
-    if (!currencyToken && !scale && value < 1000 && !/[a-z]/.test(matchedText)) {
-      continue;
-    }
-
-    if (!currencyToken && /^[\d\s.,]+[кk](?:$|[^a-zа-я0-9])/i.test(matchedText.trim()) && value < 10 && !englishMoneyContext) {
-      continue;
-    }
-
-    if (/млн|миллион/.test(scale)) {
-      value *= 1000000;
-    } else if (/тыс|к|k|grand|g/.test(scale)) {
-      value *= 1000;
-    } else if (pattern.hasBudgetContext && value < 1000 && !currencyToken) {
-      value *= 1000;
-    }
-
-    if (/руб|₽/.test(currencyToken)) {
-      return Math.round(value / rubPerKzt);
-    }
-
-    if (/usd|доллар|dollar|buck|\$/.test(currencyToken) || /grand|g/.test(scale) || (englishMoneyContext && /k/.test(scale))) {
-      return Math.round(value / usdPerKzt);
-    }
-
-    return Math.round(value);
   }
 
   return null;
@@ -2710,8 +2825,10 @@ function isMixedProjectRequest(text) {
     /магазин|каталог|корзин|оплат|woocommerce|shop|store|catalog|cart|checkout|payment/.test(normalized),
     /crm|интеграц|автоматизац|парсер|integration|automation|parser|scraper/.test(normalized),
   ];
+  const connectorPattern =
+    /\+|и\s+еще|также|плюс|вместе|сразу|(?:^|[^a-zа-я0-9])и\s+(?:бот|сайт|backend|оплат\w*|crm)(?:$|[^a-zа-я0-9])|and\s+(?:a\s+)?(?:bot|telegram\s+bot|site)\b|plus|also|together|all\s+at\s+once|with\s+(?:payment|crm|backend|bot|telegram\s+bot)\b/;
 
-  return signals.filter(Boolean).length >= 2 && /(\+|и еще|также|плюс|вместе|сразу|и\s+бот|и\s+сайт|и\s+backend|и\s+оплат|и\s+crm|and\s+(a\s+)?bot|and\s+(a\s+)?telegram\s+bot|and\s+(a\s+)?site|plus|also|together|all\s+at\s+once|with\s+(payment|crm|backend|bot|telegram\s+bot))/.test(normalized);
+  return signals.filter(Boolean).length >= 2 && connectorPattern.test(normalized);
 }
 
 function isCasualOrContactRequest(text) {
@@ -3380,8 +3497,7 @@ function estimateFromMessages(messages) {
   const velorSummary = summarizeVelorMatches(velorMatches);
   const itsngMatches = shouldUseItsngPricing(normalized) ? findItsngMatches(normalized) : [];
   const itsngSummary = velorSummary || !isItsngSummaryReliable(normalized, itsngMatches) ? null : summarizeItsngMatches(itsngMatches);
-  const serviceMatches = filterServiceMatches(findMatches(normalized, SERVICES), normalized, pageCount);
-  const primaryService = serviceMatches[0] || null;
+  const { primaryService } = selectPrimaryServiceFromConversation(userMessages, normalized, pageCount);
   const moduleSummaryCandidate = velorSummary || itsngSummary;
   const useModuleSummary = Boolean(moduleSummaryCandidate && shouldPreferModulePricing(normalized, primaryService));
   const activeVelorSummary = useModuleSummary ? velorSummary : null;
@@ -3390,7 +3506,7 @@ function estimateFromMessages(messages) {
   const isHiring = service?.id === 'developer-retainer';
   const addonMatches = isHiring || isSupportService(service) ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
-  const budget = parseBudget(normalized);
+  const budget = parseBudgetFromUserMessages(userMessages) ?? parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
   const missingQuestionsEn = getMissingQuestionsEn(normalized, service);
   const projectRequest = isProjectRequest(normalized);
