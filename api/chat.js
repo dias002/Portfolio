@@ -13,6 +13,127 @@ const MODULE_SERVICE = {
 
 const SERVICES = [
   {
+    id: 'security-fix',
+    label: 'security-аудит и восстановление сайта',
+    min: 50000,
+    max: 250000,
+    timeline: '1-5 рабочих дней',
+    priority: 24,
+    keywords: [
+      'сайт взломали',
+      'взломали сайт',
+      'сайт заражен',
+      'вирус на сайте',
+      'редиректит',
+      'malware',
+      'hacked site',
+      'site hacked',
+      'website hacked',
+      'virus on site',
+      'security audit',
+      'malware cleanup',
+      'redirect hack',
+    ],
+    includes: ['security-аудит', 'проверка файлов/плагинов/пользователей', 'проверка логов и backup', 'план чистки', 'базовое закрытие найденных слабых мест'],
+  },
+  {
+    id: 'payment-fix',
+    label: 'диагностика оплаты / WooCommerce checkout',
+    min: 30000,
+    max: 150000,
+    timeline: '1-4 рабочих дня',
+    priority: 23,
+    keywords: [
+      'оплата не работает',
+      'не проходит оплата',
+      'woocommerce оплата',
+      'checkout не работает',
+      'заказ не создается',
+      'платеж не проходит',
+      'kaspi не работает',
+      'payment not working',
+      'payment is not working',
+      'checkout broken',
+      'checkout not working',
+      'woocommerce payment',
+      'woocommerce checkout',
+      'order not created',
+      'webhook payment',
+      'payment webhook',
+    ],
+    includes: ['диагностика checkout', 'проверка платежного плагина/API-ключей', 'проверка SSL/webhook/callback', 'проверка логов', 'оценка фикса после диагностики'],
+  },
+  {
+    id: 'form-fix',
+    label: 'фикс формы заявки / уведомлений',
+    min: 20000,
+    max: 90000,
+    timeline: '1-3 рабочих дня',
+    priority: 22,
+    keywords: [
+      'форма не отправляет',
+      'форма не работает',
+      'заявки не приходят',
+      'заявка не приходит',
+      'письма не приходят',
+      'telegram заявки не приходят',
+      'телеграм заявки не приходят',
+      'tilda не отправляет заявки',
+      'tilda заявки telegram',
+      'заявки в telegram не приходят',
+      'form not sending',
+      'form not working',
+      'leads not coming',
+      'emails not arriving',
+      'telegram leads not working',
+      'tilda form not working',
+    ],
+    includes: ['проверка формы', 'проверка email/SMTP/Telegram', 'проверка ошибок отправки', 'настройка уведомлений', 'тестовая заявка'],
+  },
+  {
+    id: 'site-diagnostics',
+    label: 'диагностика бага на сайте',
+    min: 25000,
+    max: 80000,
+    timeline: '1-3 рабочих дня',
+    priority: 21,
+    keywords: [
+      'ошибка 500',
+      '500 ошибка',
+      'ошибка 404',
+      'белый экран',
+      'сайт не открывается',
+      'сайт упал',
+      'после обновления сломалось',
+      'обновить плагины',
+      'почини',
+      'почини сайт',
+      'старый сайт почини',
+      'починить форму',
+      'починить сайт',
+      'баг на сайте',
+      'сломался сайт',
+      'ssl не работает',
+      'https не работает',
+      'домен не работает',
+      'error 500',
+      '500 error',
+      '404 error',
+      'white screen',
+      'site is down',
+      'website down',
+      'broken site',
+      'fix site',
+      'old custom php',
+      'php site broken',
+      'after update broke',
+      'plugin conflict',
+      'ssl issue',
+      'domain issue',
+    ],
+    includes: ['диагностика админки/логов', 'проверка темы/плагинов', 'проверка хостинга/SSL', 'проверка backup/staging', 'план фикса с ценой'],
+  },
+  {
     id: 'existing-site-seo',
     label: 'SEO-доработка существующего сайта',
     min: 50000,
@@ -860,6 +981,10 @@ const CONVERSATION_EXAMPLES = [
 ];
 
 const EN_SERVICE_LABELS = {
+  'security-fix': 'security audit and website recovery',
+  'payment-fix': 'payment / WooCommerce checkout diagnostics',
+  'form-fix': 'lead form / notification fix',
+  'site-diagnostics': 'website bug diagnostics',
   'existing-site-seo': 'SEO improvements for an existing website',
   'existing-site-performance': 'speed optimization for an existing website',
   'existing-site-update': 'existing website improvements',
@@ -907,6 +1032,30 @@ const QUESTION_SETS = {
     'Сколько страниц, товаров, ролей пользователей или основных экранов планируется на старте?',
     'Дизайн и контент уже готовы или их нужно делать с нуля?',
     'Нужны ли формы, оплата, мультиязычность, интеграции, личный кабинет или настройка сервера?',
+  ],
+  fixDiagnostics: [
+    'Ссылка на сайт и на чем он сделан: WordPress, Tilda, custom или другое?',
+    'Что именно сломалось и когда началось?',
+    'Что меняли перед поломкой: обновления, плагины, тема, хостинг или код?',
+    'Есть ли скрин/текст ошибки, доступы, backup или staging?',
+  ],
+  formFix: [
+    'На чем сайт и какая форма сейчас стоит?',
+    'Куда должны приходить заявки: email, Telegram, WhatsApp или CRM?',
+    'Что именно происходит: форма не отправляет, письмо не приходит или ошибка видна пользователю?',
+    'Есть ли доступ к админке и можно ли сделать тестовую заявку?',
+  ],
+  paymentFix: [
+    'Какая платежная система и платформа: WooCommerce, Kaspi, Stripe, другой провайдер?',
+    'Что видит клиент при оплате и есть ли текст ошибки?',
+    'Когда началось и меняли ли плагины, ключи, SSL, webhook/callback или хостинг?',
+    'Есть ли доступ к админке, логам и тестовому платежу?',
+  ],
+  securityFix: [
+    'Что именно происходит: редирект, вирус, черный экран, чужой контент или предупреждение браузера?',
+    'Сайт сейчас открывается и есть ли доступ к хостингу/админке?',
+    'Есть ли backup до взлома и известно ли, когда началась проблема?',
+    'На чем сайт: WordPress, Tilda, custom или другая CMS?',
   ],
   existingSiteSeo: [
     'Сайт на WordPress, Tilda или кастомной CMS?',
@@ -990,6 +1139,30 @@ const QUESTION_SETS_EN = {
     'How many pages, products, user roles or main screens are planned for the first version?',
     'Are design and content ready, or should they be prepared from scratch?',
     'Do you need forms, payments, multilingual support, integrations, user accounts or server setup?',
+  ],
+  fixDiagnostics: [
+    'Please send the site link and stack: WordPress, Tilda, custom or something else.',
+    'What exactly is broken and when did it start?',
+    'What changed before it broke: updates, plugins, theme, hosting or code?',
+    'Do you have a screenshot/error text, access, backup or staging?',
+  ],
+  formFix: [
+    'What platform is the site built on, and which form is used now?',
+    'Where should leads go: email, Telegram, WhatsApp or CRM?',
+    'What exactly happens: form does not submit, email does not arrive, or the user sees an error?',
+    'Do you have admin access, and can we send a test lead?',
+  ],
+  paymentFix: [
+    'Which payment provider and platform are used: WooCommerce, Kaspi, Stripe or something else?',
+    'What does the customer see during payment, and is there an error text?',
+    'When did it start, and were plugins, keys, SSL, webhook/callback or hosting changed?',
+    'Do you have admin/log access and a way to make a test payment?',
+  ],
+  securityFix: [
+    'What exactly is happening: redirect, malware, blank screen, injected content or browser warning?',
+    'Is the site still opening, and do you have hosting/admin access?',
+    'Is there a backup before the hack, and do you know when the issue started?',
+    'What is the site built on: WordPress, Tilda, custom or another CMS?',
   ],
   existingSiteSeo: [
     'Is the site built on WordPress, Tilda, or a custom CMS?',
@@ -1620,12 +1793,22 @@ function filterServiceMatches(matches, text, pageCount) {
   const isExistingUpdateIntent =
     /существующ|есть\s+сайт|уже\s+есть|готов(ый|ого)?\s+сайт|сайт\s+уже\s+работает|текущ|мой\s+сайт|наш\s+сайт|existing|current|already\s+have/.test(normalized) &&
     /добавить|поменять|заменить|изменить|подключить|форма|заявк|оплат|страниц|язык|английск|текст|фото|интеграц|add|change|update|connect|payment|lead form|new page|language|texts?|photos?|integration/.test(normalized);
+  const supportPriority = {
+    'security-fix': /взлом|вирус|заражен|редиректит|malware|hacked|security|redirect hack/.test(normalized),
+    'payment-fix': /оплата\s+не|не\s+проходит\s+оплат|checkout|woocommerce\s+оплат|payment\s+(is\s+)?not|payment.*not working|checkout broken|checkout not working|woocommerce.*checkout|order not created|webhook/.test(normalized),
+    'form-fix': /форма\s+не|заявк\w*\s+не\s+приход|заявк\w*\s+не\s+отправ|не\s+отправ.*заявк|письм\w*\s+не\s+приход|telegram-заявк|телеграм\s+заявк|заявк.*telegram|tilda.*заявк|form not|leads? not|emails? not/.test(normalized),
+    'site-diagnostics': /ошибка\s*(500|404)|500\s+ошибка|404\s+ошибка|белый экран|сайт\s+не\s+откры|сайт\s+упал|после\s+обнов|обновить\s+плагин|почин|сломал|слом|ssl\s+не|https\s+не|error\s*(500|404)|white screen|site is down|website down|after update|plugin conflict|ssl issue|domain issue|broken/.test(normalized),
+  };
 
   return matches
     .filter((service) => {
       if (service.id === 'ai-assistant' && isEcommerceIntent && !/ai|ии|gpt|gemini|openai|llm|chatbot|чатбот|ai-бот|ии-бот/.test(normalized)) {
         return false;
       }
+
+    if (['security-fix', 'payment-fix', 'form-fix', 'site-diagnostics'].includes(service.id)) {
+      return supportPriority[service.id];
+    }
 
     if (service.id === 'existing-site-seo') {
       return isExistingSeoIntent;
@@ -1650,6 +1833,14 @@ function filterServiceMatches(matches, text, pageCount) {
     return isExplicitOnePage || isPortfolio;
     })
     .sort((a, b) => {
+      const supportOrder = ['security-fix', 'payment-fix', 'form-fix', 'site-diagnostics'];
+      const aSupportIndex = supportOrder.indexOf(a.id);
+      const bSupportIndex = supportOrder.indexOf(b.id);
+      if (aSupportIndex !== -1 || bSupportIndex !== -1) {
+        if (aSupportIndex === -1) return 1;
+        if (bSupportIndex === -1) return -1;
+        return aSupportIndex - bSupportIndex;
+      }
       if (isExistingSeoIntent && a.id === 'existing-site-seo') return -1;
       if (isExistingSeoIntent && b.id === 'existing-site-seo') return 1;
       if (isExistingPerformanceIntent && a.id === 'existing-site-performance') return -1;
@@ -1835,6 +2026,10 @@ function detectTechnologies(text) {
 
 function getQuestionSet(service) {
   if (!service) return QUESTION_SETS.generic;
+  if (service.id === 'security-fix') return QUESTION_SETS.securityFix;
+  if (service.id === 'payment-fix') return QUESTION_SETS.paymentFix;
+  if (service.id === 'form-fix') return QUESTION_SETS.formFix;
+  if (service.id === 'site-diagnostics') return QUESTION_SETS.fixDiagnostics;
   if (service.id === 'existing-site-seo') return QUESTION_SETS.existingSiteSeo;
   if (service.id === 'existing-site-performance') return QUESTION_SETS.existingSitePerformance;
   if (service.id === 'existing-site-update') return QUESTION_SETS.existingSiteUpdate;
@@ -1856,6 +2051,10 @@ function getQuestionSetForLanguage(service, language) {
   }
 
   if (!service) return QUESTION_SETS_EN.generic;
+  if (service.id === 'security-fix') return QUESTION_SETS_EN.securityFix;
+  if (service.id === 'payment-fix') return QUESTION_SETS_EN.paymentFix;
+  if (service.id === 'form-fix') return QUESTION_SETS_EN.formFix;
+  if (service.id === 'site-diagnostics') return QUESTION_SETS_EN.fixDiagnostics;
   if (service.id === 'existing-site-seo') return QUESTION_SETS_EN.existingSiteSeo;
   if (service.id === 'existing-site-performance') return QUESTION_SETS_EN.existingSitePerformance;
   if (service.id === 'existing-site-update') return QUESTION_SETS_EN.existingSiteUpdate;
@@ -1893,7 +2092,7 @@ function getProjectFacts(text) {
   const payment = /kaspi|каспи|оплат|payment|checkout|card/.test(normalized);
   const realtimeTracking = /карта|геолокац|отслеж|движени\w*\s+курьер|real[-\s]?time|live tracking|map|geolocation/.test(normalized);
   const push = /push|пуш|уведомлен|notification/.test(normalized);
-  const urgent = /срочн|горит|сегодня|завтра|до\s+вечера|за\s+день|asap|urgent|rush|today|tomorrow|same\s+day|next\s+day/.test(normalized);
+  const urgent = /срочн|горит|сегодня|завтра|ночью|ночь|к\s+утру|до\s+вечера|за\s+день|asap|urgent|rush|today|tomorrow|tonight|by\s+morning|same\s+day|next\s+day/.test(normalized);
 
   return {
     readyDesign,
@@ -1991,6 +2190,24 @@ function getMissingQuestions(text, service) {
       if (question.includes('первом запуске')) return !/карточк|поиск|заявк|заказ|оплат|чат|рейтинг|listing|search|lead|order|payment|chat|rating/.test(normalized);
       if (question.includes('онлайн-оплата')) return !hasFeatures;
       if (question.includes('дизайн')) return !(facts.readyDesign || facts.needsDesign || hasContent);
+      return true;
+    });
+  }
+
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    return questions.filter((question) => {
+      if (question.includes('Ссылка') || question.includes('На чем') || question.includes('Какая платежная') || question.includes('Сайт сейчас')) {
+        return !/ссылк|http|wordpress|вордпресс|wp|tilda|тильда|custom|кастом|woocommerce|kaspi|stripe|cloudpayments|хостинг|админ/.test(normalized);
+      }
+      if (question.includes('сломалось') || question.includes('происходит') || question.includes('видит клиент') || question.includes('именно происходит')) {
+        return !/слом|ошиб|не\s+работ|не\s+приход|не\s+отправ|не\s+проход|500|404|белый экран|редирект|вирус|форма|оплат|заявк/.test(normalized);
+      }
+      if (question.includes('меняли') || question.includes('Когда началось')) {
+        return !/после|обнов|начал|сегодня|вчера|недел|плагин|тема|хостинг|код|когда/.test(normalized);
+      }
+      if (question.includes('скрин') || question.includes('доступ') || question.includes('backup')) {
+        return !/скрин|текст ошибки|доступ|админ|лог|backup|staging|бэкап|хостинг|тестов/.test(normalized);
+      }
       return true;
     });
   }
@@ -2136,6 +2353,44 @@ function getMissingQuestionsEn(text, service) {
       if (question.includes('design')) return !(facts.readyDesign || facts.needsDesign || hasContent);
       return true;
     });
+  }
+
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    return questions.filter((question) => {
+      if (question.includes('site link') || question.includes('platform') || question.includes('payment provider') || question.includes('site still')) {
+        return !/https?:|wordpress|wp|tilda|custom|woocommerce|kaspi|stripe|cloudpayments|hosting|admin/.test(normalized);
+      }
+      if (question.includes('broken') || question.includes('happens') || question.includes('customer see') || question.includes('exactly is happening')) {
+        return !/broken|error|not working|doesn'?t work|not sending|not arriving|not created|500|404|blank screen|redirect|malware|form|payment|lead/.test(normalized);
+      }
+      if (question.includes('changed') || question.includes('When did')) {
+        return !/after|update|started|today|yesterday|week|plugin|theme|hosting|code|when/.test(normalized);
+      }
+      if (question.includes('screenshot') || question.includes('access') || question.includes('backup')) {
+        return !/screenshot|error text|access|admin|logs?|backup|staging|hosting|test/.test(normalized);
+      }
+      return true;
+    });
+  }
+
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    if (language === 'en') {
+      const map = {
+        'site-diagnostics': ['diagnostics through admin/logs', 'theme/plugin and hosting/SSL check', 'backup/staging check', 'cause report', 'fix plan with price'],
+        'form-fix': ['form check', 'email/SMTP/Telegram check', 'submission error check', 'notification setup', 'test lead'],
+        'payment-fix': ['checkout diagnostics', 'payment plugin/API key check', 'SSL/webhook/callback check', 'log review', 'fix estimate after diagnostics'],
+        'security-fix': ['security audit', 'file/plugin/user check', 'logs and backup review', 'cleanup plan', 'basic hardening of found weak points'],
+      };
+      return map[service.id];
+    }
+
+    const map = {
+      'site-diagnostics': ['диагностика админки/логов', 'проверка темы/плагинов и хостинга/SSL', 'проверка backup/staging', 'описание причины', 'план фикса с ценой'],
+      'form-fix': ['проверка формы', 'проверка email/SMTP/Telegram', 'проверка ошибок отправки', 'настройка уведомлений', 'тестовая заявка'],
+      'payment-fix': ['диагностика checkout', 'проверка платежного плагина/API-ключей', 'проверка SSL/webhook/callback', 'проверка логов', 'оценка фикса после диагностики'],
+      'security-fix': ['security-аудит', 'проверка файлов/плагинов/пользователей', 'проверка логов и backup', 'план чистки', 'базовое закрытие найденных слабых мест'],
+    };
+    return map[service.id];
   }
 
   if (service.id === 'existing-site-seo') {
@@ -2376,6 +2631,32 @@ function isShortPriceProbe(text) {
   return hasPriceIntent && hasShortScope && words.length <= 7;
 }
 
+function isUnsafeFixRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /взломай|достань\s+баз|укради|слей\s+данн|обойди\s+защит|hack|steal|dump\s+(database|db)|bypass\s+security|scrape\s+personal|spam\s+bot/.test(normalized);
+}
+
+function buildUnsafeFixReply(language) {
+  if (language === 'en') {
+    return [
+      'I cannot help with hacking, bypassing protection, stealing databases or spam.',
+      'I can help with legal defensive work: security audit, malware cleanup, backup, access hardening, or a compliant lead form/bot.',
+      'What legal task do you need: audit, recovery, protection, or a normal parser for open data?',
+    ].join('\n\n');
+  }
+
+  return [
+    'С взломом, обходом защиты, кражей базы или спамом я не помогаю.',
+    'Могу помочь легально: security-аудит, чистка вирусов, backup, усиление доступов или нормальная форма/бот для заявок.',
+    'Что нужно в легальном формате: аудит, восстановление, защита или парсер открытых данных?',
+  ].join('\n\n');
+}
+
+function isSupportService(service) {
+  return ['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service?.id);
+}
+
 function buildShortPriceReply(text, language) {
   const normalized = normalizeText(text);
   const isRu = language !== 'en';
@@ -2585,6 +2866,10 @@ function getComplexity(service, addons, text) {
     return { level: 'модульная доработка', reasons: ['стоимость считается по отдельным пунктам прайса'] };
   }
 
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    return { level: service.id === 'security-fix' || service.id === 'payment-fix' ? 'сложная' : 'средняя', reasons: ['сначала нужна диагностика, backup/staging для live-сайта и проверка причины'] };
+  }
+
   if (service.id === 'existing-site-seo') {
     return { level: 'средняя', reasons: ['работа идет с существующим сайтом, поэтому сначала важны аудит, доступы и список SEO-проблем'] };
   }
@@ -2631,6 +2916,25 @@ function getBudgetTier(budget) {
 function getServiceBudgetScope(service) {
   if (!service) {
     return null;
+  }
+
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    return {
+      bestFit: 'диагностика причины, безопасный план фикса и только потом точная цена исправления',
+      canOffer: [
+        'сделать мини-диагностику по ссылке, скрину и описанию',
+        'проверить админку, логи, плагины, форму, оплату или хостинг по задаче',
+        'перед рискованными правками сделать backup или staging',
+        'дать точную причину, цену фикса и срок после проверки',
+      ],
+      notIncluded: [
+        'фикс-прайс вслепую без доступа и логов',
+        'рискованные правки на live-сайте без backup',
+        'покупка платных плагинов, лицензий или услуг провайдера',
+        'гарантия, что сайт никогда больше не сломается',
+      ],
+      recommendation: 'продавать сначала диагностику или маленький безопасный фикс; сложные правки считать после проверки',
+    };
   }
 
   if (service.id === 'ai-assistant') {
@@ -2755,6 +3059,25 @@ function getEnglishServiceBudgetScope(service) {
     return null;
   }
 
+  if (['site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id)) {
+    return {
+      bestFit: 'diagnose the cause, prepare a safe fix plan, then quote the exact repair',
+      canOffer: [
+        'run a mini-diagnosis using the link, screenshot and symptoms',
+        'check admin area, logs, plugins, forms, payment or hosting depending on the issue',
+        'make a backup or staging copy before risky live-site changes',
+        'give the exact cause, fix price and timeline after checking',
+      ],
+      notIncluded: [
+        'blind fixed-price repair without access and logs',
+        'risky live-site edits without backup',
+        'paid plugins, licenses or provider-side costs',
+        'a guarantee that the whole site will never break again',
+      ],
+      recommendation: 'start with diagnostics or a small safe fix; price complex repairs after inspection',
+    };
+  }
+
   if (service.id === 'marketplace') {
     return {
       bestFit: 'marketplace MVP: roles, listings, leads/orders and a simple admin panel without heavy platform logic',
@@ -2803,7 +3126,7 @@ function buildBudgetPlan({ budget, service, min, max }) {
 
   const tier = getBudgetTier(budget);
   const serviceScope =
-    service && (budget < min || ['telegram-bot', 'ai-assistant', 'node-postgres-backend', 'custom-cms'].includes(service.id))
+    service && (budget < min || ['telegram-bot', 'ai-assistant', 'node-postgres-backend', 'custom-cms', 'site-diagnostics', 'form-fix', 'payment-fix', 'security-fix'].includes(service.id))
       ? getServiceBudgetScope(service)
       : null;
   const fit = !service ? 'needs_project_type' : budget < min ? 'below_estimate' : budget <= max ? 'within_estimate' : 'above_estimate';
@@ -2875,7 +3198,7 @@ function estimateFromMessages(messages) {
   const activeItsngSummary = useModuleSummary ? itsngSummary : null;
   const service = useModuleSummary ? MODULE_SERVICE : primaryService;
   const isHiring = service?.id === 'developer-retainer';
-  const addonMatches = isHiring ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
+  const addonMatches = isHiring || isSupportService(service) ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
   const technologies = detectTechnologies(normalized);
   const budget = parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
@@ -2890,6 +3213,8 @@ function estimateFromMessages(messages) {
     service?.id === 'existing-site-performance' && /скорост|ускор|медлен|тормозит|pagespeed|page speed|performance|slow|core web vitals/.test(normalized);
   const hasExistingUpdateReadyInputs =
     service?.id === 'existing-site-update' && /форма|заявк|оплат|страниц|язык|английск|текст|фото|интеграц|payment|lead form|new page|language|texts?|photos?/.test(normalized);
+  const hasSupportReadyInputs =
+    isSupportService(service) && /ошиб|слом|не\s+работ|не\s+приход|не\s+отправ|не\s+проход|500|404|белый экран|взлом|вирус|форма|заявк|оплат|ssl|домен|error|broken|not working|not sending|not arriving|payment|checkout|hacked|malware|domain/.test(normalized);
   const shouldAskFirst =
     projectRequest &&
     userMessages.length <= 1 &&
@@ -2900,6 +3225,7 @@ function estimateFromMessages(messages) {
     !hasExistingSeoReadyInputs &&
     !hasExistingPerformanceReadyInputs &&
     !hasExistingUpdateReadyInputs &&
+    !hasSupportReadyInputs &&
     missingQuestions.length > 0;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
@@ -2909,12 +3235,13 @@ function estimateFromMessages(messages) {
   const rawMin = useModuleSummary ? baseMin : service ? service.min + addonMin + catalogExtra : null;
   const rawMax = useModuleSummary ? baseMax : service ? service.max + addonMax + catalogExtra * 2 : null;
   const adjusted = applyReadyMaterialsDiscount({ min: rawMin, max: rawMax, service, facts });
-  const min = adjusted.min;
-  const max = adjusted.max;
+  const urgentSupportMultiplier = isSupportService(service) && facts.urgent ? (/ноч|к\s+утру|tonight|by\s+morning/.test(normalized) ? 2 : 1.5) : 1;
+  const min = adjusted.min && urgentSupportMultiplier > 1 ? Math.max(urgentSupportMultiplier >= 2 ? 70000 : 50000, Math.round(adjusted.min * urgentSupportMultiplier)) : adjusted.min;
+  const max = adjusted.max && urgentSupportMultiplier > 1 ? Math.round(adjusted.max * urgentSupportMultiplier) : adjusted.max;
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
-  const hasReadyExistingWork = hasExistingSeoReadyInputs || hasExistingPerformanceReadyInputs || hasExistingUpdateReadyInputs;
+  const hasReadyExistingWork = hasExistingSeoReadyInputs || hasExistingPerformanceReadyInputs || hasExistingUpdateReadyInputs || hasSupportReadyInputs;
   const ready = Boolean(service && (moduleSummary || isHiring || budget || hasReadyExistingWork || (!shouldAskFirst && missingQuestions.length <= 2)));
   const phase = isHiring
     ? 'hiring_guidance'
@@ -3032,6 +3359,26 @@ function getIncludedWork(estimate, language) {
     return ['аудит текущего сайта', 'правки контента/страниц', 'форма заявки или модуль оплаты', 'подключение интеграции при необходимости', 'проверка после изменений'];
   }
 
+  if (isSupportService(service)) {
+    if (language === 'en') {
+      const map = {
+        'site-diagnostics': ['diagnostics through admin/logs', 'theme/plugin and hosting/SSL check', 'backup/staging check', 'cause report', 'fix plan with price'],
+        'form-fix': ['form check', 'email/SMTP/Telegram check', 'submission error check', 'notification setup', 'test lead'],
+        'payment-fix': ['checkout diagnostics', 'payment plugin/API key check', 'SSL/webhook/callback check', 'log review', 'fix estimate after diagnostics'],
+        'security-fix': ['security audit', 'file/plugin/user check', 'logs and backup review', 'cleanup plan', 'basic hardening of found weak points'],
+      };
+      return map[service.id] || [];
+    }
+
+    const map = {
+      'site-diagnostics': ['диагностика админки/логов', 'проверка темы/плагинов', 'проверка хостинга/SSL', 'проверка backup/staging', 'план фикса с ценой'],
+      'form-fix': ['проверка формы', 'проверка email/SMTP/Telegram', 'проверка ошибок отправки', 'настройка уведомлений', 'тестовая заявка'],
+      'payment-fix': ['диагностика checkout', 'проверка платежного плагина/API-ключей', 'проверка SSL/webhook/callback', 'проверка логов', 'оценка фикса после диагностики'],
+      'security-fix': ['security-аудит', 'проверка файлов/плагинов/пользователей', 'проверка логов и backup', 'план чистки', 'базовое закрытие найденных слабых мест'],
+    };
+    return map[service.id] || [];
+  }
+
   return service.includes.slice(0, 5);
 }
 
@@ -3102,11 +3449,24 @@ function buildEstimateReply(estimate, language) {
       ? `Уже применил снижение за готовые материалы: примерно ${Math.round(estimate.discountRate * 100)}%.`
       : `I already applied a ready-materials reduction of about ${Math.round(estimate.discountRate * 100)}%.`
     : null;
+  const urgentNote = estimate.facts?.urgent && isSupportService(estimate.service)
+    ? isRu
+      ? 'Так как это срочный/live-фикс, сначала закладываю backup или staging, потом правку.'
+      : 'Because this is an urgent/live fix, I would plan backup or staging first, then apply the fix.'
+    : null;
   let scopeLabel;
   if (['mobile-delivery-app', 'mobile-mvp'].includes(estimate.service?.id)) {
     scopeLabel = isRu
       ? `${estimate.pageCount || 'уточняется'} основных экранов`
       : `${estimate.pageCount || 'to be finalized'} main screens`;
+  } else if (isSupportService(estimate.service)) {
+    const supportScope = {
+      'site-diagnostics': isRu ? 'существующий сайт, диагностика бага' : 'existing website, bug diagnostics',
+      'form-fix': isRu ? 'существующий сайт, форма/уведомления' : 'existing website, form/notification fix',
+      'payment-fix': isRu ? 'существующий сайт, оплата/checkout' : 'existing website, payment/checkout diagnostics',
+      'security-fix': isRu ? 'существующий сайт, security-аудит/восстановление' : 'existing website, security audit/recovery',
+    };
+    scopeLabel = supportScope[estimate.service.id];
   } else if (estimate.service?.id === 'frontend-slicing' && estimate.pageCount === 1) {
     scopeLabel = isRu ? '1 страница верстки' : '1 page layout';
   } else if (estimate.service?.id === 'landing' && estimate.blockCount) {
@@ -3132,6 +3492,7 @@ function buildEstimateReply(estimate, language) {
       provided.length ? `Provided by client: ${provided.join(', ')}.` : null,
       excluded.length ? `Not included in this estimate: ${excluded.join(', ')}.` : null,
       discountNote,
+      urgentNote,
       `Rough range: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}. Includes: ${included}.`,
       assumptions.length ? `I am assuming the remaining details are standard: ${assumptions.join('; ')}.` : 'A final quote still depends on the exact brief and materials.',
     ].filter(Boolean).join(' ');
@@ -3143,6 +3504,7 @@ function buildEstimateReply(estimate, language) {
     provided.length ? `Со стороны клиента уже есть: ${provided.join(', ')}.` : null,
     excluded.length ? `Это не закладываю в стоимость: ${excluded.join(', ')}.` : null,
     discountNote,
+    urgentNote,
     `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
     assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
   ].filter(Boolean).join(' ');
@@ -3331,6 +3693,10 @@ function buildFallbackReply(messages, language) {
       : 'Hi. Describe the task: website type, platform, scope, design, features and whether backend/server work is needed. I will ask clarifying questions first, then calculate a range.';
   }
 
+  if (isUnsafeFixRequest(lastText)) {
+    return buildUnsafeFixReply(language);
+  }
+
   if (isCasualOrContactRequest(lastText)) {
     return buildCasualOrContactReply(language);
   }
@@ -3343,7 +3709,7 @@ function buildFallbackReply(messages, language) {
     return buildOldAuditReply(language);
   }
 
-  if (isOldMaintenanceRequest(lastText)) {
+  if (isOldMaintenanceRequest(lastText) && !isSupportService(estimate.service)) {
     return buildOldMaintenanceReply(language);
   }
 
@@ -3359,7 +3725,7 @@ function buildFallbackReply(messages, language) {
     return buildMixedProjectReply(language);
   }
 
-  if (isUrgentRequest(lastText) && userMessageCount <= 1 && !estimate.budgetPlan) {
+  if (isUrgentRequest(lastText) && userMessageCount <= 1 && !estimate.budgetPlan && !isSupportService(estimate.service)) {
     return buildUrgentReply(language);
   }
 
@@ -3670,6 +4036,13 @@ function shouldUseLocalReply(messages) {
   return isShortPriceProbe(lastText) || isCasualOrContactRequest(lastText);
 }
 
+function shouldForceLocalReply(messages, estimate) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const lastText = userMessages[userMessages.length - 1]?.content || '';
+
+  return shouldUseLocalReply(messages) || isSupportService(estimate.service) || isUnsafeFixRequest(lastText);
+}
+
 async function callGemini(messages, estimate, language) {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
 
@@ -3752,7 +4125,7 @@ module.exports = async function handler(req, res) {
     }
 
     const estimate = estimateFromMessages(messages);
-    const aiReply = shouldUseLocalReply(messages) ? null : await callGemini(messages, estimate, language);
+    const aiReply = shouldForceLocalReply(messages, estimate) ? null : await callGemini(messages, estimate, language);
     const reply = cleanAssistantReply(aiReply || buildFallbackReply(messages, language));
 
     return res.status(200).json({
