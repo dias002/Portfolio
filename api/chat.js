@@ -13,6 +13,28 @@ const MODULE_SERVICE = {
 
 const SERVICES = [
   {
+    id: 'frontend-slicing',
+    label: 'верстка по готовому дизайну',
+    min: 30000,
+    max: 180000,
+    timeline: '1-7 рабочих дней',
+    priority: 16,
+    keywords: [
+      'только верстка',
+      'верстка',
+      'сверстать',
+      'figma to html',
+      'figma to react',
+      'html css',
+      'html css js',
+      'layout from figma',
+      'frontend layout',
+      'адаптив нужен',
+      'из figma',
+    ],
+    includes: ['верстка по Figma', 'адаптив', 'базовая интерактивность', 'подключение формы при необходимости'],
+  },
+  {
     id: 'wordpress-onepage-portfolio',
     label: 'одностраничное портфолио на WordPress',
     min: 50000,
@@ -68,6 +90,8 @@ const SERVICES = [
       'business site',
       'одностранич',
       'сайт услуг',
+      'сайт',
+      'сделай сайт',
       'услуги',
       'визитка',
       'портфолио',
@@ -135,6 +159,36 @@ const SERVICES = [
     includes: ['несколько страниц', 'админка или CMS', 'контактные формы', 'мультиязычность по необходимости'],
   },
   {
+    id: 'marketplace',
+    label: 'маркетплейс / платформа с ролями',
+    min: 1200000,
+    max: 7000000,
+    timeline: '1.5-8 месяцев',
+    priority: 18,
+    keywords: [
+      'маркетплейс',
+      'marketplace',
+      'multi vendor',
+      'multi-vendor',
+      'как kaspi',
+      'как amazon',
+      'как airbnb',
+      'аналог kaspi',
+      'аналог amazon',
+      'аналог airbnb',
+      'marketplace like',
+      'like airbnb',
+      'like amazon',
+      'like kaspi',
+      'clone of airbnb',
+      'seller account',
+      'продавцы',
+      'покупатели',
+      'роли продавцов',
+    ],
+    includes: ['MVP с ролями покупателей/продавцов', 'карточки товаров/услуг', 'заявки или заказы', 'простая админка', 'базовый поиск'],
+  },
+  {
     id: 'ecommerce',
     label: 'интернет-магазин',
     min: 150000,
@@ -159,13 +213,7 @@ const SERVICES = [
       'оплата',
       'checkout',
       'woocommerce',
-      'маркетплейс',
-      'marketplace',
-      'multi vendor',
-      'multi-vendor',
-      'как kaspi',
       'как flipkart',
-      'как amazon',
     ],
     includes: ['каталог', 'карточки товаров', 'корзина', 'заказы', 'админка'],
   },
@@ -209,6 +257,26 @@ const SERVICES = [
     priority: 7,
     keywords: ['кастом', 'custom', 'cms', 'админ', 'crm', 'сервис', 'панель', 'dashboard', 'личный кабинет', 'роли', 'admin panel', 'user account', 'members area', 'portal', 'client portal', 'customer portal', 'member portal', 'internal tool'],
     includes: ['backend', 'база данных', 'админ-панель', 'роли', 'API'],
+  },
+  {
+    id: 'mobile-mvp',
+    label: 'MVP мобильного приложения',
+    min: 490000,
+    max: 900000,
+    timeline: '3-8 недель',
+    priority: 17,
+    keywords: [
+      'мобильное mvp',
+      'mvp мобильного',
+      'mvp приложение',
+      'mobile mvp',
+      'app mvp',
+      'простое приложение',
+      'только mvp',
+      'первая версия приложения',
+      'first app version',
+    ],
+    includes: ['5-8 экранов', 'базовая авторизация', 'основная функция', 'простая база данных или подключение API', 'базовое тестирование'],
   },
   {
     id: 'mobile-delivery-app',
@@ -394,7 +462,7 @@ const ADDONS = [
     label: 'онлайн-оплата',
     min: 120000,
     max: 350000,
-    keywords: ['оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay', 'payment', 'checkout', 'card payments', 'online payment', 'take cards', 'paid orders'],
+    keywords: ['оплат', 'оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay', 'payment', 'checkout', 'card payments', 'online payment', 'take cards', 'paid orders'],
     skipIf: ['без оплаты', 'оплата не нужна', 'без онлайн-оплаты', 'не нужна оплата', 'no payment', 'no checkout', 'payment not needed', 'no online payment'],
     includedIn: ['mobile-delivery-app'],
   },
@@ -429,7 +497,8 @@ const ADDONS = [
     min: 250000,
     max: 850000,
     keywords: ['node.js', 'node js', 'nestjs', 'express', 'backend', 'бэкенд'],
-    includedIn: ['node-postgres-backend', 'custom-cms', 'mobile-delivery-app'],
+    skipIf: ['без backend', 'без бэкенд', 'backend готов', 'бэкенд готов', 'backend есть', 'бэкенд есть', 'no backend', 'backend ready', 'have backend'],
+    includedIn: ['node-postgres-backend', 'custom-cms', 'mobile-delivery-app', 'mobile-mvp'],
   },
   {
     id: 'postgres',
@@ -453,6 +522,7 @@ const ADDONS = [
     min: 50000,
     max: 180000,
     keywords: ['seo', 'сео', 'analytics', 'метрика', 'google analytics', 'search console', 'tracking', 'ga4'],
+    skipIf: ['без tracking', 'без отслеживания', 'no tracking', 'without tracking', 'без live tracking', 'no live tracking'],
   },
 ];
 
@@ -569,6 +639,22 @@ const HIRING_OPTIONS = [
 ];
 
 const EN_BUDGET_TIER_COPY = {
+  'micro-start': {
+    bestFit: 'a micro-start: brief, structure, one simple draft page or setup task',
+    canOffer: [
+      'check the design and prepare a short scope',
+      'prepare the structure and content checklist',
+      'make one simple draft page or basic setup',
+      'connect a simple form, domain or small WordPress/Tilda setup',
+    ],
+    notIncluded: [
+      'full 3-4 page build',
+      'custom animations',
+      'backend, payment, user accounts or integrations',
+      'copywriting and deep SEO setup',
+    ],
+    recommendation: 'treat it as the first stage, then finish the full launch with a separate budget',
+  },
   micro: {
     bestFit: 'a micro-start: brief, structure, one simple draft page or setup task',
     canOffer: [
@@ -673,14 +759,17 @@ const CONVERSATION_EXAMPLES = [
 
 const EN_SERVICE_LABELS = {
   'wordpress-onepage-portfolio': 'one-page WordPress portfolio site',
+  'frontend-slicing': 'frontend layout from ready design',
   landing: 'landing page or service website',
   'simple-multipage': 'simple 3-4 page website with ready design',
   'wordpress-site': 'WordPress website',
   'tilda-site': 'Tilda website',
   business: 'business website',
   ecommerce: 'online store',
+  marketplace: 'marketplace MVP or multi-role platform',
   'node-postgres-backend': 'Node.js backend/API with PostgreSQL',
   'custom-cms': 'custom CMS or web app',
+  'mobile-mvp': 'mobile app MVP',
   'mobile-delivery-app': 'food delivery mobile app',
   'telegram-bot': 'Telegram bot',
   'ai-assistant': 'AI assistant for a website',
@@ -695,6 +784,11 @@ const QUESTION_SETS = {
     'Дизайн и контент уже готовы или их нужно делать с нуля?',
     'Нужны ли формы, оплата, мультиязычность, интеграции, личный кабинет или настройка сервера?',
   ],
+  frontendSlicing: [
+    'Сколько макетов нужно сверстать: один блок, одна страница, лендинг или 3-5 страниц?',
+    'Есть ли mobile-версия в Figma или адаптив нужно продумать самому?',
+    'Нужны ли формы, анимации, отправка заявок в Telegram/email или только статичная верстка?',
+  ],
   simpleSite: [
     'Дизайн будет по готовому шаблону, по существующему Figma-макету или его нужно сделать с нуля?',
     'Какие блоки нужны на странице: hero, обо мне, проекты, услуги, отзывы, контакты, форма заявки?',
@@ -707,6 +801,12 @@ const QUESTION_SETS = {
     'На чем делать магазин: WordPress/WooCommerce, готовая CMS или кастомная разработка?',
     'Какие интеграции нужны: Kaspi, CRM, склад, Telegram/WhatsApp, 1C или email-уведомления?',
   ],
+  marketplace: [
+    'Какие роли нужны в MVP: покупатель, продавец, администратор?',
+    'Что должно быть в первом запуске: карточки, поиск, заявки/заказы, оплата, чат, рейтинг?',
+    'Нужна ли онлайн-оплата и комиссия платформы сразу или можно начать с заявок?',
+    'Есть ли готовый дизайн и контент для карточек/категорий?',
+  ],
   backend: [
     'Это только backend/API или нужен еще frontend и админ-панель?',
     'Какие сущности будут в базе: пользователи, заявки, товары, заказы, файлы, платежи?',
@@ -718,6 +818,12 @@ const QUESTION_SETS = {
     'Нужны ли онлайн-оплата, карта с движением курьера, push-уведомления и статусы заказа?',
     'Backend/API и админ-панель уже есть или их тоже нужно разрабатывать?',
     'Дизайн готов полностью по всем экранам или нужна доработка UI/UX?',
+  ],
+  mobileMvp: [
+    'Какая одна главная функция должна работать в первой версии?',
+    'Сколько экранов в MVP и готов ли дизайн под mobile?',
+    'Backend/API уже есть или нужна простая база/Firebase/backend?',
+    'Нужны ли публикация в App Store/Google Play, push, оплата или карты в первом этапе?',
   ],
   aiAssistant: [
     'Бот должен только консультировать или еще принимать заявки, считать стоимость и отправлять лиды в Telegram/CRM?',
@@ -746,6 +852,11 @@ const QUESTION_SETS_EN = {
     'Are design and content ready, or should they be prepared from scratch?',
     'Do you need forms, payments, multilingual support, integrations, user accounts or server setup?',
   ],
+  frontendSlicing: [
+    'How many layouts should be built: one block, one page, landing page, or 3-5 pages?',
+    'Is the mobile version ready in Figma, or should responsive behavior be designed during layout?',
+    'Do you need forms, animations, Telegram/email leads, or only static layout?',
+  ],
   simpleSite: [
     'Will the design be based on a template, an existing Figma file, or should it be created from scratch?',
     'Which blocks are needed: hero, about, projects, services, reviews, contacts, lead form?',
@@ -758,6 +869,12 @@ const QUESTION_SETS_EN = {
     'Should it be WordPress/WooCommerce, a ready CMS or custom development?',
     'Which integrations are needed: CRM, warehouse, Telegram/WhatsApp, email or payment provider?',
   ],
+  marketplace: [
+    'Which roles are needed in the MVP: buyer, seller, admin?',
+    'What should launch first: listings, search, leads/orders, payment, chat, ratings?',
+    'Do you need online payment and platform commission now, or can MVP start with leads/orders?',
+    'Are design and listing/category content ready?',
+  ],
   backend: [
     'Is it backend/API only, or do you also need frontend and an admin panel?',
     'Which data entities are needed: users, leads, products, orders, files, payments?',
@@ -769,6 +886,12 @@ const QUESTION_SETS_EN = {
     'Do you need online payment, live courier map, push notifications and order statuses?',
     'Do backend/API and admin panel already exist, or should they be developed too?',
     'Is design fully ready for all screens, or is UI/UX work still needed?',
+  ],
+  mobileMvp: [
+    'What is the one core function for the first version?',
+    'How many screens are in the MVP, and is mobile design ready?',
+    'Does backend/API already exist, or do you need a simple database/Firebase/backend?',
+    'Do you need App Store/Google Play publishing, push, payments or maps in the first stage?',
   ],
   aiAssistant: [
     'Should the bot only consult users, or also collect leads, calculate prices and send them to Telegram/CRM?',
@@ -1300,6 +1423,7 @@ function filterServiceMatches(matches, text, pageCount) {
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
   const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
+  const isMobileMvpIntent = /mvp|первая\s+версия|только\s+mvp|без\s+live\s+tracking|без\s+отслежив/.test(normalized) && /приложен|mobile|app|ios|android/.test(normalized);
 
   return matches
     .filter((service) => {
@@ -1318,6 +1442,8 @@ function filterServiceMatches(matches, text, pageCount) {
     return isExplicitOnePage || isPortfolio;
     })
     .sort((a, b) => {
+      if (isMobileMvpIntent && a.id === 'mobile-mvp') return -1;
+      if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
       if (isEcommerceIntent && b.id === 'ecommerce') return 1;
       return 0;
@@ -1336,12 +1462,39 @@ function parsePageCount(text) {
     return Number(reverseMatch[1]);
   }
 
-  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел|блок)/);
+  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел)/);
   if (rangeMatch) {
     return Number(rangeMatch[2]);
   }
 
-  const match = normalized.match(/(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел|блок)/);
+  const match = normalized.match(/(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел)/);
+  return match ? Number(match[1]) : null;
+}
+
+function parseBlockCount(text) {
+  const normalized = normalizeText(text);
+  const reverseMatch = normalized.match(/(?:блоков|блока|блок|sections?|blocks?)\s*(\d{1,3})/);
+  if (reverseMatch) {
+    return Number(reverseMatch[1]);
+  }
+
+  const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(блоков|блока|блок|sections?|blocks?)/);
+  if (rangeMatch) {
+    return Number(rangeMatch[2]);
+  }
+
+  const match = normalized.match(/(\d{1,3})\s*(блоков|блока|блок|sections?|blocks?)/);
+  return match ? Number(match[1]) : null;
+}
+
+function parseProductCount(text) {
+  const normalized = normalizeText(text);
+  const reverseMatch = normalized.match(/(?:товаров|товара|товар|позици(?:й|и|я)|products?|items?|sku)\s*(\d{1,5})/);
+  if (reverseMatch) {
+    return Number(reverseMatch[1]);
+  }
+
+  const match = normalized.match(/(\d{1,5})\s*(товаров|товара|товар|позици(?:й|и|я)|products?|items?|sku)/);
   return match ? Number(match[1]) : null;
 }
 
@@ -1350,7 +1503,7 @@ function parseBudget(text) {
   const rubPerKzt = Number.isFinite(FX_RATES.RUB_PER_KZT) && FX_RATES.RUB_PER_KZT > 0 ? FX_RATES.RUB_PER_KZT : 0.19;
   const usdPerKzt = Number.isFinite(FX_RATES.USD_PER_KZT) && FX_RATES.USD_PER_KZT > 0 ? FX_RATES.USD_PER_KZT : 0.002;
   const englishMoneyContext =
-    /budget|under|around|about|up to|can spend|ready to spend|quote|estimate|ballpark|roughly|approx|bucks?|dollars?|\$|website|site|landing|one\s+pager|bot|app|shop|store|ecom|dev|developer/.test(normalized) ||
+    /budget|under|around|about|up to|can spend|ready to spend|quote|estimate|ballpark|roughly|approx|bucks?|dollars?|\$|website|site|landing|one\s+pager|bot|app|shop|store|ecom|marketplace|platform|mvp|airbnb|amazon|kaspi|dev|developer/.test(normalized) ||
     /\b(?:can|could|would)\s+you\s+(?:do|build|make)\s+(?:it\s+)?for\b/.test(normalized) ||
     /\b(?:run|cost|set\s+me\s+back)\b/.test(normalized);
   const currencyRegex = 'тенге|тг|₸|kzt|руб(?:\\.|лей|ля|ль)?|₽|usd|доллар(?:а|ов)?|dollar(?:s)?|buck(?:s)?|\\$';
@@ -1360,7 +1513,7 @@ function parseBudget(text) {
     {
       hasBudgetContext: true,
       regex: new RegExp(
-          `(?:бюджет|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
+        `(?:бюджет|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|for|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
       ),
     },
     {
@@ -1389,15 +1542,25 @@ function parseBudget(text) {
 
     const rawNumber = match.groups.amount.replace(/\s/g, '').replace(',', '.');
     let value = Number(rawNumber);
-    const scale = match.groups.scale || '';
+    let scale = match.groups.scale || '';
     const currencyToken = `${match.groups.currency1 || ''} ${match.groups.currency2 || ''}`.trim();
     const matchedText = match[0] || '';
+    const afterMatch = normalized.slice((match.index || 0) + matchedText.length).trim();
+    const detachedScale = !scale && afterMatch.match(/^(k|g|grand)\b/);
+
+    if (detachedScale) {
+      scale = detachedScale[1];
+    }
 
     if (!Number.isFinite(value) || value <= 0) {
       continue;
     }
 
     if (!currencyToken && !scale && /\b(for\s+)?\d{1,4}\s*(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)\b/.test(matchedText)) {
+      continue;
+    }
+
+    if (!currencyToken && !scale && /^(pages?|screens?|sections?|blocks?|товар(?:ов|а)?|позиц(?:ий|ии|ия)?|экран(?:ов|а)?|страниц(?:ы)?)/.test(afterMatch)) {
       continue;
     }
 
@@ -1458,8 +1621,11 @@ function detectTechnologies(text) {
 
 function getQuestionSet(service) {
   if (!service) return QUESTION_SETS.generic;
+  if (service.id === 'frontend-slicing') return QUESTION_SETS.frontendSlicing;
   if (service.id === 'ecommerce') return QUESTION_SETS.ecommerce;
+  if (service.id === 'marketplace') return QUESTION_SETS.marketplace;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS.backend;
+  if (service.id === 'mobile-mvp') return QUESTION_SETS.mobileMvp;
   if (service.id === 'mobile-delivery-app') return QUESTION_SETS.mobileApp;
   if (service.id === 'telegram-bot') return QUESTION_SETS.telegramBot || QUESTION_SETS.aiAssistant;
   if (service.id === 'ai-assistant') return QUESTION_SETS.aiAssistant;
@@ -1473,8 +1639,11 @@ function getQuestionSetForLanguage(service, language) {
   }
 
   if (!service) return QUESTION_SETS_EN.generic;
+  if (service.id === 'frontend-slicing') return QUESTION_SETS_EN.frontendSlicing;
   if (service.id === 'ecommerce') return QUESTION_SETS_EN.ecommerce;
+  if (service.id === 'marketplace') return QUESTION_SETS_EN.marketplace;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS_EN.backend;
+  if (service.id === 'mobile-mvp') return QUESTION_SETS_EN.mobileMvp;
   if (service.id === 'mobile-delivery-app') return QUESTION_SETS_EN.mobileApp;
   if (service.id === 'telegram-bot') return QUESTION_SETS_EN.telegramBot;
   if (service.id === 'ai-assistant') return QUESTION_SETS_EN.aiAssistant;
@@ -1503,6 +1672,7 @@ function getProjectFacts(text) {
   const payment = /kaspi|каспи|оплат|payment|checkout|card/.test(normalized);
   const realtimeTracking = /карта|геолокац|отслеж|движени\w*\s+курьер|real[-\s]?time|live tracking|map|geolocation/.test(normalized);
   const push = /push|пуш|уведомлен|notification/.test(normalized);
+  const urgent = /срочн|горит|сегодня|завтра|до\s+вечера|за\s+день|asap|urgent|rush|today|tomorrow|same\s+day|next\s+day/.test(normalized);
 
   return {
     readyDesign,
@@ -1516,6 +1686,7 @@ function getProjectFacts(text) {
     payment,
     realtimeTracking,
     push,
+    urgent,
   };
 }
 
@@ -1580,6 +1751,35 @@ function getMissingQuestions(text, service) {
       if (question.includes('корзина')) return !hasFeatures;
       if (question.includes('На чем')) return !hasAny(normalized, ['wordpress', 'woocommerce', 'cms', 'кастом', 'shopify']);
       if (question.includes('интеграции')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (service.id === 'marketplace') {
+    return questions.filter((question) => {
+      if (question.includes('роли')) return !/покупател|продавц|админ|buyer|seller|admin|role/.test(normalized);
+      if (question.includes('первом запуске')) return !/карточк|поиск|заявк|заказ|оплат|чат|рейтинг|listing|search|lead|order|payment|chat|rating/.test(normalized);
+      if (question.includes('онлайн-оплата')) return !hasFeatures;
+      if (question.includes('дизайн')) return !(facts.readyDesign || facts.needsDesign || hasContent);
+      return true;
+    });
+  }
+
+  if (service.id === 'frontend-slicing') {
+    return questions.filter((question) => {
+      if (question.includes('макетов')) return !(pageCount || parseBlockCount(normalized));
+      if (question.includes('mobile')) return !/адаптив|mobile|responsive|мобильн/.test(normalized);
+      if (question.includes('формы')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (service.id === 'mobile-mvp') {
+    return questions.filter((question) => {
+      if (question.includes('главная функция')) return !/доставк|заказ|каталог|бронь|чат|карта|оплат|delivery|order|booking|chat|map|payment/.test(normalized);
+      if (question.includes('экранов')) return !(pageCount && (facts.readyDesign || facts.needsDesign));
+      if (question.includes('Backend')) return !(facts.readyBackend || facts.noBackend);
+      if (question.includes('публикация')) return !hasFeatures;
       return true;
     });
   }
@@ -1671,6 +1871,35 @@ function getMissingQuestionsEn(text, service) {
     });
   }
 
+  if (service.id === 'marketplace') {
+    return questions.filter((question) => {
+      if (question.includes('roles')) return !/buyer|seller|admin|roles?|покупател|продавц|админ/.test(normalized);
+      if (question.includes('launch first')) return !/listings?|search|leads?|orders?|payment|chat|ratings?|карточк|поиск|заявк|заказ|оплат/.test(normalized);
+      if (question.includes('online payment')) return !hasFeatures;
+      if (question.includes('design')) return !(facts.readyDesign || facts.needsDesign || hasContent);
+      return true;
+    });
+  }
+
+  if (service.id === 'frontend-slicing') {
+    return questions.filter((question) => {
+      if (question.includes('layouts')) return !(pageCount || parseBlockCount(normalized));
+      if (question.includes('mobile')) return !/responsive|mobile|адаптив|мобильн/.test(normalized);
+      if (question.includes('forms')) return !hasFeatures;
+      return true;
+    });
+  }
+
+  if (service.id === 'mobile-mvp') {
+    return questions.filter((question) => {
+      if (question.includes('core function')) return !/delivery|order|catalog|booking|chat|map|payment|доставк|заказ|каталог|бронь|чат|карта|оплат/.test(normalized);
+      if (question.includes('screens')) return !(pageCount && (facts.readyDesign || facts.needsDesign));
+      if (question.includes('backend/API')) return !(facts.readyBackend || facts.noBackend);
+      if (question.includes('publishing')) return !hasFeatures;
+      return true;
+    });
+  }
+
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') {
     return questions.filter((question) => {
       if (question.includes('backend/API only')) return !/frontend|admin|backend only|api only|website/.test(normalized);
@@ -1737,10 +1966,17 @@ function isGreetingOnly(text) {
 
 function isOldMaintenanceRequest(text) {
   const normalized = normalizeText(text);
-  const hasMaintenance = /доработ|исправ|баг|ошибк|чинить|фикс|правк|поддержк|рефактор|додел|fix|bug|bugfix|patch|repair|maintain|maintenance|update|tweak|refactor|broken|site\s+is\s+down|not\s+working|doesn'?t\s+work|crashed/.test(normalized);
+  const hasMaintenance = /доработ|исправ|баг|ошибк|чинить|фикс|правк|поддержк|рефактор|додел|сломал|сломалась|сломался|сломано|не\s+работает|fix|bug|bugfix|patch|repair|maintain|maintenance|update|tweak|refactor|broken|site\s+is\s+down|not\s+working|doesn'?t\s+work|crashed/.test(normalized);
   const hasOldProject = /стар|существующ|чуж|готов(ый|ого)|текущ|уже есть|мой сайт|наш сайт|old|existing|current|legacy|someone else|third[-\s]?party|my site|our site|already have|built by/.test(normalized);
 
   return hasMaintenance && hasOldProject;
+}
+
+function isOldAuditRequest(text) {
+  const normalized = normalizeText(text);
+  const hasAuditIntent = /аудит|диагност|разобраться|провер|посмотр|готов\w*\s+оплат|платн\w*\s+аудит|paid audit|audit first|diagnostic|code review|investigation/.test(normalized);
+
+  return isOldMaintenanceRequest(normalized) && hasAuditIntent;
 }
 
 function isNegotiationRequest(text) {
@@ -1873,6 +2109,22 @@ function buildOldMaintenanceReply(language) {
   ].join('\n\n');
 }
 
+function buildOldAuditReply(language) {
+  if (language === 'en') {
+    return [
+      'Yes, this format is workable: first a paid audit/diagnostic, then a separate estimate for the fix.',
+      'During the audit I would check the codebase, hosting, logs, broken flow and risks. After that there are two honest options: a small focused fix, or rebuilding the broken module cleanly.',
+      'I would not promise a fixed bugfix price before the audit, because legacy code can hide extra work. Send the link, access details, symptoms and deadline in Telegram: https://t.me/Berliyn_h.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Да, такой формат нормальный: сначала платный аудит/диагностика, потом отдельная оценка фикса.',
+    'На аудите я бы проверил код, хостинг, логи, сломанный сценарий и риски. После этого честные варианты: маленький точечный фикс или чистая пересборка проблемного модуля.',
+    'Фикс-прайс до аудита я бы не обещал, потому что в старом коде объем часто всплывает по ходу. Скиньте ссылку, доступы, симптомы и срок в Telegram: https://t.me/Berliyn_h.',
+  ].join('\n\n');
+}
+
 function buildNegotiationReply(language) {
   if (language === 'en') {
     return [
@@ -2001,7 +2253,7 @@ function getComplexity(service, addons, text) {
     return { level: 'модульная доработка', reasons: ['стоимость считается по отдельным пунктам прайса'] };
   }
 
-  if (['ecommerce', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
+  if (['ecommerce', 'marketplace', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
     reasons.push('есть backend, база данных или бизнес-логика');
   }
 
@@ -2013,8 +2265,12 @@ function getComplexity(service, addons, text) {
     reasons.push('несколько дополнительных модулей в одной задаче');
   }
 
-  if (reasons.length || ['ecommerce', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
+  if (reasons.length || ['ecommerce', 'marketplace', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
     return { level: 'сложная', reasons: unique(reasons) };
+  }
+
+  if (service.id === 'mobile-mvp') {
+    return { level: 'средняя', reasons: ['мобильная разработка даже в MVP требует сборки, тестирования и интеграции API'] };
   }
 
   if (addons.length || service.id === 'business' || service.id === 'wordpress-site' || service.id === 'simple-multipage') {
@@ -2109,6 +2365,90 @@ function getServiceBudgetScope(service) {
     };
   }
 
+  if (service.id === 'marketplace') {
+    return {
+      bestFit: 'MVP маркетплейса: роли, карточки, заявки/заказы и простая админка без тяжелой продуктовой логики',
+      canOffer: [
+        'собрать ТЗ, user flow и структуру ролей',
+        'сделать кликабельный прототип или минимальную витрину с заявками',
+        'запустить ограниченный MVP без платежной комиссии, чата, рейтингов и сложного поиска',
+        'разбить полноценную платформу на этапы: каталог, продавцы, оплата, админка, модерация',
+      ],
+      notIncluded: [
+        'полный аналог Kaspi/Airbnb/Amazon',
+        'многосторонние платежи и комиссия платформы',
+        'сложный поиск, рейтинги, чат, споры и модерация',
+        'масштабируемая архитектура production-уровня под большие нагрузки',
+      ],
+      recommendation: 'не обещать полный маркетплейс за маленький бюджет; продать MVP или подготовительный этап и честную дорожную карту',
+    };
+  }
+
+  if (service.id === 'mobile-mvp') {
+    return {
+      bestFit: 'первая версия приложения с одной ключевой функцией и ограниченным числом экранов',
+      canOffer: [
+        'собрать 5-8 экранов по готовому дизайну',
+        'подключить готовый backend/API или простую базу',
+        'оставить только главный пользовательский сценарий',
+        'отложить карты, сложные роли, оплату, аналитику и публикацию на следующий этап',
+      ],
+      notIncluded: [
+        'полноценная продуктовая версия iOS/Android',
+        'live tracking, сложная карта и courier flow',
+        'полная админ-панель и много ролей',
+        'сложные платежи и интеграции',
+      ],
+      recommendation: 'сначала запускать узкий MVP, а после проверки спроса расширять приложение модулями',
+    };
+  }
+
+  return null;
+}
+
+function getEnglishServiceBudgetScope(service) {
+  if (!service) {
+    return null;
+  }
+
+  if (service.id === 'marketplace') {
+    return {
+      bestFit: 'marketplace MVP: roles, listings, leads/orders and a simple admin panel without heavy platform logic',
+      canOffer: [
+        'prepare scope, user flow and role structure',
+        'build a clickable prototype or a minimal listing site with leads',
+        'launch a limited MVP without platform commission, chat, ratings and advanced search',
+        'split the full platform into phases: catalog, sellers, payments, admin and moderation',
+      ],
+      notIncluded: [
+        'a full Kaspi/Airbnb/Amazon-style platform',
+        'multi-party payments and platform commission logic',
+        'advanced search, ratings, chat, disputes and moderation',
+        'production-scale architecture for heavy traffic',
+      ],
+      recommendation: 'do not promise a full marketplace on a small budget; sell an MVP or discovery phase with an honest roadmap',
+    };
+  }
+
+  if (service.id === 'mobile-mvp') {
+    return {
+      bestFit: 'first app version with one core function and a limited number of screens',
+      canOffer: [
+        'build 5-8 screens from ready design',
+        'connect an existing backend/API or a simple database',
+        'keep only the main user flow',
+        'move maps, complex roles, payments, analytics and store publishing to the next phase',
+      ],
+      notIncluded: [
+        'full iOS/Android product version',
+        'live tracking, complex map and courier flow',
+        'full admin panel and many roles',
+        'complex payments and integrations',
+      ],
+      recommendation: 'launch a narrow MVP first, then expand the app by modules after demand is validated',
+    };
+  }
+
   return null;
 }
 
@@ -2152,7 +2492,7 @@ function applyReadyMaterialsDiscount({ min, max, service, facts }) {
     discountRate += 0.05;
   }
 
-  if (facts.readyBackend && ['mobile-delivery-app', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
+  if (facts.readyBackend && ['mobile-delivery-app', 'mobile-mvp', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
     discountRate += 0.3;
   }
 
@@ -2177,6 +2517,8 @@ function estimateFromMessages(messages) {
   const normalized = normalizeText(text);
   const facts = getProjectFacts(normalized);
   const pageCount = parsePageCount(normalized);
+  const blockCount = parseBlockCount(normalized);
+  const productCount = parseProductCount(normalized);
   const velorMatches = shouldUseVelorPricing(normalized) ? findVelorMatches(normalized) : [];
   const velorSummary = summarizeVelorMatches(velorMatches);
   const itsngMatches = shouldUseItsngPricing(normalized) ? findItsngMatches(normalized) : [];
@@ -2195,13 +2537,17 @@ function estimateFromMessages(messages) {
   const missingQuestions = getMissingQuestions(normalized, service);
   const missingQuestionsEn = getMissingQuestionsEn(normalized, service);
   const projectRequest = isProjectRequest(normalized);
-  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring && missingQuestions.length > 0;
+  const hasMvpReadyInputs = service?.id === 'mobile-mvp' && pageCount && (facts.readyDesign || facts.readyBackend);
+  const hasFrontendReadyInputs =
+    service?.id === 'frontend-slicing' && (pageCount || blockCount) && /figma|макет|верстк|адаптив|responsive|html|css/.test(normalized);
+  const shouldAskFirst = projectRequest && userMessages.length <= 1 && !budget && !isHiring && !hasMvpReadyInputs && !hasFrontendReadyInputs && missingQuestions.length > 0;
   const addonMin = addonMatches.reduce((sum, item) => sum + item.min, 0);
   const addonMax = addonMatches.reduce((sum, item) => sum + item.max, 0);
+  const catalogExtra = service?.id === 'ecommerce' && productCount > 30 ? Math.min(300000, (productCount - 30) * 1500) : 0;
   const baseMin = moduleSummaryCandidate?.minKzt || 0;
   const baseMax = moduleSummaryCandidate?.maxKzt || 0;
-  const rawMin = useModuleSummary ? baseMin : service ? service.min + addonMin : null;
-  const rawMax = useModuleSummary ? baseMax : service ? service.max + addonMax : null;
+  const rawMin = useModuleSummary ? baseMin : service ? service.min + addonMin + catalogExtra : null;
+  const rawMax = useModuleSummary ? baseMax : service ? service.max + addonMax + catalogExtra * 2 : null;
   const adjusted = applyReadyMaterialsDiscount({ min: rawMin, max: rawMax, service, facts });
   const min = adjusted.min;
   const max = adjusted.max;
@@ -2224,6 +2570,8 @@ function estimateFromMessages(messages) {
     addons: addonMatches,
     technologies,
     pageCount,
+    blockCount,
+    productCount,
     budget,
     budgetPlan,
     velorMatches,
@@ -2359,13 +2707,22 @@ function buildEstimateReply(estimate, language) {
       ? `Уже применил снижение за готовые материалы: примерно ${Math.round(estimate.discountRate * 100)}%.`
       : `I already applied a ready-materials reduction of about ${Math.round(estimate.discountRate * 100)}%.`
     : null;
-  const scopeLabel = estimate.service?.id === 'mobile-delivery-app'
-    ? isRu
+  let scopeLabel;
+  if (['mobile-delivery-app', 'mobile-mvp'].includes(estimate.service?.id)) {
+    scopeLabel = isRu
       ? `${estimate.pageCount || 'уточняется'} основных экранов`
-      : `${estimate.pageCount || 'to be finalized'} main screens`
-    : isRu
+      : `${estimate.pageCount || 'to be finalized'} main screens`;
+  } else if (estimate.service?.id === 'frontend-slicing' && estimate.pageCount === 1) {
+    scopeLabel = isRu ? '1 страница верстки' : '1 page layout';
+  } else if (estimate.service?.id === 'landing' && estimate.blockCount) {
+    scopeLabel = isRu ? `${estimate.blockCount} блоков` : `${estimate.blockCount} sections`;
+  } else if (['ecommerce', 'marketplace'].includes(estimate.service?.id) && estimate.productCount) {
+    scopeLabel = isRu ? `${estimate.productCount} товаров/позиций` : `${estimate.productCount} products/items`;
+  } else {
+    scopeLabel = isRu
       ? `${estimate.pageCount || 'уточняется'} страниц/основных экранов`
       : `${estimate.pageCount || 'to be finalized'} page(s)/main screens`;
+  }
 
   if (!isRu) {
     return [
@@ -2397,7 +2754,7 @@ function formatList(items) {
 function buildBudgetReply(estimate, language) {
   const isRu = language !== 'en';
   const plan = estimate.budgetPlan;
-  const planCopy = isRu ? plan : EN_BUDGET_TIER_COPY[plan.tier?.id] || plan;
+  const planCopy = isRu ? plan : getEnglishServiceBudgetScope(estimate.service) || EN_BUDGET_TIER_COPY[plan.tier?.id] || plan;
   const budget = formatPrice(plan.budget, language);
   const moduleSummary = getModuleSummary(estimate);
   const serviceLabel = getServiceLabel(estimate.service, language) || (isRu ? 'проект' : 'project');
@@ -2408,6 +2765,11 @@ function buildBudgetReply(estimate, language) {
       : 'depends on the project type';
   const canOffer = formatList(planCopy.canOffer.slice(0, 4));
   const notIncluded = formatList(planCopy.notIncluded.slice(0, 4));
+  const urgencyNote = estimate.facts?.urgent
+    ? isRu
+      ? 'Срочность учитываю: за этот бюджет лучше резать объем и запускать минимальный этап, а не пытаться сделать все сразу.'
+      : 'I am accounting for urgency: with this budget, the scope should be reduced to a focused first step instead of trying to build everything at once.'
+    : null;
 
   if (moduleSummary) {
     const isItsng = Boolean(estimate.itsngSummary);
@@ -2472,8 +2834,9 @@ function buildBudgetReply(estimate, language) {
         `Budget ${budget} is workable for ${serviceLabel}. The realistic range is ${expectedRange}, so I would keep the scope focused and avoid adding hidden backend or integrations.`,
         `Best option for this budget: ${bestOption}.`,
         `Can include:\n${includedText}`,
+        urgencyNote,
         `I would clarify final details next: platform, exact pages, form/SEO/hosting and who provides content.`,
-      ].join('\n\n');
+      ].filter(Boolean).join('\n\n');
     }
 
     return [
@@ -2481,8 +2844,9 @@ function buildBudgetReply(estimate, language) {
       `Best option inside the budget: ${planCopy.bestFit}.`,
       `Can offer now:\n${canOffer}`,
       `Not included at this stage:\n${notIncluded}`,
+      urgencyNote,
       `Optimal proposal: ${planCopy.recommendation}.`,
-    ].join('\n\n');
+    ].filter(Boolean).join('\n\n');
   }
 
   if (plan.fit === 'within_estimate' || plan.fit === 'above_estimate') {
@@ -2490,8 +2854,9 @@ function buildBudgetReply(estimate, language) {
       `Бюджет ${budget} понял. Для задачи “${serviceLabel}” это рабочий бюджет: ориентир по прайсу ${expectedRange}.`,
       `Оптимальный вариант за эту сумму: ${plan.bestFit}.`,
       `Что можно включить:\n${canOffer}`,
+      urgencyNote,
       'Следующим шагом я бы уточнил платформу, точный список страниц, форму/SEO/хостинг и кто дает контент.',
-    ].join('\n\n');
+    ].filter(Boolean).join('\n\n');
   }
 
   return [
@@ -2499,8 +2864,9 @@ function buildBudgetReply(estimate, language) {
     `Оптимальный вариант в рамках бюджета: ${plan.bestFit}.`,
     `Что можно предложить сейчас:\n${canOffer}`,
     `Что лучше не включать в этот этап:\n${notIncluded}`,
+    urgencyNote,
     `Как подать клиенту: ${plan.recommendation}.`,
-  ].join('\n\n');
+  ].filter(Boolean).join('\n\n');
 }
 
 function buildHiringReply(estimate, language) {
@@ -2568,6 +2934,10 @@ function buildFallbackReply(messages, language) {
     return buildCasualOrContactReply(language);
   }
 
+  if (isOldAuditRequest(lastText)) {
+    return buildOldAuditReply(language);
+  }
+
   if (isOldMaintenanceRequest(lastText)) {
     return buildOldMaintenanceReply(language);
   }
@@ -2633,6 +3003,8 @@ function buildPromptEstimate(estimate) {
     complexity: estimate.complexity.level,
     technologies: estimate.technologies,
     pageCount: estimate.pageCount,
+    blockCount: estimate.blockCount,
+    productCount: estimate.productCount,
     providedByClient: getProvidedByClient(estimate.facts || {}, 'ru'),
     excludedFromEstimate: getExcludedFromEstimate(estimate.facts || {}, 'ru'),
     detectedFacts: estimate.facts || {},
@@ -2979,6 +3351,9 @@ module.exports = async function handler(req, res) {
         budgetFit: estimate.budgetPlan?.fit || null,
         complexity: estimate.complexity.level,
         technologies: estimate.technologies,
+        pageCount: estimate.pageCount,
+        blockCount: estimate.blockCount,
+        productCount: estimate.productCount,
         modules: getModuleSummary(estimate)?.items?.map((item) => ({
           id: item.id,
           task: item.task || item.title,
