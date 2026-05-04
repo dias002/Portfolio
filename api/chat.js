@@ -613,7 +613,7 @@ const SERVICES = [
     id: 'developer-retainer',
     label: 'постоянная работа с разработчиком',
     min: 20000,
-    max: 1600000,
+    max: 2021000,
     timeline: 'почасово или помесячно',
     priority: 9,
     keywords: [
@@ -852,41 +852,47 @@ const HIRING_OPTIONS = [
     min: 20000,
     max: 20000,
     timeline: 'минимум 2 часа',
+    minHours: 2,
     includes: ['новые функции', 'верстка', 'WordPress/Tilda', 'API', 'автоматизация'],
   },
   {
     label: 'мини-поддержка сайта',
-    min: 30000,
-    max: 30000,
-    timeline: 'до 2 часов в месяц',
+    min: 137000,
+    max: 137000,
+    timeline: 'до 8 часов в месяц',
+    monthlyHours: 8,
     includes: ['мелкие задачи', 'советы', 'проверки'],
   },
   {
     label: 'базовая поддержка сайта',
-    min: 70000,
-    max: 70000,
-    timeline: 'до 5 часов в месяц',
+    min: 316000,
+    max: 316000,
+    timeline: 'до 20 часов в месяц',
+    monthlyHours: 20,
     includes: ['мелкие правки', 'обновления', 'мониторинг'],
   },
   {
     label: 'бизнес-поддержка сайта',
-    min: 150000,
-    max: 150000,
-    timeline: 'до 10 часов в месяц',
+    min: 589000,
+    max: 589000,
+    timeline: 'до 40 часов в месяц',
+    monthlyHours: 40,
     includes: ['приоритет', 'небольшие доработки', 'отчет'],
   },
   {
     label: 'частичная занятость',
-    min: 400000,
-    max: 800000,
-    timeline: '40-80 часов в месяц',
+    min: 1095000,
+    max: 1095000,
+    timeline: 'до 80 часов в месяц',
+    monthlyHours: 80,
     includes: ['поддержка сайта', 'небольшие фичи', 'правки', 'интеграции'],
   },
   {
     label: 'выделенный full-time разработчик',
-    min: 1600000,
-    max: 1600000,
-    timeline: '160 часов в месяц',
+    min: 2021000,
+    max: 2021000,
+    timeline: 'до 160 часов в месяц',
+    monthlyHours: 160,
     includes: ['полное вовлечение', 'разработка продукта', 'техническая поддержка команды'],
   },
 ];
@@ -1379,6 +1385,31 @@ function getHiringOptionLabel(option, language) {
   };
 
   return map[option.label] || option.label;
+}
+
+function getHiringOptionLine(option, language) {
+  const label = getHiringOptionLabel(option, language);
+  const amount = formatPriceRange(option.min, option.max, language);
+  const timeline = formatTimeline(option.timeline, language);
+  const isRu = language !== 'en';
+
+  if (option.monthlyHours && option.min === option.max) {
+    const hourlyKzt = Math.round(option.min / option.monthlyHours);
+    const hourlyRate = formatPrice(hourlyKzt, language);
+    return isRu
+      ? `${label}: ${amount} в месяц, ${timeline} (эффективно ~${hourlyRate}/час)`
+      : `${label}: ${amount} per month, ${timeline} (effective ~${hourlyRate}/hour)`;
+  }
+
+  if (option.minHours && option.min === option.max) {
+    const hourlyRate = formatPrice(option.min, language);
+    const minTotal = formatPrice(option.min * option.minHours, language);
+    return isRu
+      ? `${label}: ${hourlyRate}/час, ${timeline} (минимум чек ${minTotal})`
+      : `${label}: ${hourlyRate}/hour, ${timeline} (minimum charge ${minTotal})`;
+  }
+
+  return `${label}: ${amount}, ${timeline}`;
 }
 
 function getVelorItems() {
@@ -3819,10 +3850,7 @@ function buildHiringReply(estimate, language) {
   const isRu = language !== 'en';
   const budget = estimate.budget ? formatPrice(estimate.budget, language) : null;
   const hourly = formatPrice(20000, language);
-  const options = HIRING_OPTIONS.map(
-    (option) =>
-      `${getHiringOptionLabel(option, language)}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
-  ).join('\n');
+  const options = HIRING_OPTIONS.map((option) => getHiringOptionLine(option, language)).join('\n');
 
   if (!isRu) {
     return [
@@ -3830,6 +3858,7 @@ function buildHiringReply(estimate, language) {
         ? `With a monthly budget of ${budget}, I would calculate this as developer time. The base rate is about ${hourly}/hour, minimum 2 hours.`
         : `Yes, a developer can be hired hourly. The base rate is about ${hourly}/hour, minimum 2 hours.`,
       `Reference ranges:\n${options}`,
+      'As the monthly hours grow, the effective hourly rate goes down in a controlled way, so long-term support is more cost-efficient.',
       'To choose the right format, I would ask: stack, expected hours per month, task list and whether project management/design is needed.',
     ].join('\n\n');
   }
@@ -3839,6 +3868,7 @@ function buildHiringReply(estimate, language) {
       ? `Бюджет ${budget} на постоянную работу понял. Считал бы это как часы разработчика: базовая ставка примерно ${hourly}/час, минимум 2 часа.`
       : `Да, можно работать почасово или помесячно. Базовая ставка примерно ${hourly}/час, минимум 2 часа.`,
     `Ориентиры по прайсу:\n${options}`,
+    'Логика такая: при росте пакета эффективная ставка за час плавно снижается, но без демпинга.',
     'Чтобы подобрать формат, нужно уточнить стек, количество часов в месяц, список задач и нужен ли менеджмент/дизайн вместе с разработкой.',
   ].join('\n\n');
 }
