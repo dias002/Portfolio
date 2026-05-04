@@ -211,6 +211,51 @@ const SERVICES = [
     includes: ['backend', 'база данных', 'админ-панель', 'роли', 'API'],
   },
   {
+    id: 'mobile-delivery-app',
+    label: 'мобильное приложение доставки еды',
+    min: 10500000,
+    max: 31500000,
+    timeline: '3-6 месяцев',
+    priority: 14,
+    keywords: [
+      'мобильное приложение',
+      'мобильное app',
+      'приложение',
+      'приложение доставки',
+      'доставка еды',
+      'еда доставка',
+      'курьер',
+      'курьеры',
+      'клиенты',
+      'ios',
+      'android',
+      'app store',
+      'google play',
+      'карта',
+      'геолокация',
+      'отслеживание курьера',
+      'движение курьера',
+      'push',
+      'пуш',
+      'food delivery app',
+      'delivery app',
+      'courier app',
+      'mobile app',
+      'ios app',
+      'android app',
+      'real-time tracking',
+      'live tracking',
+      'push notifications',
+    ],
+    includes: [
+      'мобильные приложения iOS/Android по готовому дизайну',
+      'backend/API и база данных',
+      'роли клиента и курьера',
+      'админ-панель',
+      'статусы заказов, карта, push-уведомления и интеграция оплаты',
+    ],
+  },
+  {
     id: 'telegram-bot',
     label: 'Telegram-бот',
     min: 25000,
@@ -356,6 +401,7 @@ const ADDONS = [
     max: 350000,
     keywords: ['оплата', 'kaspi', 'эквайринг', 'stripe', 'paypal', 'liqpay', 'payment', 'checkout', 'card payments', 'online payment', 'take cards', 'paid orders'],
     skipIf: ['без оплаты', 'оплата не нужна', 'без онлайн-оплаты', 'не нужна оплата', 'no payment', 'no checkout', 'payment not needed', 'no online payment'],
+    includedIn: ['mobile-delivery-app'],
   },
   {
     id: 'integrations',
@@ -364,6 +410,7 @@ const ADDONS = [
     max: 500000,
     keywords: ['интеграц', 'crm', 'telegram', 'whatsapp', 'amo', 'bitrix', 'webhook', 'zapier', 'api сервиса', 'integration', 'integrations', 'webhooks', 'connect to crm', 'zap', 'connect apps', 'third-party api'],
     skipIf: ['без интеграций', 'интеграции не нужны', 'crm не нужна', 'без crm', 'no integrations', 'no crm'],
+    includedIn: ['mobile-delivery-app'],
   },
   {
     id: 'auth-roles',
@@ -371,7 +418,7 @@ const ADDONS = [
     min: 160000,
     max: 480000,
     keywords: ['авторизац', 'регистрац', 'логин', 'роли', 'личный кабинет', 'пользователи', 'jwt', 'oauth', 'auth', 'login', 'signup', 'sign up', 'roles', 'user roles', 'account', 'member login', 'client login'],
-    includedIn: ['custom-cms'],
+    includedIn: ['custom-cms', 'mobile-delivery-app'],
   },
   {
     id: 'frontend-admin',
@@ -379,7 +426,7 @@ const ADDONS = [
     min: 220000,
     max: 800000,
     keywords: ['frontend', 'фронт', 'интерфейс', 'админка', 'админ-панель', 'dashboard', 'личный кабинет', 'admin panel', 'control panel', 'user dashboard'],
-    includedIn: ['custom-cms'],
+    includedIn: ['custom-cms', 'mobile-delivery-app'],
   },
   {
     id: 'node-backend',
@@ -387,7 +434,7 @@ const ADDONS = [
     min: 250000,
     max: 850000,
     keywords: ['node.js', 'node js', 'nestjs', 'express', 'backend', 'бэкенд'],
-    includedIn: ['node-postgres-backend', 'custom-cms'],
+    includedIn: ['node-postgres-backend', 'custom-cms', 'mobile-delivery-app'],
   },
   {
     id: 'postgres',
@@ -395,7 +442,7 @@ const ADDONS = [
     min: 180000,
     max: 600000,
     keywords: ['postgresql', 'postgre sql', 'postgres', 'база данных', 'database', 'sql', 'db', 'data model'],
-    includedIn: ['node-postgres-backend', 'custom-cms'],
+    includedIn: ['node-postgres-backend', 'custom-cms', 'mobile-delivery-app'],
   },
   {
     id: 'server-setup',
@@ -403,6 +450,7 @@ const ADDONS = [
     min: 40000,
     max: 160000,
     keywords: ['сервер', 'vps', 'nginx', 'pm2', 'docker', 'деплой', 'deploy', 'deployment', 'hosting', 'хостинг', 'домен', 'domain', 'ssl'],
+    includedIn: ['mobile-delivery-app'],
   },
   {
     id: 'analytics-seo',
@@ -638,6 +686,7 @@ const EN_SERVICE_LABELS = {
   ecommerce: 'online store',
   'node-postgres-backend': 'Node.js backend/API with PostgreSQL',
   'custom-cms': 'custom CMS or web app',
+  'mobile-delivery-app': 'food delivery mobile app',
   'telegram-bot': 'Telegram bot',
   'ai-assistant': 'AI assistant for a website',
   'developer-retainer': 'monthly developer support',
@@ -668,6 +717,12 @@ const QUESTION_SETS = {
     'Какие сущности будут в базе: пользователи, заявки, товары, заказы, файлы, платежи?',
     'Нужны ли авторизация, роли, личный кабинет, логирование и модерация?',
     'Где будет запускаться проект: ваш VPS/сервер, Vercel, Render, Beget, Docker или другой хостинг?',
+  ],
+  mobileApp: [
+    'Какие роли нужны в первой версии: клиенты, курьеры, рестораны/партнеры, администраторы?',
+    'Нужны ли онлайн-оплата, карта с движением курьера, push-уведомления и статусы заказа?',
+    'Backend/API и админ-панель уже есть или их тоже нужно разрабатывать?',
+    'Дизайн готов полностью по всем экранам или нужна доработка UI/UX?',
   ],
   aiAssistant: [
     'Бот должен только консультировать или еще принимать заявки, считать стоимость и отправлять лиды в Telegram/CRM?',
@@ -713,6 +768,12 @@ const QUESTION_SETS_EN = {
     'Which data entities are needed: users, leads, products, orders, files, payments?',
     'Do you need authentication, roles, user accounts, logging or moderation?',
     'Where should it be deployed: VPS/server, Vercel, Render, Docker or another hosting?',
+  ],
+  mobileApp: [
+    'Which roles are needed in the first version: customers, couriers, restaurants/partners, admins?',
+    'Do you need online payment, live courier map, push notifications and order statuses?',
+    'Do backend/API and admin panel already exist, or should they be developed too?',
+    'Is design fully ready for all screens, or is UI/UX work still needed?',
   ],
   aiAssistant: [
     'Should the bot only consult users, or also collect leads, calculate prices and send them to Telegram/CRM?',
@@ -1260,6 +1321,11 @@ function parsePageCount(text) {
     return 1;
   }
 
+  const reverseMatch = normalized.match(/(?:страниц|pages|screens|screen|экранов|экран)\s*(\d{1,3})/);
+  if (reverseMatch) {
+    return Number(reverseMatch[1]);
+  }
+
   const rangeMatch = normalized.match(/(\d{1,3})\s*[-–]\s*(\d{1,3})\s*(страниц|pages|page|screens|screen|экран|раздел|блок)/);
   if (rangeMatch) {
     return Number(rangeMatch[2]);
@@ -1284,7 +1350,7 @@ function parseBudget(text) {
     {
       hasBudgetContext: true,
       regex: new RegExp(
-        `(?:бюджет|за|до|есть|имею|готов\\w*|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
+          `(?:бюджет|выделил\\w*|заплачу|потрачу|на руках|budget|my budget is|budget is|can spend|ready to spend|under|around|about|roughly|approx|ballpark|up to|can you do(?: it)? for|could you do(?: it)? for|would you do(?: it)? for|can you build(?: it)? for|could you build(?: it)? for|would you build(?: it)? for|would it run me|how much would it run me|how much would it cost me|set me back)\\s*(?:заплатить|потратить|примерно|около|порядка|до|pay|spend)?\\s*(?<currency1>${currencyRegex})?\\s*(?<amount>\\d[\\d\\s]*(?:[.,]\\d+)?)\\s*(?<scale>${scaleRegex})?\\s*(?<currency2>${currencyRegex})?`
       ),
     },
     {
@@ -1322,6 +1388,14 @@ function parseBudget(text) {
     }
 
     if (!currencyToken && !scale && /\b(for\s+)?\d{1,3}\s*(pages?|screens?|sections?|blocks?)\b/.test(matchedText)) {
+      continue;
+    }
+
+    if (!currencyToken && !scale && value < 1000 && !/[a-z]/.test(matchedText)) {
+      continue;
+    }
+
+    if (!currencyToken && /^[\d\s.,]+[кk](?:$|[^a-zа-я0-9])/i.test(matchedText.trim()) && value < 10 && !englishMoneyContext) {
       continue;
     }
 
@@ -1363,6 +1437,7 @@ function detectTechnologies(text) {
   if (hasAny(normalized, ['postgresql', 'postgre sql', 'postgres'])) technologies.push('PostgreSQL');
   if (hasAny(normalized, ['mysql', 'mariadb'])) technologies.push('MySQL/MariaDB');
   if (hasAny(normalized, ['gemini', 'openai', 'gpt', 'llm', 'ai', 'ии'])) technologies.push('AI/LLM');
+  if (hasAny(normalized, ['мобильное приложение', 'приложение', 'ios', 'android', 'mobile app'])) technologies.push('iOS/Android');
 
   return unique(technologies);
 }
@@ -1371,6 +1446,7 @@ function getQuestionSet(service) {
   if (!service) return QUESTION_SETS.generic;
   if (service.id === 'ecommerce') return QUESTION_SETS.ecommerce;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS.backend;
+  if (service.id === 'mobile-delivery-app') return QUESTION_SETS.mobileApp;
   if (service.id === 'telegram-bot') return QUESTION_SETS.telegramBot || QUESTION_SETS.aiAssistant;
   if (service.id === 'ai-assistant') return QUESTION_SETS.aiAssistant;
   if (service.id === 'developer-retainer') return QUESTION_SETS.hiring;
@@ -1385,6 +1461,7 @@ function getQuestionSetForLanguage(service, language) {
   if (!service) return QUESTION_SETS_EN.generic;
   if (service.id === 'ecommerce') return QUESTION_SETS_EN.ecommerce;
   if (service.id === 'node-postgres-backend' || service.id === 'custom-cms') return QUESTION_SETS_EN.backend;
+  if (service.id === 'mobile-delivery-app') return QUESTION_SETS_EN.mobileApp;
   if (service.id === 'telegram-bot') return QUESTION_SETS_EN.telegramBot;
   if (service.id === 'ai-assistant') return QUESTION_SETS_EN.aiAssistant;
   if (service.id === 'developer-retainer') return QUESTION_SETS_EN.hiring;
@@ -1397,6 +1474,63 @@ function getServiceLabel(service, language) {
   }
 
   return language === 'en' ? EN_SERVICE_LABELS[service.id] || service.label : service.label;
+}
+
+function getProjectFacts(text) {
+  const normalized = normalizeText(text);
+  const readyDesign = /дизайн\s+(готов|есть)|готовый\s+дизайн|figma\s+(есть|готов)|макет\s+(есть|готов)|design ready|have design|got design|already have design|figma ready/.test(normalized);
+  const needsDesign = /дизайн\s+с\s+нуля|нет\s+дизайн|без\s+дизайн|нужен\s+(дизайн|макет)|no design|need design|custom design|from scratch|need ui/.test(normalized);
+  const noBackend = /backend\s+(нет|не\s+готов)|бэкенд\s+(нет|не\s+готов)|серверн\w*\s+част[ьи]\s+(нет|не\s+готов)|нет\s+(еще\s+)?backend|нет\s+(еще\s+)?бэкенд|нет\s+еще|no backend|backend is not ready|need backend/.test(normalized);
+  const readyBackend = /backend\s+(готов|есть)|бэкенд\s+(готов|есть)|серверн\w*\s+част[ьи]\s+(готов|есть)|api\s+(готов|есть)|backend ready|have backend|api ready/.test(normalized);
+  const bothPlatforms = /ios.*android|android.*ios|на\s+обоих|обе\s+платформ|both platforms|ios and android|android and ios/.test(normalized);
+  const customerCourierRoles = /клиент|курьер|courier|customer/.test(normalized);
+  const adminPanel = /админ|admin panel|dashboard|панель/.test(normalized);
+  const payment = /kaspi|каспи|оплат|payment|checkout|card/.test(normalized);
+  const realtimeTracking = /карта|геолокац|отслеж|движени\w*\s+курьер|real[-\s]?time|live tracking|map|geolocation/.test(normalized);
+  const push = /push|пуш|уведомлен|notification/.test(normalized);
+
+  return {
+    readyDesign,
+    needsDesign,
+    noBackend,
+    readyBackend,
+    bothPlatforms,
+    customerCourierRoles,
+    adminPanel,
+    payment,
+    realtimeTracking,
+    push,
+  };
+}
+
+function getProvidedByClient(facts, language) {
+  const isRu = language !== 'en';
+  const provided = [];
+
+  if (facts.readyDesign) {
+    provided.push(isRu ? 'готовый дизайн' : 'ready design');
+  }
+
+  if (facts.readyBackend) {
+    provided.push(isRu ? 'готовый backend/API' : 'ready backend/API');
+  }
+
+  return provided;
+}
+
+function getExcludedFromEstimate(facts, language) {
+  const isRu = language !== 'en';
+  const excluded = [];
+
+  if (facts.readyDesign && !facts.needsDesign) {
+    excluded.push(isRu ? 'UI/UX-дизайн с нуля' : 'UI/UX design from scratch');
+  }
+
+  if (facts.readyBackend && !facts.noBackend) {
+    excluded.push(isRu ? 'разработка backend с нуля' : 'backend development from scratch');
+  }
+
+  return excluded;
 }
 
 function getMissingQuestions(text, service) {
@@ -1431,6 +1565,17 @@ function getMissingQuestions(text, service) {
       if (question.includes('сущности')) return !hasDataScope;
       if (question.includes('авторизация')) return !hasFeatures;
       if (question.includes('Где будет')) return !hasHosting;
+      return true;
+    });
+  }
+
+  if (service.id === 'mobile-delivery-app') {
+    const facts = getProjectFacts(normalized);
+    return questions.filter((question) => {
+      if (question.includes('роли')) return !facts.customerCourierRoles;
+      if (question.includes('онлайн-оплата')) return !(facts.payment && facts.realtimeTracking && facts.push);
+      if (question.includes('Backend')) return !(facts.noBackend || facts.readyBackend || facts.adminPanel);
+      if (question.includes('Дизайн')) return !(facts.readyDesign || facts.needsDesign);
       return true;
     });
   }
@@ -1506,6 +1651,17 @@ function getMissingQuestionsEn(text, service) {
       if (question.includes('data entities')) return !hasDataScope;
       if (question.includes('authentication')) return !hasFeatures;
       if (question.includes('deployed')) return !hasHosting;
+      return true;
+    });
+  }
+
+  if (service.id === 'mobile-delivery-app') {
+    const facts = getProjectFacts(normalized);
+    return questions.filter((question) => {
+      if (question.includes('roles')) return !facts.customerCourierRoles;
+      if (question.includes('online payment')) return !(facts.payment && facts.realtimeTracking && facts.push);
+      if (question.includes('backend/API')) return !(facts.noBackend || facts.readyBackend || facts.adminPanel);
+      if (question.includes('design')) return !(facts.readyDesign || facts.needsDesign);
       return true;
     });
   }
@@ -1668,7 +1824,7 @@ function isCasualOrContactRequest(text) {
 function isProjectRequest(text) {
   const normalized = normalizeText(text);
 
-  return /сколько|цена|стоим|оцен|сайт|лендинг|магазин|бот|cms|wordpress|вордпресс|tilda|node|postgres|backend|api|портфолио|how much|quote|quote me|rough quote|ballpark|estimate|cost|price|how much would|what would it cost|what would it run|run me|set me back|website|site|landing|one pager|store|shop|webshop|ecom|bot|web app|portal|dashboard|portfolio|build me|make me/.test(
+  return /сколько|цена|стоим|оцен|сайт|лендинг|магазин|бот|cms|wordpress|вордпресс|tilda|node|postgres|backend|api|портфолио|приложен|мобильн|ios|android|доставка|курьер|how much|quote|quote me|rough quote|ballpark|estimate|cost|price|how much would|what would it cost|what would it run|run me|set me back|website|site|landing|one pager|store|shop|webshop|ecom|bot|web app|mobile app|app|portal|dashboard|portfolio|build me|make me/.test(
     normalized
   ) || /нанять|программист|разработчик|аутстаф|full[-\s]?time|part[-\s]?time|retainer|поддержка|hire|developer|dev|engineer|contractor|freelancer|programmer|monthly|ongoing|support/.test(
     normalized
@@ -1819,11 +1975,11 @@ function getComplexity(service, addons, text) {
     return { level: 'модульная доработка', reasons: ['стоимость считается по отдельным пунктам прайса'] };
   }
 
-  if (['ecommerce', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
+  if (['ecommerce', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
     reasons.push('есть backend, база данных или бизнес-логика');
   }
 
-  if (hasAny(normalized, ['оплата', 'авторизац', 'личный кабинет', 'роли', 'интеграц', 'crm', 'postgres', 'node'])) {
+  if (hasAny(normalized, ['оплата', 'авторизац', 'личный кабинет', 'роли', 'интеграц', 'crm', 'postgres', 'node', 'карта', 'курьер', 'push', 'ios', 'android'])) {
     reasons.push('есть функции, которые требуют серверной логики и тестирования');
   }
 
@@ -1831,7 +1987,7 @@ function getComplexity(service, addons, text) {
     reasons.push('несколько дополнительных модулей в одной задаче');
   }
 
-  if (reasons.length || ['ecommerce', 'custom-cms', 'node-postgres-backend'].includes(service.id)) {
+  if (reasons.length || ['ecommerce', 'custom-cms', 'node-postgres-backend', 'mobile-delivery-app'].includes(service.id)) {
     return { level: 'сложная', reasons: unique(reasons) };
   }
 
@@ -1959,6 +2115,7 @@ function estimateFromMessages(messages) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const text = userMessages.map((message) => message.content).join(' ');
   const normalized = normalizeText(text);
+  const facts = getProjectFacts(normalized);
   const pageCount = parsePageCount(normalized);
   const velorMatches = shouldUseVelorPricing(normalized) ? findVelorMatches(normalized) : [];
   const velorSummary = summarizeVelorMatches(velorMatches);
@@ -2015,6 +2172,7 @@ function estimateFromMessages(messages) {
     ready,
     phase,
     complexity,
+    facts,
     missingQuestions,
     missingQuestionsEn,
     summary: service
@@ -2047,6 +2205,37 @@ function buildQuestionsReply(estimate, language) {
     : 'Чтобы нормально посчитать, сначала уточню вводные:';
 
   return `${intro}\n${questions.map((question, index) => `${index + 1}. ${question}`).join('\n')}\nПосле ответа дам вилку, срок и что входит в работу.`;
+}
+
+function getIncludedWork(estimate, language) {
+  const service = estimate.service;
+  const facts = estimate.facts || {};
+
+  if (!service) {
+    return [];
+  }
+
+  if (service.id === 'mobile-delivery-app') {
+    if (language === 'en') {
+      return [
+        facts.readyDesign ? 'iOS/Android app development from ready designs' : 'iOS/Android app development',
+        facts.noBackend ? 'backend/API and database from scratch' : 'backend/API integration',
+        'customer and courier roles',
+        'admin panel',
+        'order statuses, live courier map, push notifications and payment integration',
+      ];
+    }
+
+    return [
+      facts.readyDesign ? 'разработка iOS/Android по готовым макетам' : 'разработка iOS/Android',
+      facts.noBackend ? 'backend/API и база данных с нуля' : 'backend/API',
+      'роли клиента и курьера',
+      'админ-панель',
+      'статусы заказов, карта курьера, push-уведомления и интеграция оплаты',
+    ];
+  }
+
+  return service.includes.slice(0, 5);
 }
 
 function buildEstimateReply(estimate, language) {
@@ -2097,24 +2286,37 @@ function buildEstimateReply(estimate, language) {
   const addons = estimate.addons.length ? estimate.addons.map((item) => item.label).join(', ') : null;
   const serviceLabel = getServiceLabel(estimate.service, language);
   const tech = estimate.technologies.length ? estimate.technologies.join(', ') : serviceLabel;
-  const included = estimate.service.includes.slice(0, 4).join(', ');
+  const included = getIncludedWork(estimate, language).slice(0, 5).join(', ');
+  const provided = getProvidedByClient(estimate.facts || {}, language);
+  const excluded = getExcludedFromEstimate(estimate.facts || {}, language);
   const assumptions = estimate.missingQuestions.slice(0, 2);
+  const scopeLabel = estimate.service?.id === 'mobile-delivery-app'
+    ? isRu
+      ? `${estimate.pageCount || 'уточняется'} основных экранов`
+      : `${estimate.pageCount || 'to be finalized'} main screens`
+    : isRu
+      ? `${estimate.pageCount || 'уточняется'} страниц/основных экранов`
+      : `${estimate.pageCount || 'to be finalized'} page(s)/main screens`;
 
   if (!isRu) {
     return [
       `Based on your answers, this is a ${estimate.complexity.level} task: ${serviceLabel}.`,
-      `Characteristics: stack/platform - ${tech}; scope - ${estimate.pageCount || 'to be finalized'} page(s)/main screens; extras - ${addons || 'no major extras detected'}.`,
+      `Characteristics: stack/platform - ${tech}; scope - ${scopeLabel}; extras - ${addons || 'no major extras detected'}.`,
+      provided.length ? `Provided by client: ${provided.join(', ')}.` : null,
+      excluded.length ? `Not included in this estimate: ${excluded.join(', ')}.` : null,
       `Rough range: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}. Includes: ${included}.`,
       assumptions.length ? `I am assuming the remaining details are standard: ${assumptions.join('; ')}.` : 'A final quote still depends on the exact brief and materials.',
-    ].join(' ');
+    ].filter(Boolean).join(' ');
   }
 
   return [
     `По ответам это ${estimate.complexity.level} задача: ${estimate.service.label}.`,
-    `Характеристики: стек/платформа - ${tech}; объем - ${estimate.pageCount || 'уточняется'} страниц/основных экранов; доп. модули - ${addons || 'без явных сложных модулей'}.`,
+    `Характеристики: стек/платформа - ${tech}; объем - ${scopeLabel}; доп. модули - ${addons || 'без явных сложных модулей'}.`,
+    provided.length ? `Со стороны клиента уже есть: ${provided.join(', ')}.` : null,
+    excluded.length ? `Это не закладываю в стоимость: ${excluded.join(', ')}.` : null,
     `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
     assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
-  ].join(' ');
+  ].filter(Boolean).join(' ');
 }
 
 function formatList(items) {
@@ -2333,6 +2535,9 @@ function buildPromptEstimate(estimate) {
     complexity: estimate.complexity.level,
     technologies: estimate.technologies,
     pageCount: estimate.pageCount,
+    providedByClient: getProvidedByClient(estimate.facts || {}, 'ru'),
+    excludedFromEstimate: getExcludedFromEstimate(estimate.facts || {}, 'ru'),
+    detectedFacts: estimate.facts || {},
     addons: estimate.addons.map((addon) => ({
       label: addon.label,
       minKzt: addon.min,
@@ -2384,7 +2589,7 @@ Core behavior:
 - In English, understand casual client slang and local variants such as "one pager", "small biz site", "ecom", "quote me", "ballpark", "how much would it run me", "set me back", "bucks", "grand", "2k", "ASAP", "no upfront", "dev/contractor". Answer in clear natural English; do not overuse slang back.
 - Output plain text only. Do not use Markdown formatting, no **bold**, no * bullet points, no headings, no tables, no code blocks.
 - For lists use either "1. ..." numbered lines or "- ..." lines only.
-- Help estimate websites, WordPress/Tilda, ecommerce, Node.js, PostgreSQL, backend, CMS, integrations, AI-bot work and monthly developer hiring.
+- Help estimate websites, WordPress/Tilda, ecommerce, mobile apps, Node.js, PostgreSQL, backend, CMS, integrations, AI-bot work and monthly developer hiring.
 - Never say a price is final. Use "ориентир", "примерно", "вилка" / "rough range".
 - If the client seems ready, suggest continuing in Telegram: https://t.me/Berliyn_h.
 - All source prices are stored in KZT, but final user-facing prices must be in ${outputCurrency.code} (${outputCurrency.symbol}).
@@ -2392,6 +2597,10 @@ Core behavior:
 - Use the sales playbook below as the source of sales style, objections handling, discount rules and CTA behavior.
 - If the client asks for bug fixes or old-site maintenance, do not accept that directly. Offer a new version, new module, clean rebuild or migration instead.
 - When budget is small or the client negotiates, give two options: minimal now and normal/expanded later.
+- Respect client-provided assets and existing work. If the user says design/Figma/content/backend is ready, treat it as provided by the client and do not include that work in the price or in the "what is included" list.
+- If design is ready, say that UI/UX design from scratch is not included and that the estimate covers implementation/layout from the ready mockups. Do not write "разработка с дизайном" or "with design" in that case.
+- If backend does not exist, include backend/API and database as development work. If backend already exists, do not price backend from scratch unless the user asks for it.
+- For mobile delivery apps, distinguish clearly between provided inputs, actual development work, and optional later phases. Ready design reduces scope; it does not remove mobile development, backend, admin panel, payment, map tracking or push work.
 
 Pricing gate:
 - Current phase is "${estimate.phase}".
@@ -2497,6 +2706,31 @@ function isModulePricingUseful(text, estimate) {
   return /модул|прайс|ориентир|срок|задач|работ|этап/.test(normalized) && containsPrice(text);
 }
 
+function isProvidedScopeRespected(text, estimate) {
+  const normalized = normalizeText(text);
+  const facts = estimate.facts || {};
+
+  if (facts.readyDesign) {
+    const claimsDesignWork =
+      /разработк[а-я\s]+дизайн|создан[а-я\s]+дизайн|ui\/ux[-\s]*дизайн\s+входит|дизайн\s+входит|с\s+дизайн(ом|ом,)|with\s+design|design\s+included|including\s+design|design\s+from\s+scratch/.test(
+        normalized
+      );
+    const clarifiesReadyDesign = /готов(ый|ого)?\s+дизайн|по\s+готов(ым|ому)\s+макет|не\s+закладыв|не\s+включ|not\s+included|ready\s+design|from\s+ready\s+design/.test(
+      normalized
+    );
+
+    if (claimsDesignWork && !clarifiesReadyDesign) {
+      return false;
+    }
+  }
+
+  if (facts.noBackend && /backend\s+(уже\s+)?(готов|есть)|бэкенд\s+(уже\s+)?(готов|есть)|backend\s+already\s+exists|backend\s+is\s+ready/.test(normalized)) {
+    return false;
+  }
+
+  return true;
+}
+
 function isReplySafe(text, estimate, language) {
   const cleaned = cleanAssistantReply(text);
 
@@ -2524,7 +2758,12 @@ function isReplySafe(text, estimate, language) {
     return false;
   }
 
-  return isBudgetGuidanceUseful(cleaned, estimate) && isHiringGuidanceUseful(cleaned, estimate) && isModulePricingUseful(cleaned, estimate);
+  return (
+    isBudgetGuidanceUseful(cleaned, estimate) &&
+    isHiringGuidanceUseful(cleaned, estimate) &&
+    isModulePricingUseful(cleaned, estimate) &&
+    isProvidedScopeRespected(cleaned, estimate)
+  );
 }
 
 async function callGemini(messages, estimate, language) {
