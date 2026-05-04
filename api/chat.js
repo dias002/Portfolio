@@ -1912,12 +1912,33 @@ function hasBrochureSiteIntent(text) {
   );
 }
 
+function hasNewWebsiteBuildIntent(text) {
+  const normalized = normalizeText(text);
+
+  return /нужен\s+(?:нов[а-яa-z0-9_-]*\s+)?(?:одностраничн[а-яa-z0-9_-]*\s+)?сайт|хочу\s+(?:сделать|создать|заказать)\s+(?:одностраничн[а-яa-z0-9_-]*\s+)?сайт|сделать\s+(?:одностраничн[а-яa-z0-9_-]*\s+)?сайт|создать\s+(?:одностраничн[а-яa-z0-9_-]*\s+)?сайт|разработать\s+(?:одностраничн[а-яa-z0-9_-]*\s+)?сайт|сайт\s+(?:с\s+нуля|под\s+ключ)|build\s+(?:a\s+)?(?:new\s+)?(?:one[-\s]?page\s+)?(?:site|website)|create\s+(?:a\s+)?(?:new\s+)?(?:site|website)|need\s+(?:a\s+)?(?:new\s+)?(?:site|website)/.test(
+    normalized
+  );
+}
+
+function hasExistingSiteWorkIntent(text) {
+  const normalized = normalizeText(text);
+  const existingSignal = /существующ|уже\s+есть\s+сайт|есть\s+сайт|текущ|готов[а-яa-z0-9_-]*\s+сайт|мой\s+сайт|наш\s+сайт|existing|current|already\s+have/.test(normalized);
+  const workSignal = /исправ|доработ|поменять|заменить|изменить|обновить|добавить|почин|фикс|fix|update|change|replace|add/.test(normalized);
+
+  return existingSignal && workSignal && !hasNewWebsiteBuildIntent(normalized);
+}
+
 function filterServiceMatches(matches, text, pageCount) {
   const normalized = normalizeText(text);
   const existingSiteSignal = /существующ|уже\s+есть|текущ|готов\w*\s+сайт|сайт\s+уже\s+работает|мой\s+сайт|наш\s+сайт|стар|live\s+site|existing|current|already\s+have|ready\s+site/.test(normalized);
-  const buildFromScratchIntent = /с\s+нуля|нов(ый|ого)\s+сайт|создать\s+сайт|сделать\s+сайт|разработать\s+сайт|build\s+(a\s+)?(new\s+)?(site|website)|new\s+(site|website)|from\s+scratch/.test(normalized);
+  const buildFromScratchIntent =
+    hasNewWebsiteBuildIntent(normalized) ||
+    /с\s+нуля|нов(ый|ого)\s+сайт|создать\s+сайт|сделать\s+сайт|разработать\s+сайт|build\s+(a\s+)?(new\s+)?(site|website)|new\s+(site|website)|from\s+scratch/.test(
+      normalized
+    );
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
+  const isWordPressIntent = /wordpress|вордпресс|\bwp\b/.test(normalized);
   const ecommerceNegation = hasEcommerceNegation(normalized);
   const brochureSiteIntent = hasBrochureSiteIntent(normalized);
   const isEcommerceIntent =
@@ -1932,7 +1953,7 @@ function filterServiceMatches(matches, text, pageCount) {
     /скорост|ускор|медлен|тормозит|pagespeed|page speed|performance|core web vitals|slow|speed/.test(normalized) &&
     /сайт|лендинг|wordpress|вордпресс|tilda|тильда|website|site|existing|current|already|уже\s+есть|существующ|ready\s+site/.test(normalized);
   const isExistingUpdateIntent =
-    /существующ|есть\s+сайт|уже\s+есть|готов\w*\s+сайт|сайт\s+уже\s+работает|текущ|мой\s+сайт|наш\s+сайт|existing|current|already\s+have|ready\s+site/.test(normalized) &&
+    hasExistingSiteWorkIntent(normalized) &&
     /добавить|поменять|заменить|изменить|подключить|форма|заявк|оплат|страниц|язык|английск|текст|фото|интеграц|add|change|update|connect|payment|lead form|new page|language|texts?|photos?|integration/.test(normalized);
   const supportPriority = {
     'security-fix': /взлом|вирус|заражен|редиректит|malware|hacked|security|redirect hack/.test(normalized),
@@ -2013,6 +2034,8 @@ function filterServiceMatches(matches, text, pageCount) {
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (aiAssistantIntentSignal && a.id === 'ai-assistant') return -1;
       if (aiAssistantIntentSignal && b.id === 'ai-assistant') return 1;
+      if (isWordPressIntent && isExplicitOnePage && a.id === 'wordpress-onepage-portfolio') return -1;
+      if (isWordPressIntent && isExplicitOnePage && b.id === 'wordpress-onepage-portfolio') return 1;
       if (brochureSiteIntent && ['landing', 'wordpress-onepage-portfolio', 'simple-multipage', 'wordpress-site'].includes(a.id)) return -1;
       if (brochureSiteIntent && ['landing', 'wordpress-onepage-portfolio', 'simple-multipage', 'wordpress-site'].includes(b.id)) return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
@@ -3713,8 +3736,14 @@ function estimateFromMessages(messages) {
   const rawMax = useModuleSummary ? baseMax : service ? service.max + addonMax + catalogExtra * 2 : null;
   const adjusted = applyReadyMaterialsDiscount({ min: rawMin, max: rawMax, service, facts });
   const urgentSupportMultiplier = isSupportService(service) && facts.urgent ? (/ноч|к\s+утру|tonight|by\s+morning/.test(normalized) ? 2 : 1.5) : 1;
-  const min = adjusted.min && urgentSupportMultiplier > 1 ? Math.max(urgentSupportMultiplier >= 2 ? 70000 : 50000, Math.round(adjusted.min * urgentSupportMultiplier)) : adjusted.min;
-  const max = adjusted.max && urgentSupportMultiplier > 1 ? Math.round(adjusted.max * urgentSupportMultiplier) : adjusted.max;
+  let min = adjusted.min && urgentSupportMultiplier > 1 ? Math.max(urgentSupportMultiplier >= 2 ? 70000 : 50000, Math.round(adjusted.min * urgentSupportMultiplier)) : adjusted.min;
+  let max = adjusted.max && urgentSupportMultiplier > 1 ? Math.round(adjusted.max * urgentSupportMultiplier) : adjusted.max;
+  const hasWordPressIntroLandingInputs = isWordPressIntroLandingText(normalized, service);
+  if (hasWordPressIntroLandingInputs) {
+    const rubPerKzt = Number.isFinite(FX_RATES.RUB_PER_KZT) && FX_RATES.RUB_PER_KZT > 0 ? FX_RATES.RUB_PER_KZT : 0.19;
+    min = Math.round(15000 / rubPerKzt);
+    max = Math.round(30000 / rubPerKzt);
+  }
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
@@ -3726,7 +3755,14 @@ function estimateFromMessages(messages) {
       facts.clientProvidesMaterials ||
       (hasBrochureSiteIntent(normalized) && /магазин|одежд|посуд|бизнес|store|shop|business|clothing|fashion/.test(normalized)));
   const ready = Boolean(
-    service && (moduleSummary || isHiring || budget || hasReadyExistingWork || hasSimpleSiteBaselineInputs || (!shouldAskFirst && missingQuestions.length <= 2))
+    service &&
+      (moduleSummary ||
+        isHiring ||
+        budget ||
+        hasReadyExistingWork ||
+        hasWordPressIntroLandingInputs ||
+        hasSimpleSiteBaselineInputs ||
+        (!shouldAskFirst && missingQuestions.length <= 2))
   );
   const phase = isHiring
     ? 'hiring_guidance'
@@ -4014,7 +4050,7 @@ function buildEstimateReply(estimate, language) {
     discountNote,
     urgentNote,
     `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
-    assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
+    assumptions.length ? `Для точного подтверждения цены осталось уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
     buildNextStepCta(estimate, language),
   ].filter(Boolean).join(' ');
 }
@@ -4208,15 +4244,60 @@ function getSimpleSiteSubject(text, language) {
 
   if (language === 'en') {
     if (/clothing|fashion|apparel/.test(normalized)) return 'clothing store';
+    if (/plumb|bathroom|sanitary/.test(normalized)) return 'plumbing/sanitary store';
     if (/dish|cookware|kitchenware|tableware/.test(normalized)) return 'kitchenware store';
     if (/store|shop/.test(normalized)) return 'store';
     return 'business';
   }
 
   if (/одежд|бутик|fashion/.test(normalized)) return 'магазина одежды';
+  if (/сантехник|сануз|ванн|смесител|раковин|унитаз|душ/.test(normalized)) return 'магазина сантехники';
   if (/посуд|кухонн|посуда/.test(normalized)) return 'магазина кухонной посуды';
   if (/магазин/.test(normalized)) return 'магазина';
   return 'бизнеса';
+}
+
+function shouldUseWordPressIntroLandingReply(messages, estimate) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const normalized = normalizeText(userMessages.map((message) => message.content).join(' '));
+
+  return isWordPressIntroLandingText(normalized, estimate.service);
+}
+
+function isWordPressIntroLandingText(text, service) {
+  const normalized = normalizeText(text);
+
+  return (
+    ['wordpress-onepage-portfolio', 'wordpress-site', 'landing'].includes(service?.id) &&
+    /wordpress|вордпресс|\bwp\b/.test(normalized) &&
+    /одностранич|1\s*странич|one[-\s]?page|лендинг|landing|сайт[-\s]?визитк|визитк/.test(normalized) &&
+    /ознакомительн|информационн|без\s+продаж|без\s+оплат|не\s+продавать|brochure|informational|no\s+(sales|payment|checkout)/.test(normalized) &&
+    /дизайн\s+(?:от\s+(?:вас|тебя|исполнителя)|нужен|с\s+нуля)|без\s+дизайн|нужен\s+дизайн|design\s+(?:from\s+you|needed|required)/.test(normalized)
+  );
+}
+
+function buildWordPressIntroLandingReply(messages, language) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const text = userMessages.map((message) => message.content).join(' ');
+  const subject = getSimpleSiteSubject(text, language);
+
+  if (language === 'en') {
+    return [
+      `Understood. This is a simple one-page WordPress brochure site for a ${subject}.`,
+      'Since design is needed from my side and photos are already available, the rough range is 15,000–30,000 ₽, timeline about 3–5 business days.',
+      'The work can include: page structure, simple modern design, store description block, product/service categories, advantages, photo gallery, contacts, map, call or WhatsApp button, mobile adaptation and basic WordPress setup.',
+      'Not included: online store, cart, online payment, product catalog logic, complex integrations and copywriting from scratch.',
+      'To confirm the exact price, I only need: whether domain/hosting already exist, whether a logo is needed, and which sections you want on the page.',
+    ].join('\n\n');
+  }
+
+  return [
+    `Понял, вам нужен простой одностраничный сайт на WordPress для ${subject}.`,
+    'Так как дизайн нужен с нашей стороны, а фото уже есть, ориентир по стоимости: 15 000–30 000 ₽, срок примерно 3–5 рабочих дней.',
+    'В работу может входить: разработка структуры страницы, простой современный дизайн, блок с описанием магазина, категории товаров/услуг, преимущества, галерея фото, контакты, карта, кнопка звонка или WhatsApp, адаптация под телефон и базовая настройка WordPress.',
+    'Не входит: интернет-магазин, корзина, онлайн-оплата, логика каталога товаров, сложные интеграции и написание всех текстов с нуля.',
+    'Чтобы точно подтвердить цену, нужно уточнить только пару моментов: есть ли уже домен и хостинг, нужен ли логотип, и какие разделы вы хотите видеть на странице.',
+  ].join('\n\n');
 }
 
 function shouldUseSimpleSiteBaselineReply(messages, estimate) {
@@ -4353,6 +4434,10 @@ function buildFallbackReply(messages, language) {
 
   if (estimate.budgetPlan) {
     return buildBudgetReply(estimate, language);
+  }
+
+  if (shouldUseWordPressIntroLandingReply(messages, estimate)) {
+    return buildWordPressIntroLandingReply(messages, language);
   }
 
   if (shouldUseSimpleSiteBaselineReply(messages, estimate)) {
@@ -4648,6 +4733,7 @@ function shouldForceLocalReply(messages, estimate) {
 
   return (
     shouldUseLocalReply(messages) ||
+    shouldUseWordPressIntroLandingReply(messages, estimate) ||
     shouldUseSimpleSiteBaselineReply(messages, estimate) ||
     estimate.service?.id === 'developer-retainer' ||
     isSupportService(estimate.service) ||
