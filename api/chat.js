@@ -1847,7 +1847,7 @@ function filterServiceMatches(matches, text, pageCount) {
     /добавить|поменять|заменить|изменить|подключить|форма|заявк|оплат|страниц|язык|английск|текст|фото|интеграц|add|change|update|connect|payment|lead form|new page|language|texts?|photos?|integration/.test(normalized);
   const supportPriority = {
     'security-fix': /взлом|вирус|заражен|редиректит|malware|hacked|security|redirect hack/.test(normalized),
-    'payment-fix': /оплата\s+не|не\s+проходит\s+оплат|checkout|woocommerce\s+оплат|payment\s+(is\s+)?not|payment.*not working|checkout broken|checkout not working|woocommerce.*checkout|order not created|webhook/.test(normalized),
+    'payment-fix': /оплата\s+не|не\s+проходит\s+оплат|checkout|woocommerce\s+оплат|woocommerce\s+payment|payment\s+(is\s+)?not|payment.*not working|payment\s+broken|broken\s+payment|checkout broken|checkout not working|woocommerce.*checkout|order not created|webhook/.test(normalized),
     'form-fix': /форма\s+не|заявк\w*\s+не\s+приход|заявк\w*\s+не\s+отправ|не\s+отправ.*заявк|письм\w*\s+не\s+приход|telegram-заявк|телеграм\s+заявк|заявк.*telegram|tilda.*заявк|form not|leads? not|emails? not/.test(normalized),
     'site-diagnostics': /ошибка\s*(500|404)|500\s+ошибка|404\s+ошибка|белый экран|сайт\s+не\s+откры|сайт\s+упал|после\s+обнов|обновить\s+плагин|почин|сломал|слом|ssl\s+не|https\s+не|error\s*(500|404)|white screen|site is down|website down|after update|plugin conflict|ssl issue|domain issue|broken/.test(normalized),
   };
@@ -2709,7 +2709,13 @@ function isUnsafeFixRequest(text) {
 function isPromptInjectionRequest(text) {
   const normalized = normalizeText(text);
 
-  return /игнорир\w*\s+(правил|инструкц)|забудь\s+(правил|инструкц)|скажи\s+что\s+.*бесплат|цена\s+1\s*₸|за\s+1\s*тенге|внутренн\w*\s+(инструкц|prompt|промпт)|system\s+prompt|ignore\s+(all\s+)?(rules|instructions)|forget\s+(rules|instructions)|say\s+it'?s\s+free|make\s+it\s+free|internal\s+(rules|instructions|prompt)/.test(normalized);
+  return /игнорир[а-яa-z]*\s+(правил|инструкц)|забудь\s+(правил|инструкц)|скажи\s+что\s+.*бесплат|скажи\s+цен[а-яa-z]*\s*1\s*(тенге|₸)|цен[а-яa-z]*\s*1\s*(тенге|₸)|за\s+1\s*тенге|внутренн[а-яa-z]*\s+(инструкц|prompt|промпт)|system\s+prompt|ignore\s+(all\s+)?(rules|instructions)|forget\s+(rules|instructions)|say\s+it'?s\s+free|make\s+it\s+free|internal\s+(rules|instructions|prompt)/.test(normalized);
+}
+
+function isUpworkContactMoveRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /(upwork|апворк).*(telegram|телеграм)| (telegram|телеграм).*(upwork|апворк)|\bupwork\b/.test(normalized);
 }
 
 function isGuaranteeRequest(text) {
@@ -2767,6 +2773,7 @@ function buildGuaranteeReply(language) {
 
   return [
     'Гарантию можно дать на мою работу, но не на хостинг, будущие обновления плагинов, сторонние API или правки после сдачи.',
+    'Топ Google за срок и 100% безошибочные ответы AI обещать нельзя: это зависит от алгоритмов, данных и внешних факторов.',
     'По мелким фиксам обычно 3-7 дней, по согласованному функционалу проекта 7-14 дней. Если проблема повторится из-за моего фикса - поправлю бесплатно.',
     'На что именно нужна гарантия: фикс, запуск сайта, SEO, оплата или ответы AI-бота?',
   ].join('\n\n');
@@ -2783,6 +2790,22 @@ function buildReadyToStartReply(language) {
   return [
     'Хорошо. Чтобы стартовать нормально, скиньте задачу, пример/ссылку, срок и бюджет.',
     'Если это не Upwork/биржа, быстрее всего написать Диасу в Telegram: https://t.me/Berliyn_h. Туда можно отправить материалы, и он подтвердит точную цену и первый этап.',
+  ].join('\n\n');
+}
+
+function buildUpworkContactReply(language) {
+  if (language === 'en') {
+    return [
+      'Before an active Upwork contract, it is safer to keep discussion here on the platform.',
+      'After the contract starts, we can move to Telegram for faster coordination if needed.',
+      'Send the scope, budget and deadline here, and I will prepare a clear estimate and first milestone.',
+    ].join('\n\n');
+  }
+
+  return [
+    'До активного контракта на Upwork лучше обсуждать задачу прямо в чате площадки.',
+    'После старта контракта можно перейти в Telegram для удобной координации.',
+    'Скиньте здесь объем, бюджет и срок - я дам понятную оценку и первый этап.',
   ].join('\n\n');
 }
 
@@ -3869,6 +3892,10 @@ function buildFallbackReply(messages, language) {
     return buildGuaranteeReply(language);
   }
 
+  if (isUpworkContactMoveRequest(lastText)) {
+    return buildUpworkContactReply(language);
+  }
+
   if (isCasualOrContactRequest(lastText)) {
     return buildCasualOrContactReply(language);
   }
@@ -3885,7 +3912,7 @@ function buildFallbackReply(messages, language) {
     return buildOldMaintenanceReply(language);
   }
 
-  if (isPaymentTermsRequest(lastText) && userMessageCount <= 1) {
+  if (isPaymentTermsRequest(lastText) && userMessageCount <= 1 && !isSupportService(estimate.service)) {
     return buildPaymentTermsReply(language);
   }
 
@@ -4218,6 +4245,7 @@ function shouldForceLocalReply(messages, estimate) {
     isUnsafeFixRequest(lastText) ||
     isPromptInjectionRequest(lastText) ||
     isGuaranteeRequest(lastText) ||
+    isUpworkContactMoveRequest(lastText) ||
     isReadyToStartRequest(lastText) ||
     isPaymentTermsRequest(lastText)
   );
