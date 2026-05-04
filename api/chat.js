@@ -679,6 +679,22 @@ const ADDONS = [
     min: 70000,
     max: 240000,
     keywords: ['анимац', 'motion', 'gsap', 'parallax', 'параллакс', 'wow эффект'],
+    skipIf: [
+      'анимация не нужна',
+      'анимации не нужны',
+      'анимаций не нужно',
+      'без анимации',
+      'без анимаций',
+      'анимацию не надо',
+      'анимации не надо',
+      'анимации не нужны говорю же',
+      'no animation',
+      'no animations',
+      'without animation',
+      'without animations',
+      'animation not needed',
+      'animations not needed',
+    ],
   },
   {
     id: 'multilingual',
@@ -1995,6 +2011,50 @@ function hasDesignFromScratchIntent(text) {
   );
 }
 
+function hasAnimationNegation(text) {
+  const normalized = normalizeText(text);
+
+  return (
+    /анимац[а-яa-z0-9_-]*\s+(?:не\s+нуж|не\s+надо|нет)|без\s+анимац|анимац[а-яa-z0-9_-]*\s+не\s+будет|анимац[а-яa-z0-9_-]*\s+не\s+дела|no\s+animations?|without\s+animations?|animations?\s+not\s+needed/.test(
+      normalized
+    ) ||
+    /форм[а-яa-z0-9_-]*\s+и\s+анимац[а-яa-z0-9_-]*\s+не\s+нуж|анимац[а-яa-z0-9_-]*\s+и\s+форм[а-яa-z0-9_-]*\s+не\s+нуж/.test(normalized)
+  );
+}
+
+function hasFormNegation(text) {
+  const normalized = normalizeText(text);
+
+  return (
+    /форм[а-яa-z0-9_-]*\s+(?:не\s+нуж|не\s+надо|нет)|без\s+форм|форм[а-яa-z0-9_-]*\s+не\s+будет|форм[а-яa-z0-9_-]*\s+не\s+дела|заявк[а-яa-z0-9_-]*\s+не\s+нуж|no\s+forms?|without\s+forms?|forms?\s+not\s+needed|no\s+lead\s+form/.test(
+      normalized
+    ) ||
+    /форм[а-яa-z0-9_-]*\s+и\s+анимац[а-яa-z0-9_-]*\s+не\s+нуж|анимац[а-яa-z0-9_-]*\s+и\s+форм[а-яa-z0-9_-]*\s+не\s+нуж/.test(normalized)
+  );
+}
+
+function hasInteractivityNegation(text) {
+  const normalized = normalizeText(text);
+
+  return /интерактив[а-яa-z0-9_-]*\s+(?:не\s+нуж|не\s+надо|нет)|без\s+интерактив|js\s+не\s+нуж|javascript\s+не\s+нуж|no\s+interactivity|without\s+interactivity|no\s+javascript/.test(
+    normalized
+  );
+}
+
+function hasReadyMobileVersion(text) {
+  const normalized = normalizeText(text);
+
+  return /мобильн[а-яa-z0-9_-]*\s+верс[а-яa-z0-9_-]*\s+(?:есть|готов)|адаптив\s+(?:есть|готов)|mobile\s+(?:version|design)\s+(?:is\s+)?ready|have\s+(?:a\s+)?mobile\s+(?:version|design)|responsive\s+(?:is\s+)?ready/.test(
+    normalized
+  );
+}
+
+function hasRepeatedNegativeCorrection(text) {
+  const normalized = normalizeText(text);
+
+  return /(говорю\s+же|я\s+же\s+сказал|уже\s+сказал|повторяю|еще\s+раз|already\s+said|as\s+i\s+said)/.test(normalized);
+}
+
 function hasHtmlCssTrafficLandingIntent(text) {
   const normalized = normalizeText(text);
 
@@ -2550,6 +2610,11 @@ function getProjectFacts(text) {
   const noOnlinePayment = hasPaymentNegation(normalized);
   const noCatalog = hasCatalogNegation(normalized);
   const nonTechnicalClient = hasNonTechnicalClientSignal(normalized);
+  const noAnimations = hasAnimationNegation(normalized);
+  const noForms = hasFormNegation(normalized);
+  const noInteractivity = hasInteractivityNegation(normalized);
+  const readyMobileVersion = hasReadyMobileVersion(normalized);
+  const repeatedNegativeCorrection = hasRepeatedNegativeCorrection(normalized) && (noAnimations || noForms || noInteractivity);
 
   return {
     readyDesign,
@@ -2567,10 +2632,15 @@ function getProjectFacts(text) {
     payment,
     noOnlinePayment,
     noCatalog,
+    noAnimations,
+    noForms,
+    noInteractivity,
+    readyMobileVersion,
     realtimeTracking,
     push,
     urgent,
     nonTechnicalClient,
+    repeatedNegativeCorrection,
   };
 }
 
@@ -2800,8 +2870,8 @@ function getMissingQuestions(text, service) {
   if (service.id === 'frontend-slicing') {
     return questions.filter((question) => {
       if (question.includes('макетов')) return !(pageCount || parseBlockCount(normalized));
-      if (question.includes('mobile')) return !/адаптив|mobile|responsive|мобильн/.test(normalized);
-      if (question.includes('формы')) return !hasFeatures;
+      if (question.includes('mobile')) return !(facts.readyMobileVersion || /адаптив|mobile|responsive|мобильн/.test(normalized));
+      if (question.includes('формы')) return !(facts.noForms || facts.noAnimations || facts.noInteractivity || hasFeatures);
       return true;
     });
   }
@@ -2993,8 +3063,8 @@ function getMissingQuestionsEn(text, service) {
   if (service.id === 'frontend-slicing') {
     return questions.filter((question) => {
       if (question.includes('layouts')) return !(pageCount || parseBlockCount(normalized));
-      if (question.includes('mobile')) return !/responsive|mobile|адаптив|мобильн/.test(normalized);
-      if (question.includes('forms')) return !hasFeatures;
+      if (question.includes('mobile')) return !(facts.readyMobileVersion || /responsive|mobile|адаптив|мобильн/.test(normalized));
+      if (question.includes('forms')) return !(facts.noForms || facts.noAnimations || facts.noInteractivity || hasFeatures);
       return true;
     });
   }
@@ -3892,7 +3962,17 @@ function estimateFromMessages(messages) {
   const service = useModuleSummary ? MODULE_SERVICE : primaryService;
   const leadState = buildLeadState(normalized, service, facts, pageCount);
   const isHiring = service?.id === 'developer-retainer';
-  const addonMatches = isHiring || isSupportService(service) ? [] : findMatches(normalized, ADDONS).filter((addon) => !isAddonIncluded(service, addon));
+  const addonMatches = isHiring || isSupportService(service)
+    ? []
+    : findMatches(normalized, ADDONS).filter((addon) => {
+        if (isAddonIncluded(service, addon)) {
+          return false;
+        }
+        if (facts.noAnimations && addon.id === 'animations') {
+          return false;
+        }
+        return true;
+      });
   const technologies = normalizeTechnologiesForService(detectTechnologies(normalized), service, lastUserText);
   const budget = parseBudgetFromUserMessages(userMessages) ?? parseBudget(normalized);
   const missingQuestions = getMissingQuestions(normalized, service);
@@ -3943,6 +4023,11 @@ function estimateFromMessages(messages) {
     min = 40000;
     max = 80000;
   }
+  const hasSimpleHtmlCssSlicingInputs = isSimpleHtmlCssReadySlicingText(normalized, service);
+  if (hasSimpleHtmlCssSlicingInputs) {
+    min = 20000;
+    max = 40000;
+  }
   const hasConfirmedBrochureInputs = hasConfirmedBrochureSiteState(leadState, service);
   if (hasConfirmedBrochureInputs) {
     min = 80000;
@@ -3968,6 +4053,7 @@ function estimateFromMessages(messages) {
         hasReadyExistingWork ||
         hasWordPressIntroLandingInputs ||
         hasHtmlCssTrafficLandingInputs ||
+        hasSimpleHtmlCssSlicingInputs ||
         hasConfirmedBrochureInputs ||
         hasSimpleSiteBaselineInputs ||
         (!shouldAskFirst && missingQuestions.length <= 2))
@@ -4087,6 +4173,26 @@ function getIncludedWork(estimate, language) {
     }
 
     return ['аудит текущего сайта', 'правки контента/страниц', 'форма заявки или модуль оплаты', 'подключение интеграции при необходимости', 'проверка после изменений'];
+  }
+
+  if (service.id === 'frontend-slicing') {
+    if (language === 'en') {
+      return [
+        'HTML/CSS layout from ready design',
+        facts.readyMobileVersion ? 'responsive implementation from ready mobile version' : 'responsive layout',
+        !facts.noInteractivity && !facts.noAnimations ? 'basic interactivity' : null,
+        !facts.noForms ? 'lead form setup if needed' : null,
+        'phone check and launch file preparation',
+      ].filter(Boolean);
+    }
+
+    return [
+      'HTML/CSS-верстка по готовому дизайну',
+      facts.readyMobileVersion ? 'адаптив по готовой мобильной версии' : 'адаптив',
+      !facts.noInteractivity && !facts.noAnimations ? 'базовая интерактивность' : null,
+      !facts.noForms ? 'подключение формы при необходимости' : null,
+      'проверка на телефоне и подготовка файлов к запуску',
+    ].filter(Boolean);
   }
 
   if (isSupportService(service)) {
@@ -4548,6 +4654,53 @@ function buildHtmlCssTrafficLandingReply(language) {
   ].join('\n\n');
 }
 
+function isSimpleHtmlCssReadySlicingText(text, service) {
+  const normalized = normalizeText(text);
+
+  return Boolean(
+    ['frontend-slicing', 'landing'].includes(service?.id) &&
+      hasHtmlCssStackIntent(normalized) &&
+      parsePageCount(normalized) === 1 &&
+      getProjectFacts(normalized).readyDesign &&
+      hasReadyMobileVersion(normalized) &&
+      hasAnimationNegation(normalized) &&
+      hasFormNegation(normalized)
+  );
+}
+
+function shouldUseSimpleHtmlCssSlicingReply(messages, estimate) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const normalized = normalizeText(userMessages.map((message) => message.content).join(' '));
+
+  return isSimpleHtmlCssReadySlicingText(normalized, estimate.service);
+}
+
+function buildSimpleHtmlCssSlicingReply(messages, estimate, language) {
+  const facts = estimate.facts || {};
+  const correctionPrefix =
+    facts.repeatedNegativeCorrection && facts.noForms && facts.noAnimations
+      ? language === 'en'
+        ? 'Yes, understood, sorry. I am fixing it: forms and animations are not needed.\n\n'
+        : 'Да, понял, извините, фиксирую: формы и анимации не нужны.\n\n'
+      : '';
+
+  if (language === 'en') {
+    return [
+      `${correctionPrefix}Understood. This is a simple task: one HTML/CSS page from a ready design, mobile version already exists, without forms and without animations.`,
+      `Rough range: ${formatKztRange(20000, 40000)}, timeline about 1-3 business days.`,
+      'Included: clean HTML/CSS layout, responsive implementation from the ready mobile version, phone check and basic file preparation for launch.',
+      'The main details are already clear, so next it is better to send Dias the mockup or page example, and he will confirm the exact price: https://t.me/Berliyn_h',
+    ].join('\n\n');
+  }
+
+  return [
+    `${correctionPrefix}${correctionPrefix ? 'Тогда задача простая' : 'Понял, тогда задача простая'}: 1 страница на HTML/CSS по готовому дизайну, мобильная версия уже есть, без форм и без анимаций.`,
+    `Ориентир по стоимости: ${formatKztRange(20000, 40000)}, срок примерно 1-3 рабочих дня.`,
+    'В работу входит аккуратная HTML/CSS-верстка, адаптив по готовой мобильной версии, проверка на телефоне и базовая подготовка файлов к запуску.',
+    'Так как основные данные уже понятны, дальше лучше скинуть Диасу макет/пример страницы, и он уже подтвердит точную цену: https://t.me/Berliyn_h',
+  ].join('\n\n');
+}
+
 function getRuPageLabel(count) {
   const number = Number(count);
 
@@ -4759,6 +4912,10 @@ function buildFallbackReply(messages, language) {
     return buildHtmlCssTrafficLandingReply(language);
   }
 
+  if (shouldUseSimpleHtmlCssSlicingReply(messages, estimate)) {
+    return buildSimpleHtmlCssSlicingReply(messages, estimate, language);
+  }
+
   if (shouldUseLeadProgressQuestionReply(messages, estimate)) {
     return buildLeadProgressQuestionReply(estimate, language);
   }
@@ -4849,6 +5006,8 @@ Core behavior:
 - Be concise and practical.
 - Manage the dialogue like a web-studio sales manager: remember every client answer inside the current conversation, update currentLeadState, and move to the next logical step instead of restarting the same question.
 - Never repeat the same question if the client already answered it. If the client says "без онлайн-оплаты", "просто визитка", "каталог не нужен", "без продаж", treat it as not ecommerce, not a catalog and not an online store; do not ask about catalog or online payment again.
+- If the client says "не нужно", "не нужны", "нет", "без", "не надо", treat that feature as disabled and never add it to project characteristics, modules or active included work. If the client says "анимация не нужна", never write "сложные анимации" as an add-on. If the client says "формы не нужны", do not include lead form setup as active work and do not ask about forms again. After "мобильная версия есть, анимация не нужна, формы не нужны", the task is ready for an estimate and should move to the manager.
+- If the client repeats a negative answer, for example "формы и анимации не нужны говорю же", apologize briefly, fix the state, do not ask that question again, then give the updated estimate and next step.
 - Ask only one clarifying question at a time. Progression: if site type is unclear, clarify type; if type is clear, clarify page count; if pages are clear, clarify features; if features are clear, give price and timeline; if price is already given, ask about domain/hosting, materials or start date.
 - Do not repeat a previous answer verbatim. Every new client message must change the answer or advance the deal.
 - If the client says they do not understand design/programming, explain in simple words and offer a turnkey option.
@@ -5069,6 +5228,7 @@ function shouldForceLocalReply(messages, estimate) {
     shouldUseLocalReply(messages) ||
     shouldUseWordPressIntroLandingReply(messages, estimate) ||
     shouldUseHtmlCssTrafficLandingReply(messages, estimate) ||
+    shouldUseSimpleHtmlCssSlicingReply(messages, estimate) ||
     shouldUseLeadProgressQuestionReply(messages, estimate) ||
     shouldUseConfirmedBrochureSiteReply(messages, estimate) ||
     shouldUseSimpleSiteBaselineReply(messages, estimate) ||
