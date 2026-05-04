@@ -1955,6 +1955,58 @@ function hasNonTechnicalClientSignal(text) {
   );
 }
 
+function hasWordPressNegation(text) {
+  const normalized = normalizeText(text);
+
+  return /не\s+(?:на\s+)?(?:wp|wordpress|вордпресс)|без\s+(?:wp|wordpress|вордпресс)|(?:wp|wordpress|вордпресс)\s+не\s+нуж|not\s+wordpress|no\s+wordpress|without\s+wordpress/.test(
+    normalized
+  );
+}
+
+function hasHtmlCssStackIntent(text) {
+  const normalized = normalizeText(text);
+
+  return /html\s*\/?\s*css|html\s+css|html\s+и\s+css|css\s+html|статичн[а-яa-z0-9_-]*\s+html|чист[а-яa-z0-9_-]*\s+html|vanilla\s+(?:html|css)|plain\s+html/.test(
+    normalized
+  );
+}
+
+function hasTrafficLandingSignal(text) {
+  const normalized = normalizeText(text);
+
+  return /гонять\s+трафик|под\s+трафик|для\s+трафик|лить\s+трафик|трафик|реклам[а-яa-z0-9_-]*\s+трафик|traffic|ads?|ad\s+traffic|lead\s+page|leadgen/.test(
+    normalized
+  );
+}
+
+function hasFreeTopicSignal(text) {
+  const normalized = normalizeText(text);
+
+  return /тема\s+свободн|тематика\s+свободн|любая\s+тема|тему\s+(?:можно\s+)?(?:выбрать|придумать)\s+сам|просто\s+чтобы\s+был\s+сайт|free\s+topic|any\s+topic|choose\s+the\s+topic/.test(
+    normalized
+  );
+}
+
+function hasDesignFromScratchIntent(text) {
+  const normalized = normalizeText(text);
+
+  return /дизайн\s+с\s+нуля|нужен\s+дизайн|дизайн\s+от\s+(?:вас|тебя|исполнителя)|без\s+готов[а-яa-z0-9_-]*\s+дизайн|no\s+design|need\s+design|design\s+from\s+scratch|custom\s+design/.test(
+    normalized
+  );
+}
+
+function hasHtmlCssTrafficLandingIntent(text) {
+  const normalized = normalizeText(text);
+
+  return Boolean(
+    hasHtmlCssStackIntent(normalized) &&
+      parsePageCount(normalized) === 1 &&
+      hasDesignFromScratchIntent(normalized) &&
+      (hasTrafficLandingSignal(normalized) || hasFreeTopicSignal(normalized) || /лендинг|landing|сайт/.test(normalized)) &&
+      !/figma|макет\s+(?:есть|готов)|готов[а-яa-z0-9_-]*\s+дизайн|design\s+ready|figma\s+ready/.test(normalized)
+  );
+}
+
 function hasNewWebsiteBuildIntent(text) {
   const normalized = normalizeText(text);
 
@@ -1981,7 +2033,8 @@ function filterServiceMatches(matches, text, pageCount) {
     );
   const isExplicitOnePage = /одностранич|1\s*странич|one[-\s]?page|1\s*(страниц|page|экран)|визитка/.test(normalized);
   const isPortfolio = /портфолио|portfolio/.test(normalized);
-  const isWordPressIntent = /wordpress|вордпресс|\bwp\b/.test(normalized);
+  const isWordPressIntent = /wordpress|вордпресс|\bwp\b/.test(normalized) && !hasWordPressNegation(normalized);
+  const isHtmlCssTrafficLandingIntent = hasHtmlCssTrafficLandingIntent(normalized);
   const ecommerceNegation = hasEcommerceNegation(normalized);
   const brochureSiteIntent = hasBrochureSiteIntent(normalized);
   const isEcommerceIntent =
@@ -2019,6 +2072,7 @@ function filterServiceMatches(matches, text, pageCount) {
   ensureService('existing-site-seo', isExistingSeoIntent);
   ensureService('existing-site-performance', isExistingPerformanceIntent);
   ensureService('existing-site-update', isExistingUpdateIntent);
+  ensureService('landing', isHtmlCssTrafficLandingIntent);
 
   return prioritizedMatches
     .filter((service) => {
@@ -2077,6 +2131,8 @@ function filterServiceMatches(matches, text, pageCount) {
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (aiAssistantIntentSignal && a.id === 'ai-assistant') return -1;
       if (aiAssistantIntentSignal && b.id === 'ai-assistant') return 1;
+      if (isHtmlCssTrafficLandingIntent && a.id === 'landing') return -1;
+      if (isHtmlCssTrafficLandingIntent && b.id === 'landing') return 1;
       if (isWordPressIntent && isExplicitOnePage && a.id === 'wordpress-onepage-portfolio') return -1;
       if (isWordPressIntent && isExplicitOnePage && b.id === 'wordpress-onepage-portfolio') return 1;
       if (brochureSiteIntent && ['landing', 'wordpress-onepage-portfolio', 'simple-multipage', 'wordpress-site'].includes(a.id)) return -1;
@@ -2123,6 +2179,13 @@ function shouldPreservePreviousService(previousService, currentService, lastText
 function selectPrimaryServiceFromConversation(userMessages, fullNormalized, fallbackPageCount) {
   const fullMatches = filterServiceMatches(findMatches(fullNormalized, SERVICES), fullNormalized, fallbackPageCount);
   const fullPrimary = fullMatches[0] || null;
+
+  if (hasHtmlCssTrafficLandingIntent(fullNormalized)) {
+    return {
+      serviceMatches: fullMatches,
+      primaryService: fullMatches.find((service) => service.id === 'landing') || fullPrimary,
+    };
+  }
 
   const lastUserText = userMessages[userMessages.length - 1]?.content || '';
   const lastNormalized = normalizeText(lastUserText);
@@ -2360,7 +2423,8 @@ function detectTechnologies(text) {
   const normalized = normalizeText(text);
   const technologies = [];
 
-  if (hasAny(normalized, ['wordpress', 'вордпресс', 'wp', 'woocommerce'])) technologies.push('WordPress');
+  if (hasHtmlCssStackIntent(normalized)) technologies.push('HTML/CSS');
+  if (hasAny(normalized, ['wordpress', 'вордпресс', 'wp', 'woocommerce']) && !hasWordPressNegation(normalized)) technologies.push('WordPress');
   if (hasAny(normalized, ['tilda', 'тильда'])) technologies.push('Tilda');
   if (hasAny(normalized, ['react', 'next.js', 'nextjs'])) technologies.push('React/Next.js');
   if (hasAny(normalized, ['node.js', 'node js', 'node', 'express', 'nestjs'])) technologies.push('Node.js');
@@ -2579,8 +2643,9 @@ function getLeadNiche(text) {
 function getLeadPlatform(text, service) {
   const normalized = normalizeText(text);
 
+  if (hasHtmlCssStackIntent(normalized)) return 'HTML/CSS';
   if (/tilda|тильда/.test(normalized) || service?.id === 'tilda-site') return 'Tilda';
-  if (/wordpress|вордпресс|\bwp\b/.test(normalized) || service?.id === 'wordpress-site' || service?.id === 'wordpress-onepage-portfolio') return 'WordPress';
+  if ((/wordpress|вордпресс|\bwp\b/.test(normalized) || service?.id === 'wordpress-site' || service?.id === 'wordpress-onepage-portfolio') && !hasWordPressNegation(normalized)) return 'WordPress';
   if (isSimpleSiteService(service)) return 'WordPress';
   return null;
 }
@@ -3873,6 +3938,11 @@ function estimateFromMessages(messages) {
     min = Math.round(15000 / rubPerKzt);
     max = Math.round(30000 / rubPerKzt);
   }
+  const hasHtmlCssTrafficLandingInputs = isHtmlCssTrafficLandingText(normalized, service);
+  if (hasHtmlCssTrafficLandingInputs) {
+    min = 40000;
+    max = 80000;
+  }
   const hasConfirmedBrochureInputs = hasConfirmedBrochureSiteState(leadState, service);
   if (hasConfirmedBrochureInputs) {
     min = 80000;
@@ -3897,6 +3967,7 @@ function estimateFromMessages(messages) {
         budget ||
         hasReadyExistingWork ||
         hasWordPressIntroLandingInputs ||
+        hasHtmlCssTrafficLandingInputs ||
         hasConfirmedBrochureInputs ||
         hasSimpleSiteBaselineInputs ||
         (!shouldAskFirst && missingQuestions.length <= 2))
@@ -4441,6 +4512,42 @@ function buildWordPressIntroLandingReply(messages, language) {
   ].join('\n\n');
 }
 
+function isHtmlCssTrafficLandingText(text, service) {
+  const normalized = normalizeText(text);
+
+  return (
+    ['landing', 'frontend-slicing', 'simple-multipage', 'wordpress-site'].includes(service?.id) &&
+    hasHtmlCssTrafficLandingIntent(normalized)
+  );
+}
+
+function shouldUseHtmlCssTrafficLandingReply(messages, estimate) {
+  const userMessages = messages.filter((message) => message.role === 'user');
+  const normalized = normalizeText(userMessages.map((message) => message.content).join(' '));
+
+  return isHtmlCssTrafficLandingText(normalized, estimate.service);
+}
+
+function buildHtmlCssTrafficLandingReply(language) {
+  if (language === 'en') {
+    return [
+      'Yes, this can be built without WordPress, as a simple HTML/CSS landing page.',
+      'In this case it is a one-page landing page with design from scratch, mobile adaptation and a basic traffic-focused structure.',
+      `Rough range: ${formatKztRange(40000, 80000)}, timeline about 3-5 business days.`,
+      'Since the topic is open, I can propose the structure myself: hero section, offer description, benefits, trust block, lead form or WhatsApp button, contacts.',
+      'To avoid overloading you with extra questions, it is better to discuss the details directly with Dias. He will suggest which topic and structure to choose for traffic: https://t.me/Berliyn_h',
+    ].join('\n\n');
+  }
+
+  return [
+    'Да, можно сделать не на WordPress, а на простом HTML/CSS.',
+    'В вашем случае это будет одностраничный лендинг с дизайном с нуля, адаптивом под телефон и базовой структурой под трафик.',
+    `Ориентир по стоимости: ${formatKztRange(40000, 80000)}, срок примерно 3-5 рабочих дней.`,
+    'Так как тема свободная, я могу предложить простую структуру сам: главный экран, описание предложения, преимущества, блок доверия, форма заявки или кнопка WhatsApp, контакты.',
+    'Чтобы не мучить вас лишними вопросами, лучше дальше обсудить детали напрямую с Диасом - он подскажет, какую тему и структуру выбрать под трафик. Telegram: https://t.me/Berliyn_h',
+  ].join('\n\n');
+}
+
 function getRuPageLabel(count) {
   const number = Number(count);
 
@@ -4648,6 +4755,10 @@ function buildFallbackReply(messages, language) {
     return buildWordPressIntroLandingReply(messages, language);
   }
 
+  if (shouldUseHtmlCssTrafficLandingReply(messages, estimate)) {
+    return buildHtmlCssTrafficLandingReply(language);
+  }
+
   if (shouldUseLeadProgressQuestionReply(messages, estimate)) {
     return buildLeadProgressQuestionReply(estimate, language);
   }
@@ -4741,6 +4852,7 @@ Core behavior:
 - Ask only one clarifying question at a time. Progression: if site type is unclear, clarify type; if type is clear, clarify page count; if pages are clear, clarify features; if features are clear, give price and timeline; if price is already given, ask about domain/hosting, materials or start date.
 - Do not repeat a previous answer verbatim. Every new client message must change the answer or advance the deal.
 - If the client says they do not understand design/programming, explain in simple words and offer a turnkey option.
+After the client gives the main data for an estimate - site type, page count, platform/stack, and whether design is from scratch - give the price, timeline and included work. After an estimate, do not ask many extra questions: ask at most one short next question or move the client to the owner/manager. If the client asks whether another stack is possible, for example HTML/CSS instead of WordPress, recalculate the project for the new stack and do not ask about Figma if the client already said the design is from scratch. If the client says "тема свободная" or "просто чтобы был сайт под трафик", do not demand a ready topic, texts or design; propose a basic structure yourself and pass the client to the manager. After calculating, do not output a long list of questions about multilingual support, SEO, analytics, Telegram, WhatsApp, domain, hosting and Figma. These can be discussed after contact with the manager. The main task is to understand the project quickly, give a rough price and timeline, then softly move the client into a personal dialogue with the owner.
 - In English, understand casual client slang and local variants such as "one pager", "small biz site", "ecom", "quote me", "ballpark", "how much would it run me", "set me back", "bucks", "grand", "2k", "ASAP", "no upfront", "dev/contractor". Answer in clear natural English; do not overuse slang back.
 - Output plain text only. Do not use Markdown formatting, no **bold**, no * bullet points, no headings, no tables, no code blocks.
 - For lists use either "1. ..." numbered lines or "- ..." lines only.
@@ -4956,6 +5068,7 @@ function shouldForceLocalReply(messages, estimate) {
   return (
     shouldUseLocalReply(messages) ||
     shouldUseWordPressIntroLandingReply(messages, estimate) ||
+    shouldUseHtmlCssTrafficLandingReply(messages, estimate) ||
     shouldUseLeadProgressQuestionReply(messages, estimate) ||
     shouldUseConfirmedBrochureSiteReply(messages, estimate) ||
     shouldUseSimpleSiteBaselineReply(messages, estimate) ||
