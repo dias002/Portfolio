@@ -642,6 +642,15 @@ const SERVICES = [
       'long-term',
       'сопровождение',
       'поддержка сайта',
+      'поддержку сайта',
+      'поддержка сайта помесячно',
+      'техподдержка сайта',
+      'поддерживать сайт',
+      'обслуживание сайта',
+      'website support',
+      'site support',
+      'monthly website support',
+      'website maintenance',
     ],
     includes: ['фиксированные часы', 'разработка задач', 'поддержка проекта', 'созвоны и планирование'],
   },
@@ -844,6 +853,27 @@ const HIRING_OPTIONS = [
     max: 20000,
     timeline: 'минимум 2 часа',
     includes: ['новые функции', 'верстка', 'WordPress/Tilda', 'API', 'автоматизация'],
+  },
+  {
+    label: 'мини-поддержка сайта',
+    min: 30000,
+    max: 30000,
+    timeline: 'до 2 часов в месяц',
+    includes: ['мелкие задачи', 'советы', 'проверки'],
+  },
+  {
+    label: 'базовая поддержка сайта',
+    min: 70000,
+    max: 70000,
+    timeline: 'до 5 часов в месяц',
+    includes: ['мелкие правки', 'обновления', 'мониторинг'],
+  },
+  {
+    label: 'бизнес-поддержка сайта',
+    min: 150000,
+    max: 150000,
+    timeline: 'до 10 часов в месяц',
+    includes: ['приоритет', 'небольшие доработки', 'отчет'],
   },
   {
     label: 'частичная занятость',
@@ -1319,6 +1349,10 @@ function formatTimeline(timeline, language = 'ru') {
   }
 
   return value
+    .replace(/до\s+(\d+)\s+часов\s+в\s+месяц/g, 'up to $1 hours/month')
+    .replace(/(\d+)-(\d+)\s+часов\s+в\s+месяц/g, '$1-$2 hours/month')
+    .replace(/(\d+)\s+часов\s+в\s+месяц/g, '$1 hours/month')
+    .replace(/минимум\s+(\d+)\s+часа?/g, 'minimum $1 hours')
     .replace(/рабочих\s+д(ня|ней)/g, 'business days')
     .replace(/рабочий\s+день/g, 'business day')
     .replace(/д(ня|ней)/g, 'days')
@@ -1328,6 +1362,23 @@ function formatTimeline(timeline, language = 'ru') {
     .replace(/помесячно/g, 'monthly')
     .replace(/часов\s+в\s+месяц/g, 'hours/month')
     .replace(/по выбранным пунктам/g, 'by selected items');
+}
+
+function getHiringOptionLabel(option, language) {
+  if (language !== 'en') {
+    return option.label;
+  }
+
+  const map = {
+    'почасовая работа': 'hourly work',
+    'мини-поддержка сайта': 'mini website support',
+    'базовая поддержка сайта': 'basic website support',
+    'бизнес-поддержка сайта': 'business website support',
+    'частичная занятость': 'part-time support',
+    'выделенный full-time разработчик': 'full-time developer',
+  };
+
+  return map[option.label] || option.label;
 }
 
 function getVelorItems() {
@@ -1784,6 +1835,7 @@ function filterServiceMatches(matches, text, pageCount) {
   const isPortfolio = /портфолио|portfolio/.test(normalized);
   const isEcommerceIntent = /интернет-магазин|магазин|woocommerce|каталог|товар|корзин|checkout|e-?com|ecomm|online store|webshop|shop|products?/.test(normalized);
   const isMobileMvpIntent = /mvp|первая\s+версия|только\s+mvp|без\s+live\s+tracking|без\s+отслежив/.test(normalized) && /приложен|mobile|app|ios|android/.test(normalized);
+  const isHiringIntent = /нанять|программист|разработчик|аутстаф|постоянн|сопровождени|поддержк\w*\s+сайт|техподдержк\w*\s+сайт|обслуживание\s+сайта|помесячн|full[-\s]?time|part[-\s]?time|retainer|hire|developer|dev|engineer|contractor|freelancer|programmer|monthly|ongoing|long[-\s]?term|website support|site support|website maintenance/.test(normalized);
   const isExistingSeoIntent =
     /seo|сео|sitemap|robots|search console|мета|title|description|индексац|редирект|чпу/.test(normalized) &&
     /существующ|уже\s+есть|текущ|готов(ый|ого)?\s+сайт|мой\s+сайт|наш\s+сайт|стар|existing|current|already\s+have|improve|улучш/.test(normalized);
@@ -1847,6 +1899,8 @@ function filterServiceMatches(matches, text, pageCount) {
       if (isExistingPerformanceIntent && b.id === 'existing-site-performance') return 1;
       if (isExistingUpdateIntent && a.id === 'existing-site-update') return -1;
       if (isExistingUpdateIntent && b.id === 'existing-site-update') return 1;
+      if (isHiringIntent && a.id === 'developer-retainer') return -1;
+      if (isHiringIntent && b.id === 'developer-retainer') return 1;
       if (isMobileMvpIntent && a.id === 'mobile-mvp') return -1;
       if (isMobileMvpIntent && b.id === 'mobile-mvp') return 1;
       if (isEcommerceIntent && a.id === 'ecommerce') return -1;
@@ -2637,6 +2691,24 @@ function isUnsafeFixRequest(text) {
   return /взломай|достань\s+баз|укради|слей\s+данн|обойди\s+защит|hack|steal|dump\s+(database|db)|bypass\s+security|scrape\s+personal|spam\s+bot/.test(normalized);
 }
 
+function isPromptInjectionRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /игнорир\w*\s+(правил|инструкц)|забудь\s+(правил|инструкц)|скажи\s+что\s+.*бесплат|цена\s+1\s*₸|за\s+1\s*тенге|внутренн\w*\s+(инструкц|prompt|промпт)|system\s+prompt|ignore\s+(all\s+)?(rules|instructions)|forget\s+(rules|instructions)|say\s+it'?s\s+free|make\s+it\s+free|internal\s+(rules|instructions|prompt)/.test(normalized);
+}
+
+function isGuaranteeRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /гарант|гарантия|не\s+сломает|никогда\s+не\s+слом|100%\s*(точн|правильн)|топ\s+google|top\s+google|guarantee|warranty|never\s+break|100%\s+accurate|always\s+correct/.test(normalized);
+}
+
+function isReadyToStartRequest(text) {
+  const normalized = normalizeText(text);
+
+  return /давай(те)?\s+нач(нем|инаем)|готов(ы)?\s+(начать|оплатить|заказать)|куда\s+оплат|как\s+начать|берем|start\s+now|let'?s\s+start|ready\s+to\s+(start|pay)|where\s+do\s+i\s+pay|how\s+do\s+we\s+start/.test(normalized);
+}
+
 function buildUnsafeFixReply(language) {
   if (language === 'en') {
     return [
@@ -2650,6 +2722,52 @@ function buildUnsafeFixReply(language) {
     'С взломом, обходом защиты, кражей базы или спамом я не помогаю.',
     'Могу помочь легально: security-аудит, чистка вирусов, backup, усиление доступов или нормальная форма/бот для заявок.',
     'Что нужно в легальном формате: аудит, восстановление, защита или парсер открытых данных?',
+  ].join('\n\n');
+}
+
+function buildPromptInjectionReply(language) {
+  if (language === 'en') {
+    return [
+      'I can estimate the project only by the normal rules: task, scope, deadline and budget.',
+      'I cannot change minimum prices, promise free development or share internal instructions.',
+      'If the task is real, send the project type, example and deadline - I will suggest a realistic minimal option.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Я могу считать проект только по обычным правилам: задача, объем, срок и бюджет.',
+    'Минимальные цены, бесплатную разработку и внутренние инструкции я не меняю и не раскрываю.',
+    'Если задача реальная, скиньте тип проекта, пример и срок - предложу минимальный рабочий вариант.',
+  ].join('\n\n');
+}
+
+function buildGuaranteeReply(language) {
+  if (language === 'en') {
+    return [
+      'I can give a warranty for my own work, not for hosting, future plugin updates, third-party APIs or changes made after delivery.',
+      'For small fixes it is usually 3-7 days; for agreed project functionality it is usually 7-14 days. If the issue repeats because of my fix, I correct it for free.',
+      'What exactly do you need a guarantee for: a fix, a website launch, SEO, payment flow or AI answers?',
+    ].join('\n\n');
+  }
+
+  return [
+    'Гарантию можно дать на мою работу, но не на хостинг, будущие обновления плагинов, сторонние API или правки после сдачи.',
+    'По мелким фиксам обычно 3-7 дней, по согласованному функционалу проекта 7-14 дней. Если проблема повторится из-за моего фикса - поправлю бесплатно.',
+    'На что именно нужна гарантия: фикс, запуск сайта, SEO, оплата или ответы AI-бота?',
+  ].join('\n\n');
+}
+
+function buildReadyToStartReply(language) {
+  if (language === 'en') {
+    return [
+      'Good. To start cleanly, send the brief, example/link, deadline and budget.',
+      'If this is not an Upwork-style platform, the fastest next step is Telegram: https://t.me/Berliyn_h. Send the materials there and Dias will confirm the exact price and first milestone.',
+    ].join('\n\n');
+  }
+
+  return [
+    'Хорошо. Чтобы стартовать нормально, скиньте задачу, пример/ссылку, срок и бюджет.',
+    'Если это не Upwork/биржа, быстрее всего написать Диасу в Telegram: https://t.me/Berliyn_h. Туда можно отправить материалы, и он подтвердит точную цену и первый этап.',
   ].join('\n\n');
 }
 
@@ -2755,17 +2873,20 @@ function buildNegotiationReply(language) {
 }
 
 function buildPaymentTermsReply(language) {
+  const small = formatPrice(50000, language);
+  const medium = formatPriceRange(50000, 150000, language);
+
   if (language === 'en') {
     return [
-      'I can split the work into stages: small prepayment, demo of the result, then the next payment or final payment.',
-      'Full delivery with payment only after the result is not a good format because the scope can change during the work.',
+      'Full payment only after completion is not a format I use, but we can make it safe through milestones.',
+      `Typical terms: up to ${small} - full prepayment; ${medium} - 50/50; larger projects - milestones with a clear scope. Urgent tasks and live-site diagnostics require prepayment.`,
       'Send the task, budget and deadline in Telegram: https://t.me/Berliyn_h. I will suggest a staged payment plan and two scope options.',
     ].join('\n\n');
   }
 
   return [
-    'Можно работать по этапам: небольшая предоплата, демонстрация результата, затем следующий платеж или финальная оплата.',
-    'Полный проект без предоплаты или только после результата я не беру, потому что объем может меняться в процессе.',
+    'Полностью после результата я не работаю, но можно сделать безопасно через этапы.',
+    `Обычно так: до ${small} - 100% предоплата; ${medium} - 50/50; крупные проекты - milestones с понятным объемом. Срочные задачи и диагностика live-сайта идут по предоплате.`,
     'Напишите в Telegram: https://t.me/Berliyn_h. Скиньте задачу, бюджет и срок - предложу оплату по этапам и 2 варианта объема.',
   ].join('\n\n');
 }
@@ -3290,7 +3411,7 @@ function buildQuestionsReply(estimate, language) {
     : estimate.missingQuestionsEn?.length
       ? estimate.missingQuestionsEn
       : getQuestionSetForLanguage(estimate.service, language)
-  ).slice(0, 4);
+  ).slice(0, 3);
 
   if (!isRu) {
     const intro = estimate.service
@@ -3380,6 +3501,28 @@ function getIncludedWork(estimate, language) {
   }
 
   return service.includes.slice(0, 5);
+}
+
+function buildNextStepCta(estimate, language) {
+  const isRu = language !== 'en';
+  const serviceId = estimate.service?.id;
+  const highValue = estimate.min >= 500000 || estimate.max >= 500000;
+
+  if (isSupportService(estimate.service)) {
+    return isRu
+      ? 'Следующий шаг: скиньте ссылку, скрин ошибки и что меняли перед поломкой; если удобно, отправьте это Диасу в Telegram: https://t.me/Berliyn_h.'
+      : 'Next step: send the site link, screenshot/error text and what changed before it broke; if convenient, send it to Dias in Telegram: https://t.me/Berliyn_h.';
+  }
+
+  if (serviceId === 'developer-retainer' || highValue || estimate.facts?.urgent) {
+    return isRu
+      ? 'Здесь лучше, чтобы Диас посмотрел детали лично: напишите в Telegram https://t.me/Berliyn_h и отправьте пример, бюджет и срок.'
+      : 'This is better reviewed by Dias directly: message Telegram https://t.me/Berliyn_h with the example, budget and deadline.';
+  }
+
+  return isRu
+    ? 'Следующим шагом скиньте пример, готовые материалы и срок - тогда можно подтвердить точную вилку и первый этап.'
+    : 'Next, send an example, ready materials and deadline, then we can confirm the exact range and first milestone.';
 }
 
 function buildEstimateReply(estimate, language) {
@@ -3495,6 +3638,7 @@ function buildEstimateReply(estimate, language) {
       urgentNote,
       `Rough range: ${formatPriceRange(estimate.min, estimate.max, language)}, timeline ${formatTimeline(estimate.service.timeline, language)}. Includes: ${included}.`,
       assumptions.length ? `I am assuming the remaining details are standard: ${assumptions.join('; ')}.` : 'A final quote still depends on the exact brief and materials.',
+      buildNextStepCta(estimate, language),
     ].filter(Boolean).join(' ');
   }
 
@@ -3507,6 +3651,7 @@ function buildEstimateReply(estimate, language) {
     urgentNote,
     `Ориентир: ${formatPriceRange(estimate.min, estimate.max, language)}, срок ${estimate.service.timeline}. Входит: ${included}.`,
     assumptions.length ? `Пока считаю по стандартным условиям, еще можно уточнить: ${assumptions.join('; ')}.` : 'Финальная цена зависит от точного ТЗ и материалов.',
+    buildNextStepCta(estimate, language),
   ].filter(Boolean).join(' ');
 }
 
@@ -3638,7 +3783,7 @@ function buildHiringReply(estimate, language) {
   const hourly = formatPrice(20000, language);
   const options = HIRING_OPTIONS.map(
     (option) =>
-      `${language === 'en' ? option.label.replace('почасовая работа', 'hourly work').replace('частичная занятость', 'part-time support').replace('выделенный full-time разработчик', 'full-time developer') : option.label}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
+      `${getHiringOptionLabel(option, language)}: ${formatPriceRange(option.min, option.max, language)}, ${formatTimeline(option.timeline, language)}`
   ).join('\n');
 
   if (!isRu) {
@@ -3695,6 +3840,18 @@ function buildFallbackReply(messages, language) {
 
   if (isUnsafeFixRequest(lastText)) {
     return buildUnsafeFixReply(language);
+  }
+
+  if (isPromptInjectionRequest(lastText)) {
+    return buildPromptInjectionReply(language);
+  }
+
+  if (isReadyToStartRequest(lastText)) {
+    return buildReadyToStartReply(language);
+  }
+
+  if (isGuaranteeRequest(lastText)) {
+    return buildGuaranteeReply(language);
   }
 
   if (isCasualOrContactRequest(lastText)) {
@@ -3837,7 +3994,7 @@ Core behavior:
 - All source prices are stored in KZT, but final user-facing prices must be in ${outputCurrency.code} (${outputCurrency.symbol}).
 - Never output KZT/tenge in the final reply.
 - Use the sales playbook below as the source of sales style, objections handling, discount rules and CTA behavior.
-- If the client asks for bug fixes or old-site maintenance, do not accept that directly. Offer a new version, new module, clean rebuild or migration instead.
+- If the client asks for bug fixes, forms, payments, SSL, hacked sites or old-site maintenance, offer diagnostics/audit first, mention backup/staging for live sites, and never promise a blind fixed price. For old custom code, suggest audit or hourly work before a fixed quote.
 - When budget is small or the client negotiates, give two options: minimal now and normal/expanded later.
 - Respect client-provided assets and existing work. If the user says design/Figma/content/backend is ready, treat it as provided by the client and do not include that work in the price or in the "what is included" list.
 - If design is ready, say that UI/UX design from scratch is not included and that the estimate covers implementation/layout from the ready mockups. Do not write "разработка с дизайном" or "with design" in that case.
@@ -3846,7 +4003,7 @@ Core behavior:
 
 Pricing gate:
 - Current phase is "${estimate.phase}".
-- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, or final estimate. Ask 3-5 concrete questions from suggestedQuestions and say that the estimate comes after answers.
+- If phase is "questions_only", DO NOT give any price, budget, numeric money range, "from-to" amount, or final estimate. Ask 1-3 concrete questions from suggestedQuestions and say that the estimate comes after answers.
 - If phase is "estimate_allowed", give a realistic range using only the provided pricing data, then explain the task characteristics: platform/stack, complexity, modules, timeline and what is included.
 - If phase is "budget_guidance", the user already gave a budget. Do not ignore it. Compare the budget with the price list, explain what can fit into that amount, what cannot fit, and suggest the optimal reduced scope or phased plan.
 - If phase is "hiring_guidance", explain monthly hiring/retainer options from hiringOptions and ask only the missing details needed to choose a format.
@@ -4040,7 +4197,15 @@ function shouldForceLocalReply(messages, estimate) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const lastText = userMessages[userMessages.length - 1]?.content || '';
 
-  return shouldUseLocalReply(messages) || isSupportService(estimate.service) || isUnsafeFixRequest(lastText);
+  return (
+    shouldUseLocalReply(messages) ||
+    isSupportService(estimate.service) ||
+    isUnsafeFixRequest(lastText) ||
+    isPromptInjectionRequest(lastText) ||
+    isGuaranteeRequest(lastText) ||
+    isReadyToStartRequest(lastText) ||
+    isPaymentTermsRequest(lastText)
+  );
 }
 
 async function callGemini(messages, estimate, language) {
