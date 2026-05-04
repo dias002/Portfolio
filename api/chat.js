@@ -259,7 +259,7 @@ const SERVICES = [
   {
     id: 'wordpress-onepage-portfolio',
     label: 'одностраничное портфолио на WordPress',
-    min: 50000,
+    min: 20000,
     max: 120000,
     timeline: '2-4 рабочих дня',
     priority: 8,
@@ -324,7 +324,7 @@ const SERVICES = [
   {
     id: 'simple-multipage',
     label: 'простой сайт 3-4 страницы по готовому дизайну',
-    min: 90000,
+    min: 40000,
     max: 180000,
     timeline: '4-7 рабочих дней',
     priority: 7,
@@ -442,7 +442,7 @@ const SERVICES = [
   {
     id: 'node-postgres-backend',
     label: 'backend/API на Node.js с PostgreSQL',
-    min: 90000,
+    min: 100000,
     max: 240000,
     timeline: '3-10 рабочих дней',
     priority: 7,
@@ -503,7 +503,7 @@ const SERVICES = [
   {
     id: 'mobile-delivery-app',
     label: 'мобильное приложение доставки еды',
-    min: 4000000,
+    min: 1000000,
     max: 10000000,
     timeline: '4-10 месяцев',
     priority: 14,
@@ -612,8 +612,8 @@ const SERVICES = [
   {
     id: 'developer-retainer',
     label: 'постоянная работа с разработчиком',
-    min: 20000,
-    max: 2021000,
+    min: 10000,
+    max: 1160000,
     timeline: 'почасово или помесячно',
     priority: 9,
     keywords: [
@@ -725,7 +725,7 @@ const ADDONS = [
   {
     id: 'node-backend',
     label: 'Node.js backend',
-    min: 250000,
+    min: 100000,
     max: 850000,
     keywords: ['node.js', 'node js', 'nestjs', 'express', 'backend', 'бэкенд'],
     skipIf: ['без backend', 'без бэкенд', 'backend готов', 'бэкенд готов', 'backend есть', 'бэкенд есть', 'no backend', 'backend ready', 'have backend'],
@@ -849,48 +849,48 @@ const BUDGET_TIERS = [
 const HIRING_OPTIONS = [
   {
     label: 'почасовая работа',
-    min: 20000,
-    max: 20000,
+    min: 10000,
+    max: 10000,
     timeline: 'минимум 2 часа',
     minHours: 2,
     includes: ['новые функции', 'верстка', 'WordPress/Tilda', 'API', 'автоматизация'],
   },
   {
     label: 'мини-поддержка сайта',
-    min: 137000,
-    max: 137000,
+    min: 74000,
+    max: 74000,
     timeline: 'до 8 часов в месяц',
     monthlyHours: 8,
     includes: ['мелкие задачи', 'советы', 'проверки'],
   },
   {
     label: 'базовая поддержка сайта',
-    min: 316000,
-    max: 316000,
+    min: 175000,
+    max: 175000,
     timeline: 'до 20 часов в месяц',
     monthlyHours: 20,
     includes: ['мелкие правки', 'обновления', 'мониторинг'],
   },
   {
     label: 'бизнес-поддержка сайта',
-    min: 589000,
-    max: 589000,
+    min: 330000,
+    max: 330000,
     timeline: 'до 40 часов в месяц',
     monthlyHours: 40,
     includes: ['приоритет', 'небольшие доработки', 'отчет'],
   },
   {
     label: 'частичная занятость',
-    min: 1095000,
-    max: 1095000,
+    min: 620000,
+    max: 620000,
     timeline: 'до 80 часов в месяц',
     monthlyHours: 80,
     includes: ['поддержка сайта', 'небольшие фичи', 'правки', 'интеграции'],
   },
   {
     label: 'выделенный full-time разработчик',
-    min: 2021000,
-    max: 2021000,
+    min: 1160000,
+    max: 1160000,
     timeline: 'до 160 часов в месяц',
     monthlyHours: 160,
     includes: ['полное вовлечение', 'разработка продукта', 'техническая поддержка команды'],
@@ -3849,7 +3849,8 @@ function buildBudgetReply(estimate, language) {
 function buildHiringReply(estimate, language) {
   const isRu = language !== 'en';
   const budget = estimate.budget ? formatPrice(estimate.budget, language) : null;
-  const hourly = formatPrice(20000, language);
+  const hourlyOption = HIRING_OPTIONS.find((option) => option.label === 'почасовая работа');
+  const hourly = formatPrice(hourlyOption?.min || 10000, language);
   const options = HIRING_OPTIONS.map((option) => getHiringOptionLine(option, language)).join('\n');
 
   if (!isRu) {
