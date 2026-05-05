@@ -1332,6 +1332,19 @@ const FX_RATES = {
   USD_PER_KZT: Number(process.env.USD_PER_KZT || 0.002),
 };
 
+const PRICE_MULTIPLIER = Number(process.env.PRICE_MULTIPLIER || 0.5);
+
+function scaleKztPrice(value) {
+  const amount = Number(value);
+  const multiplier = Number.isFinite(PRICE_MULTIPLIER) && PRICE_MULTIPLIER > 0 ? PRICE_MULTIPLIER : 1;
+
+  if (!Number.isFinite(amount)) {
+    return value;
+  }
+
+  return Math.round(amount * multiplier);
+}
+
 function getOutputCurrency(language) {
   if (language === 'en') {
     return {
@@ -1420,12 +1433,12 @@ function getHiringOptionLabel(option, language) {
 
 function getHiringOptionLine(option, language) {
   const label = getHiringOptionLabel(option, language);
-  const amount = formatPriceRange(option.min, option.max, language);
+  const amount = formatPriceRange(scaleKztPrice(option.min), scaleKztPrice(option.max), language);
   const timeline = formatTimeline(option.timeline, language);
   const isRu = language !== 'en';
 
   if (option.monthlyHours && option.min === option.max) {
-    const hourlyKzt = Math.round(option.min / option.monthlyHours);
+    const hourlyKzt = Math.round(scaleKztPrice(option.min) / option.monthlyHours);
     const hourlyRate = formatPrice(hourlyKzt, language);
     return isRu
       ? `${label}: ${amount} в месяц, ${timeline} (эффективно ~${hourlyRate}/час)`
@@ -1433,8 +1446,8 @@ function getHiringOptionLine(option, language) {
   }
 
   if (option.minHours && option.min === option.max) {
-    const hourlyRate = formatPrice(option.min, language);
-    const minTotal = formatPrice(option.min * option.minHours, language);
+    const hourlyRate = formatPrice(scaleKztPrice(option.min), language);
+    const minTotal = formatPrice(scaleKztPrice(option.min * option.minHours), language);
     return isRu
       ? `${label}: ${hourlyRate}/час, ${timeline} (минимум чек ${minTotal})`
       : `${label}: ${hourlyRate}/hour, ${timeline} (minimum charge ${minTotal})`;
@@ -3403,8 +3416,8 @@ function buildShortPriceReply(text, language) {
   const isRu = language !== 'en';
   const line = (min, normalMin, normalMax, questionRu, questionEn) =>
     isRu
-      ? `Минимально от ${formatPrice(min, language)}, нормальный вариант ${formatPriceRange(normalMin, normalMax, language)}. ${questionRu}`
-      : `Starts around ${formatPrice(min, language)}, a normal range is ${formatPriceRange(normalMin, normalMax, language)}. ${questionEn}`;
+      ? `Минимально от ${formatPrice(scaleKztPrice(min), language)}, нормальный вариант ${formatPriceRange(scaleKztPrice(normalMin), scaleKztPrice(normalMax), language)}. ${questionRu}`
+      : `Starts around ${formatPrice(scaleKztPrice(min), language)}, a normal range is ${formatPriceRange(scaleKztPrice(normalMin), scaleKztPrice(normalMax), language)}. ${questionEn}`;
 
   if (/tilda|тильд/.test(normalized)) {
     return line(35000, 60000, 90000, 'Вам нужна 1 страница или несколько?', 'Do you need one page or several pages?');
@@ -3496,8 +3509,8 @@ function buildNegotiationReply(language) {
 }
 
 function buildPaymentTermsReply(language) {
-  const small = formatPrice(50000, language);
-  const medium = formatPriceRange(50000, 150000, language);
+  const small = formatPrice(scaleKztPrice(50000), language);
+  const medium = formatPriceRange(scaleKztPrice(50000), scaleKztPrice(150000), language);
 
   if (language === 'en') {
     return [
@@ -4033,6 +4046,8 @@ function estimateFromMessages(messages) {
     min = 80000;
     max = 120000;
   }
+  min = scaleKztPrice(min);
+  max = scaleKztPrice(max);
   const complexity = getComplexity(service, addonMatches, normalized);
   const budgetPlan = buildBudgetPlan({ budget, service, min, max });
   const moduleSummary = activeVelorSummary || activeItsngSummary;
@@ -4258,14 +4273,14 @@ function buildEstimateReply(estimate, language) {
       .map((item) =>
         isRu
           ? isItsng
-            ? `- ${item.title} (${item.stack || 'Технологический стек не указан'}): ${formatPriceRange(item.minKzt, item.maxKzt, language)}.`
-            : `- ${item.task}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}. ${item.explanation}`
+            ? `- ${item.title} (${item.stack || 'Технологический стек не указан'}): ${formatPriceRange(scaleKztPrice(item.minKzt), scaleKztPrice(item.maxKzt), language)}.`
+            : `- ${item.task}: ${formatPrice(scaleKztPrice(item.priceKzt), language)}, ${formatTimeline(item.timeline, language)}. ${item.explanation}`
           : isItsng
-            ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(item.minKzt, item.maxKzt, language)}.`
-            : `- ${englishModuleText(item)}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}.`
+            ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(scaleKztPrice(item.minKzt), scaleKztPrice(item.maxKzt), language)}.`
+            : `- ${englishModuleText(item)}: ${formatPrice(scaleKztPrice(item.priceKzt), language)}, ${formatTimeline(item.timeline, language)}.`
       )
       .join('\n');
-    const total = formatPriceRange(moduleSummary.minKzt, moduleSummary.maxKzt, language);
+    const total = formatPriceRange(scaleKztPrice(moduleSummary.minKzt), scaleKztPrice(moduleSummary.maxKzt), language);
     const blocks = isRu ? moduleSummary.blocks.join(', ') : unique(moduleSummary.items.map((item) => englishModuleText(item))).slice(0, 3).join(', ');
 
     if (!isRu) {
@@ -4401,7 +4416,7 @@ function buildBudgetReply(estimate, language) {
     let runningTotal = 0;
 
     moduleSummary.items.forEach((item) => {
-      const itemPrice = isItsng ? item.minKzt : item.priceKzt;
+      const itemPrice = scaleKztPrice(isItsng ? item.minKzt : item.priceKzt);
       if (itemPrice && runningTotal + itemPrice <= plan.budget) {
         affordableItems.push(item);
         runningTotal += itemPrice;
@@ -4413,11 +4428,11 @@ function buildBudgetReply(estimate, language) {
           .map((item) =>
             isRu
               ? isItsng
-                ? `- ${item.title} (${item.stack || 'Тех. стек не указан'}): ${formatPriceRange(item.minKzt, item.maxKzt, language)}`
-                : `- ${item.task}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}`
+                ? `- ${item.title} (${item.stack || 'Тех. стек не указан'}): ${formatPriceRange(scaleKztPrice(item.minKzt), scaleKztPrice(item.maxKzt), language)}`
+                : `- ${item.task}: ${formatPrice(scaleKztPrice(item.priceKzt), language)}, ${formatTimeline(item.timeline, language)}`
               : isItsng
-                ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(item.minKzt, item.maxKzt, language)}`
-                : `- ${englishModuleText(item)}: ${formatPrice(item.priceKzt, language)}, ${formatTimeline(item.timeline, language)}`
+                ? `- ${item.stack || englishModuleText(item)}: ${formatPriceRange(scaleKztPrice(item.minKzt), scaleKztPrice(item.maxKzt), language)}`
+                : `- ${englishModuleText(item)}: ${formatPrice(scaleKztPrice(item.priceKzt), language)}, ${formatTimeline(item.timeline, language)}`
           )
           .join('\n')
       : isRu
@@ -4496,7 +4511,7 @@ function buildHiringReply(estimate, language) {
   const isRu = language !== 'en';
   const budget = estimate.budget ? formatPrice(estimate.budget, language) : null;
   const hourlyOption = HIRING_OPTIONS.find((option) => option.label === 'почасовая работа');
-  const hourly = formatPrice(hourlyOption?.min || 10000, language);
+  const hourly = formatPrice(scaleKztPrice(hourlyOption?.min || 10000), language);
   const options = HIRING_OPTIONS.map((option) => getHiringOptionLine(option, language)).join('\n');
 
   if (!isRu) {
@@ -4594,15 +4609,16 @@ function isWordPressIntroLandingText(text, service) {
   );
 }
 
-function buildWordPressIntroLandingReply(messages, language) {
+function buildWordPressIntroLandingReply(messages, estimate, language) {
   const userMessages = messages.filter((message) => message.role === 'user');
   const text = userMessages.map((message) => message.content).join(' ');
   const subject = getSimpleSiteSubject(text, language);
+  const range = formatPriceRange(estimate.min, estimate.max, language);
 
   if (language === 'en') {
     return [
       `Understood. This is a simple one-page WordPress brochure site for a ${subject}.`,
-      'Since design is needed from my side and photos are already available, the rough range is 15,000–30,000 ₽, timeline about 3–5 business days.',
+      `Since design is needed from my side and photos are already available, the rough range is ${range}, timeline about 3-5 business days.`,
       'The work can include: page structure, simple modern design, store description block, product/service categories, advantages, photo gallery, contacts, map, call or WhatsApp button, mobile adaptation and basic WordPress setup.',
       'Not included: online store, cart, online payment, product catalog logic, complex integrations and copywriting from scratch.',
       'To confirm the exact price, I only need: whether domain/hosting already exist, whether a logo is needed, and which sections you want on the page.',
@@ -4611,7 +4627,7 @@ function buildWordPressIntroLandingReply(messages, language) {
 
   return [
     `Понял, вам нужен простой одностраничный сайт на WordPress для ${subject}.`,
-    'Так как дизайн нужен с нашей стороны, а фото уже есть, ориентир по стоимости: 15 000–30 000 ₽, срок примерно 3–5 рабочих дней.',
+    `Так как дизайн нужен с нашей стороны, а фото уже есть, ориентир по стоимости: ${range}, срок примерно 3-5 рабочих дней.`,
     'В работу может входить: разработка структуры страницы, простой современный дизайн, блок с описанием магазина, категории товаров/услуг, преимущества, галерея фото, контакты, карта, кнопка звонка или WhatsApp, адаптация под телефон и базовая настройка WordPress.',
     'Не входит: интернет-магазин, корзина, онлайн-оплата, логика каталога товаров, сложные интеграции и написание всех текстов с нуля.',
     'Чтобы точно подтвердить цену, нужно уточнить только пару моментов: есть ли уже домен и хостинг, нужен ли логотип, и какие разделы вы хотите видеть на странице.',
@@ -4634,12 +4650,14 @@ function shouldUseHtmlCssTrafficLandingReply(messages, estimate) {
   return isHtmlCssTrafficLandingText(normalized, estimate.service);
 }
 
-function buildHtmlCssTrafficLandingReply(language) {
+function buildHtmlCssTrafficLandingReply(estimate, language) {
+  const range = formatKztRange(estimate.min, estimate.max);
+
   if (language === 'en') {
     return [
       'Yes, this can be built without WordPress, as a simple HTML/CSS landing page.',
       'In this case it is a one-page landing page with design from scratch, mobile adaptation and a basic traffic-focused structure.',
-      `Rough range: ${formatKztRange(40000, 80000)}, timeline about 3-5 business days.`,
+      `Rough range: ${range}, timeline about 3-5 business days.`,
       'Since the topic is open, I can propose the structure myself: hero section, offer description, benefits, trust block, lead form or WhatsApp button, contacts.',
       'To avoid overloading you with extra questions, it is better to discuss the details directly with Dias. He will suggest which topic and structure to choose for traffic: https://t.me/Berliyn_h',
     ].join('\n\n');
@@ -4648,7 +4666,7 @@ function buildHtmlCssTrafficLandingReply(language) {
   return [
     'Да, можно сделать не на WordPress, а на простом HTML/CSS.',
     'В вашем случае это будет одностраничный лендинг с дизайном с нуля, адаптивом под телефон и базовой структурой под трафик.',
-    `Ориентир по стоимости: ${formatKztRange(40000, 80000)}, срок примерно 3-5 рабочих дней.`,
+    `Ориентир по стоимости: ${range}, срок примерно 3-5 рабочих дней.`,
     'Так как тема свободная, я могу предложить простую структуру сам: главный экран, описание предложения, преимущества, блок доверия, форма заявки или кнопка WhatsApp, контакты.',
     'Чтобы не мучить вас лишними вопросами, лучше дальше обсудить детали напрямую с Диасом - он подскажет, какую тему и структуру выбрать под трафик. Telegram: https://t.me/Berliyn_h',
   ].join('\n\n');
@@ -4677,6 +4695,7 @@ function shouldUseSimpleHtmlCssSlicingReply(messages, estimate) {
 
 function buildSimpleHtmlCssSlicingReply(messages, estimate, language) {
   const facts = estimate.facts || {};
+  const range = formatKztRange(estimate.min, estimate.max);
   const correctionPrefix =
     facts.repeatedNegativeCorrection && facts.noForms && facts.noAnimations
       ? language === 'en'
@@ -4687,7 +4706,7 @@ function buildSimpleHtmlCssSlicingReply(messages, estimate, language) {
   if (language === 'en') {
     return [
       `${correctionPrefix}Understood. This is a simple task: one HTML/CSS page from a ready design, mobile version already exists, without forms and without animations.`,
-      `Rough range: ${formatKztRange(20000, 40000)}, timeline about 1-3 business days.`,
+      `Rough range: ${range}, timeline about 1-3 business days.`,
       'Included: clean HTML/CSS layout, responsive implementation from the ready mobile version, phone check and basic file preparation for launch.',
       'The main details are already clear, so next it is better to send Dias the mockup or page example, and he will confirm the exact price: https://t.me/Berliyn_h',
     ].join('\n\n');
@@ -4695,7 +4714,7 @@ function buildSimpleHtmlCssSlicingReply(messages, estimate, language) {
 
   return [
     `${correctionPrefix}${correctionPrefix ? 'Тогда задача простая' : 'Понял, тогда задача простая'}: 1 страница на HTML/CSS по готовому дизайну, мобильная версия уже есть, без форм и без анимаций.`,
-    `Ориентир по стоимости: ${formatKztRange(20000, 40000)}, срок примерно 1-3 рабочих дня.`,
+    `Ориентир по стоимости: ${range}, срок примерно 1-3 рабочих дня.`,
     'В работу входит аккуратная HTML/CSS-верстка, адаптив по готовой мобильной версии, проверка на телефоне и базовая подготовка файлов к запуску.',
     'Так как основные данные уже понятны, дальше лучше скинуть Диасу макет/пример страницы, и он уже подтвердит точную цену: https://t.me/Berliyn_h',
   ].join('\n\n');
@@ -4745,6 +4764,7 @@ function buildConfirmedBrochureSiteReply(messages, estimate, language) {
   const state = estimate.leadState || {};
   const pageCount = state.pageCount || estimate.pageCount || 2;
   const platform = state.platform || 'WordPress';
+  const range = formatKztRange(estimate.min, estimate.max);
   const nextQuestion = state.nextQuestion === 'дата старта'
     ? 'Когда хотите начать работу: на этой неделе или позже?'
     : state.nextQuestion === 'материалы'
@@ -4754,7 +4774,7 @@ function buildConfirmedBrochureSiteReply(messages, estimate, language) {
   if (language === 'en') {
     return [
       `Understood. Then I will count this as a simple ${pageCount}-page brochure site for a ${subject}, turnkey, without a catalog and without online payment.`,
-      `Rough range: ${formatPriceRange(80000, 120000, 'en')}, timeline about 5-7 business days.`,
+      `Rough range: ${range}, timeline about 5-7 business days.`,
       `Included: site structure, simple design, ${platform}, mobile adaptation, ${pageCount} pages, company/about blocks, advantages, furniture photos, contacts, WhatsApp/Instagram, lead form and basic launch preparation.`,
       `Next I only need one thing: ${state.hasHostingAnswer ? 'when would you like to start?' : 'do you already have a domain and hosting, or should I help with that too?'}`,
     ].join('\n\n');
@@ -4762,7 +4782,7 @@ function buildConfirmedBrochureSiteReply(messages, estimate, language) {
 
   return [
     `Понял, тогда это простой сайт-визитка на ${getRuPageLabel(pageCount)} под ключ для ${subject}, без каталога и онлайн-оплаты.`,
-    `Ориентир по стоимости: ${formatKztRange(80000, 120000)}, срок примерно 5-7 рабочих дней.`,
+    `Ориентир по стоимости: ${range}, срок примерно 5-7 рабочих дней.`,
     `В работу входит: структура сайта, дизайн, ${platform}, адаптация под телефон, ${getRuPageLabel(pageCount)}, блоки о компании, преимущества, фото мебели, контакты, WhatsApp/Instagram, форма заявки и базовая подготовка к запуску.`,
     `Следующим шагом нужно понять: ${nextQuestion}`,
   ].join('\n\n');
@@ -4786,12 +4806,15 @@ function buildSimpleSiteBaselineReply(messages, estimate, language) {
   const text = userMessages.map((message) => message.content).join(' ');
   const subject = getSimpleSiteSubject(text, language);
   const facts = estimate.facts || {};
+  const minimal = scaleKztPrice(50000);
+  const normalMin = scaleKztPrice(80000);
+  const normalMax = scaleKztPrice(120000);
 
   if (language === 'en') {
     return [
       `Okay, I will count this as a basic turnkey brochure site for a ${subject}.`,
-      `Minimal option starts from ${formatPrice(50000, 'en')}: one page, responsive layout, store/about blocks, photos or collections, contacts, WhatsApp/Instagram links and a lead form.`,
-      `A normal version is ${formatPriceRange(80000, 120000, 'en')}: cleaner design, structure adapted to the business, collection/advantages/delivery or pickup blocks and basic launch preparation.`,
+      `Minimal option starts from ${formatPrice(minimal, 'en')}: one page, responsive layout, store/about blocks, photos or collections, contacts, WhatsApp/Instagram links and a lead form.`,
+      `A normal version is ${formatPriceRange(normalMin, normalMax, 'en')}: cleaner design, structure adapted to the business, collection/advantages/delivery or pickup blocks and basic launch preparation.`,
       facts.clientProvidesMaterials
         ? 'If you provide photos, texts and business details yourself, the project can stay closer to the minimal option.'
         : 'Since the exact materials are not ready yet, I will take the base option and estimate roughly. Copywriting, product photos and branding can be estimated separately.',
@@ -4802,8 +4825,8 @@ function buildSimpleSiteBaselineReply(messages, estimate, language) {
 
   return [
     `Понял. Тогда считаем как сайт-визитку под ключ для ${subject}.`,
-    `Минимально можно сделать от ${formatKzt(50000)}: одна страница, адаптив, блоки про магазин, фото/коллекции, контакты, WhatsApp/Instagram и форма заявки.`,
-    `Нормальный вариант: ${formatKztRange(80000, 120000)}. В него закладываю аккуратный дизайн, структуру под нишу, блоки с коллекциями, преимуществами, доставкой/самовывозом и базовую подготовку к запуску.`,
+    `Минимально можно сделать от ${formatKzt(minimal)}: одна страница, адаптив, блоки про магазин, фото/коллекции, контакты, WhatsApp/Instagram и форма заявки.`,
+    `Нормальный вариант: ${formatKztRange(normalMin, normalMax)}. В него закладываю аккуратный дизайн, структуру под нишу, блоки с коллекциями, преимуществами, доставкой/самовывозом и базовую подготовку к запуску.`,
     facts.clientProvidesMaterials
       ? 'Если фото, тексты и данные вы предоставляете сами, можно держаться ближе к минимальному варианту.'
       : 'Так как точных данных пока нет, беру базовый вариант и считаю примерно. Подготовку текстов, фотосъемку и брендинг лучше считать отдельно.',
@@ -4905,11 +4928,11 @@ function buildFallbackReply(messages, language) {
   }
 
   if (shouldUseWordPressIntroLandingReply(messages, estimate)) {
-    return buildWordPressIntroLandingReply(messages, language);
+    return buildWordPressIntroLandingReply(messages, estimate, language);
   }
 
   if (shouldUseHtmlCssTrafficLandingReply(messages, estimate)) {
-    return buildHtmlCssTrafficLandingReply(language);
+    return buildHtmlCssTrafficLandingReply(estimate, language);
   }
 
   if (shouldUseSimpleHtmlCssSlicingReply(messages, estimate)) {
@@ -4958,15 +4981,15 @@ function buildPromptEstimate(estimate) {
     readyMaterialsDiscountRate: estimate.discountRate || 0,
     addons: estimate.addons.map((addon) => ({
       label: addon.label,
-      minKzt: addon.min,
-      maxKzt: addon.max,
+      minKzt: scaleKztPrice(addon.min),
+      maxKzt: scaleKztPrice(addon.max),
     })),
     modularPricing: moduleSummary
       ? {
           source: estimate.velorSummary ? 'velor' : 'itSng',
           blocks: moduleSummary.blocks,
-          totalKzt: moduleSummary.totalKzt || moduleSummary.minKzt,
-          rangeKzt: [moduleSummary.minKzt, moduleSummary.maxKzt],
+          totalKzt: scaleKztPrice(moduleSummary.totalKzt || moduleSummary.minKzt),
+          rangeKzt: [scaleKztPrice(moduleSummary.minKzt), scaleKztPrice(moduleSummary.maxKzt)],
           roadmap: estimate.velorSummary ? estimate.velorSummary.roadmap : null,
           matchedItems: moduleSummary.items,
         }
@@ -5020,6 +5043,7 @@ After the client gives the main data for an estimate - site type, page count, pl
 - If the client seems ready, suggest continuing in Telegram: https://t.me/Berliyn_h.
 - All source prices are stored in KZT, but final user-facing prices must be in ${outputCurrency.code} (${outputCurrency.symbol}).
 - Never output KZT/tenge in the final reply.
+- Current price policy: all estimates, service prices, add-ons and modular prices are reduced by 50%. The currentEstimate values are already reduced; if you use raw priceList items directly, divide them by 2 before answering.
 - Use the sales playbook below as the source of sales style, objections handling, discount rules and CTA behavior.
 - If the client asks for bug fixes, forms, payments, SSL, hacked sites or old-site maintenance, offer diagnostics/audit first, mention backup/staging for live sites, and never promise a blind fixed price. For old custom code, suggest audit or hourly work before a fixed quote.
 - When budget is small or the client negotiates, give two options: minimal now and normal/expanded later.
@@ -5347,7 +5371,7 @@ module.exports = async function handler(req, res) {
           id: item.id,
           task: item.task || item.title,
           timeline: item.timeline || null,
-          priceKzt: item.priceKzt || item.minKzt || 0,
+          priceKzt: scaleKztPrice(item.priceKzt || item.minKzt || 0),
           stack: item.stack || null,
           section: item.blockTitle || item.section || null,
         })) || [],
@@ -5378,7 +5402,7 @@ module.exports = async function handler(req, res) {
           id: item.id,
           task: item.task || item.title,
           timeline: item.timeline || null,
-          priceKzt: item.priceKzt || item.minKzt || 0,
+          priceKzt: scaleKztPrice(item.priceKzt || item.minKzt || 0),
           stack: item.stack || null,
           section: item.blockTitle || item.section || null,
         })) || [],
